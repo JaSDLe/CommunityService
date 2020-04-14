@@ -31,8 +31,23 @@
           />
         </van-col>
       </van-row>
+      <van-row style="margin-top: 20px">
+        <van-col span="2">
+          <van-icon name="lock" size="30" />
+        </van-col>
+        <van-col span="22">
+          <van-field
+            v-model="password"
+            type="password"
+            name="密码"
+            placeholder="请输入密码"
+            class="login"
+            :rules="[{ required: true, message: '请填写密码' }]"
+          />
+        </van-col>
+      </van-row>
       <div style="margin-top: 20px;">
-        <van-button round block type="info" native-type="submit">登录</van-button>
+        <van-button round block type="info" native-type="submit">注册</van-button>
       </div>
     </van-form>
     <tabbar />

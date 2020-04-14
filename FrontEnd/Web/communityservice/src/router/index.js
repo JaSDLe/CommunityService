@@ -5,17 +5,29 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/home',
-    component: () => import('@/views/Home')
-  },
-  {
-    path: '/about',
-    component: () => import('@/views/About')
-  },
-  {
-    path: '/',
+    path: '/login',
     component: () => import('@/views/login')
-  }
+  },
+  {
+    path: '/register',
+    component: () => import('@/views/register')
+  },
+  {
+    path: '/member/user-center',
+    component: () => import('@/views/member/user-center')
+  },
+  {
+    path: '/news/list',
+    component: () => import('@/views/news/list')
+  },
+  {
+    path: '/activity/list',
+    component: () => import('@/views/activity/list')
+  },
+  {
+    path: '/message/list',
+    component: () => import('@/views/message/list')
+  },
 ]
 
 const router = new VueRouter({

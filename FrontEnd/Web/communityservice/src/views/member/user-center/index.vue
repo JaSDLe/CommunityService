@@ -31,7 +31,7 @@
           />
         </van-col>
       </van-row>
-      <div style="margin-top: 20px;">
+      <div style="margin: 20px;">
         <van-button round block type="info" native-type="submit">登录</van-button>
       </div>
     </van-form>
