@@ -12,7 +12,7 @@
         <van-cell v-for="item in list" :key="item" :title="item" />
       </van-list>
     </van-pull-refresh>
-
+    <div style="height: 50px;" />
     <tabbar />
   </div>
 </template>

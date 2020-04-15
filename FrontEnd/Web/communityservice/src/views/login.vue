@@ -2,34 +2,26 @@
   <div>
     <van-form @submit="onSubmit">
       <van-row>
-        <van-col span="2">
-          <van-icon name="manager" size="30" />
-        </van-col>
-        <van-col span="22">
-          <van-field
-            v-model="username"
-            name="用户名"
-            placeholder="请输入用户名"
-            clearable
-            class="login"
-            :rules="[{ required: true, message: '请填写用户名' }]"
-          />
-        </van-col>
+        <van-icon name="manager" size="30" />
+        <van-field
+          v-model="username"
+          name="用户名"
+          placeholder="请输入用户名"
+          clearable
+          class="login"
+          :rules="[{ required: true, message: '请填写用户名' }]"
+        />
       </van-row>
       <van-row style="margin-top: 20px">
-        <van-col span="2">
-          <van-icon name="lock" size="30" />
-        </van-col>
-        <van-col span="22">
-          <van-field
-            v-model="password"
-            type="password"
-            name="密码"
-            placeholder="请输入密码"
-            class="login"
-            :rules="[{ required: true, message: '请填写密码' }]"
-          />
-        </van-col>
+        <van-icon name="lock" size="30" />
+        <van-field
+          v-model="password"
+          type="password"
+          name="密码"
+          placeholder="请输入密码"
+          class="login"
+          :rules="[{ required: true, message: '请填写密码' }]"
+        />
       </van-row>
       <div style="margin-top: 20px;">
         <van-button round block type="info" native-type="submit">登录</van-button>
