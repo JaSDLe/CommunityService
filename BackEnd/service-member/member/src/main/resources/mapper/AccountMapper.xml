@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jason.member.dao.mapper.AccountMapper">
+
+    <resultMap id="BaseResultMap" type="com.jason.member.dao.vo.Account">
+        <id column="account_id" jdbcType="VARCHAR" property="accountId"/>
+        <result column="account_code" jdbcType="VARCHAR" property="accountCode"/>
+        <result column="account_name" jdbcType="VARCHAR" property="accountName"/>
+        <result column="real_name" jdbcType="VARCHAR" property="realName"/>
+        <result column="account_type" jdbcType="INTEGER" property="accountType"/>
+        <result column="member_id" jdbcType="VARCHAR" property="memberId"/>
+        <result column="member_name" jdbcType="VARCHAR" property="memberName"/>
+        <result column="employee_id" jdbcType="VARCHAR" property="employeeId"/>
+        <result column="binding_id" jdbcType="VARCHAR" property="bindingId"/>
+        <result column="default_account" jdbcType="BIT" property="defaultAccount"/>
+        <result column="person_driver" jdbcType="BIT" property="personDriver"/>
+        <result column="ent_driver" jdbcType="BIT" property="entDriver"/>
+        <result column="salesman" jdbcType="BIT" property="salesman"/>
+        <result column="phone_login" jdbcType="BIT" property="phoneLogin"/>
+        <result column="status" jdbcType="BIT" property="status"/>
+        <result column="lock_status" jdbcType="BIT" property="lockStatus"/>
+        <result column="lock_end_time" jdbcType="TIMESTAMP" property="lockEndTime"/>
+        <result column="lock_reason" jdbcType="VARCHAR" property="lockReason"/>
+        <result column="password_salt" jdbcType="VARCHAR" property="passwordSalt"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="need_update_password" jdbcType="BIT" property="needUpdatePassword"/>
+        <result column="default_password" jdbcType="VARCHAR" property="defaultPassword"/>
+        <result column="payment_password" jdbcType="VARCHAR" property="paymentPassword"/>
+        <result column="mobile_update_time" jdbcType="TIMESTAMP" property="mobileUpdateTime"/>
+        <result column="mobile" jdbcType="VARCHAR" property="mobile"/>
+        <result column="sex" jdbcType="INTEGER" property="sex"/>
+        <result column="head_pic" jdbcType="VARCHAR" property="headPic"/>
+        <result column="head_pic_min" jdbcType="VARCHAR" property="headPicMin"/>
+        <result column="birth_day" jdbcType="TIMESTAMP" property="birthDay"/>
+        <result column="wechat_id" jdbcType="VARCHAR" property="wechatId"/>
+        <result column="wechat_open_id" jdbcType="VARCHAR" property="wechatOpenId"/>
+        <result column="login_failure_count" jdbcType="INTEGER" property="loginFailureCount"/>
+        <result column="driver_token" jdbcType="VARCHAR" property="driverToken"/>
+        <result column="mobile_os" jdbcType="VARCHAR" property="mobileOs"/>
+        <result column="last_login_date" jdbcType="TIMESTAMP" property="lastLoginDate"/>
+        <result column="last_login_ip" jdbcType="VARCHAR" property="lastLoginIp"/>
+        <result column="password_recover_key" jdbcType="VARCHAR" property="passwordRecoverKey"/>
+        <result column="key_lost_time" jdbcType="TIMESTAMP" property="keyLostTime"/>
+        <result column="register_type" jdbcType="INTEGER" property="registerType"/>
+        <result column="register_app" jdbcType="VARCHAR" property="registerApp"/>
+        <result column="register_sign" jdbcType="VARCHAR" property="registerSign"/>
+        <result column="del_flg" jdbcType="BIT" property="delFlg"/>
+        <result column="create_user" jdbcType="VARCHAR" property="createUser"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_user" jdbcType="VARCHAR" property="updateUser"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+
+    <select id="findAll" resultType="com.jason.member.dao.vo.Account">
+        SELECT *
+        FROM cs_member_account
+    </select>
+</mapper>

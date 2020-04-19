@@ -1,0 +1,10 @@
+.classpath
+/target/*
+/bin/*
+/.settings/*
+.project
+.idea
+.idea/*
+*.iml
+/community/mvnw
+/community/mvnw.cmd
