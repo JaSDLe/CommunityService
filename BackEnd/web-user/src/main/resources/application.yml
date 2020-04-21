@@ -4,6 +4,8 @@ spring:
 
 server:
   port: 8901
+  servlet:
+    context-path: /userApi
 
 eureka:
   client:

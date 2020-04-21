@@ -27,6 +27,9 @@
         <van-button round block type="info" native-type="submit">登录</van-button>
       </div>
     </van-form>
+    <div>
+      <span>{{data}}</span>
+    </div>
     <tabbar />
   </div>
 </template>
@@ -34,6 +37,7 @@
 <script>
 import tabbar from "@/components/tab-bar";
 import { Form, Field, Button, Icon, Row, Col } from "vant";
+import { findAll } from "@/api/member";
 
 export default {
   components: {
@@ -49,8 +53,13 @@ export default {
   data() {
     return {
       username: "",
-      password: ""
+      password: "",
+      data: []
     };
+  },
+
+  created() {
+    this.findAll()
   },
 
   methods: {
@@ -59,6 +68,12 @@ export default {
       this.$router.push({
         path: "/member/user-center",
         query: {}
+      });
+    },
+    findAll() {
+      findAll().then(res => {
+        console.log(res);
+        this.data = res;
       });
     }
   }
