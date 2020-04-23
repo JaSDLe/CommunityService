@@ -1,14 +1,14 @@
 <template>
   <div>
-    <van-form @submit="onSubmit">
+    <van-form autocomplete="off" @submit="onSubmit">
       <van-row>
         <van-icon name="manager" size="30" />
         <van-field
           v-model="username"
-          name="用户名"
-          placeholder="请输入用户名"
+          placeholder="用户名"
+          maxlength="32"
           clearable
-          class="login"
+          :formatter="formatter"
           :rules="[{ required: true, message: '请填写用户名' }]"
         />
       </van-row>
@@ -16,38 +16,51 @@
         <van-icon name="lock" size="30" />
         <van-field
           v-model="password"
-          type="password"
-          name="密码"
-          placeholder="请输入密码"
-          class="login"
+          :type="passwordShow ? 'text' : 'password'"
+          placeholder="密码"
+          maxlength="20"
+          clearable
+          :formatter="formatter"
+          :right-icon="password.length > 0 ? passwordShow ? 'eye-o' : 'closed-eye' : ''"
+          @click-right-icon="passwordShow = !passwordShow"
           :rules="[{ required: true, message: '请填写密码' }]"
         />
       </van-row>
-      <div style="margin-top: 20px;">
+      <div style="margin-top: 40px;">
         <van-button round block type="info" native-type="submit">登录</van-button>
+      </div>
+      <van-divider style="margin-top: 30px;" />
+      <div style="margin-top: 30px;">
+        <van-button
+          round
+          block
+          plain
+          type="primary"
+          native-type="button"
+          @click="toRegister"
+        >没有账号? 去注册</van-button>
       </div>
     </van-form>
     <div>
-      <span>{{data}}</span>
+      <!-- <span>{{data}}</span> -->
     </div>
-    <tabbar />
   </div>
 </template>
 
 <script>
-import tabbar from "@/components/tab-bar";
-import { Form, Field, Button, Icon, Row, Col } from "vant";
-import { findAll } from "@/api/member";
+import { Form, Field, Button, Icon, Row, Col, Toast, Divider } from "vant";
+import { findAll, login } from "@/api/member";
 
 export default {
   components: {
-    tabbar,
     [Form.name]: Form,
     [Field.name]: Field,
     [Button.name]: Button,
     [Icon.name]: Icon,
     [Row.name]: Row,
-    [Col.name]: Col
+    [Col.name]: Col,
+    [Toast.name]: Toast,
+    [Divider.name]: Divider,
   },
 
   data() {
@@ -59,21 +72,35 @@ export default {
   },
 
   created() {
-    this.findAll()
+    // this.findAll()
+    console.log(this.$route.query);
+    if (this.$route.query.username) {
+      this.username = this.$route.query.username;
+      console.log(this.username);
+    }
   },
 
   methods: {
     onSubmit(values) {
       console.log("submit", values);
-      this.$router.push({
-        path: "/member/user-center",
-        query: {}
+      login({ username: this.username, password: this.password }).then(res => {
+        if (res.data) {
+          this.$router.push({
+            path: "/member/user-center",
+            query: {}
+          });
+        }
       });
     },
     findAll() {
       findAll().then(res => {
         console.log(res);
         this.data = res;
+      });
+    },
+    toRegister() {
+      this.$router.push({
+        path: "/register"
       });
     }
   }
@@ -92,7 +119,7 @@ export default {
   align-items: center;
 }
 .van-field {
-  font-size: 25px;
+  font-size: 22px;
 }
 .van-button {
   font-size: 20px;

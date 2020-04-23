@@ -7,3 +7,19 @@ export function findAll() {
     method: 'get',
   })
 }
+
+export function register(data) {
+  return user({
+    url: '/userApi/account/register',
+    method: 'post',
+    data
+  })
+}
+
+export function login(data) {
+  return user({
+    url: '/userApi/account/login',
+    method: 'post',
+    data
+  })
+}
