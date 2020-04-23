@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jason.activity.dao.mapper.CommentMapper">
+
+    <resultMap id="BaseResultMap" type="com.jason.activity.dao.vo.Comment">
+        <id column="comment_id" jdbcType="VARCHAR" property="commentId"/>
+        <result column="content" jdbcType="VARCHAR" property="content"/>
+        <result column="parent_id" jdbcType="VARCHAR" property="parentId"/>
+        <result column="del_flg" jdbcType="BIT" property="delFlg"/>
+        <result column="create_user" jdbcType="VARCHAR" property="createUser"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_user" jdbcType="VARCHAR" property="updateUser"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        comment_id, content, parent_id, del_flg, create_user, create_time, update_user, update_time
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from cs_activity_comment
+        where comment_id = #{commentId,jdbcType=VARCHAR}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete
+        from cs_activity_comment
+        where comment_id = #{commentId,jdbcType=VARCHAR}
+    </delete>
+
+    <insert id="insert" parameterType="com.jason.activity.dao.vo.Comment">
+        insert into cs_activity_comment (comment_id, content, parent_id,
+                                         del_flg, create_user, create_time,
+                                         update_user, update_time)
+        values (#{commentId,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{parentId,jdbcType=VARCHAR},
+                #{delFlg,jdbcType=BIT}, #{createUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
+                #{updateUser,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP})
+    </insert>
+
+    <insert id="insertSelective" parameterType="com.jason.activity.dao.vo.Comment">
+        insert into cs_activity_comment
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="commentId != null">
+                comment_id,
+            </if>
+            <if test="content != null">
+                content,
+            </if>
+            <if test="parentId != null">
+                parent_id,
+            </if>
+            <if test="delFlg != null">
+                del_flg,
+            </if>
+            <if test="createUser != null">
+                create_user,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateUser != null">
+                update_user,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="commentId != null">
+                #{commentId,jdbcType=VARCHAR},
+            </if>
+            <if test="content != null">
+                #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="parentId != null">
+                #{parentId,jdbcType=VARCHAR},
+            </if>
+            <if test="delFlg != null">
+                #{delFlg,jdbcType=BIT},
+            </if>
+            <if test="createUser != null">
+                #{createUser,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUser != null">
+                #{updateUser,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.jason.activity.dao.vo.Comment">
+        update cs_activity_comment
+        <set>
+            <if test="content != null">
+                content = #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="parentId != null">
+                parent_id = #{parentId,jdbcType=VARCHAR},
+            </if>
+            <if test="delFlg != null">
+                del_flg = #{delFlg,jdbcType=BIT},
+            </if>
+            <if test="createUser != null">
+                create_user = #{createUser,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUser != null">
+                update_user = #{updateUser,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where comment_id = #{commentId,jdbcType=VARCHAR}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.jason.activity.dao.vo.Comment">
+        update cs_activity_comment
+        set content     = #{content,jdbcType=VARCHAR},
+            parent_id   = #{parentId,jdbcType=VARCHAR},
+            del_flg     = #{delFlg,jdbcType=BIT},
+            create_user = #{createUser,jdbcType=VARCHAR},
+            create_time = #{createTime,jdbcType=TIMESTAMP},
+            update_user = #{updateUser,jdbcType=VARCHAR},
+            update_time = #{updateTime,jdbcType=TIMESTAMP}
+        where comment_id = #{commentId,jdbcType=VARCHAR}
+    </update>
+</mapper>

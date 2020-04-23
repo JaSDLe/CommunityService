@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { Toast,Dialog } from 'vant'
 
 const __CACHE__ = {}
 
@@ -20,33 +21,30 @@ export default function createWebServiceHelper(baseUrl) {
   //   Promise.reject(error)
   // })
 
-  // // respone拦截器
-  // service.interceptors.response.use(
-  //   response => {
-  //     const res = response.data
-  //     const handler = RETURN_CODE_HANDLER[response.data.code]
-  //     if (handler) {
-  //       return Promise.resolve(handler(response))
-  //     }
-  //     if (res.success !== true) {
-  //       Message({
-  //         message: res.description || '请求失败，请联系管理员',
-  //         type: 'error',
-  //         duration: 5 * 1000
-  //       })
-  //     }
-  //     return res.success !== true ? Promise.reject(res) : Promise.resolve(res)
-  //   },
-  //   error => {
-  //     console.log('拦截异常', error)
-  //     Message({
-  //       message: error || '请求失败，请联系管理员',
-  //       type: 'error',
-  //       duration: 5 * 1000
-  //     })
-  //     return Promise.reject(new Error(error))
-  //   }
-  // )
+  // respone拦截器
+  service.interceptors.response.use(
+    response => {
+      const res = response.data
+      // const handler = RETURN_CODE_HANDLER[response.data.code]
+      // if (handler) {
+      //   return Promise.resolve(handler(response))
+      // }
+      if (res.success !== true) {
+        console.log(res.description || '请求失败，请联系管理员')
+      }
+      return res.success !== true ? Promise.reject(res) : Promise.resolve(res)
+    },
+    error => {
+      Toast.fail()
+      console.log('拦截异常', error)
+      console.log(JSON.stringify(error))
+      Dialog.alert({
+        title: error.config.url,
+        message: error.message,
+      }).then(() => {});
+      return Promise.reject(new Error(error))
+    }
+  )
 
   __CACHE__[baseUrl] = service
 

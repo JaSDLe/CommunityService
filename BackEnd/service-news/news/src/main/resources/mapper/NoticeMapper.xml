@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jason.news.dao.mapper.NoticeMapper">
+
+    <resultMap id="BaseResultMap" type="com.jason.news.dao.vo.Notice">
+        <id column="notice_id" jdbcType="VARCHAR" property="noticeId"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="start_time" jdbcType="TIMESTAMP" property="startTime"/>
+        <result column="end_time" jdbcType="TIMESTAMP" property="endTime"/>
+        <result column="community_id" jdbcType="VARCHAR" property="communityId"/>
+        <result column="del_flg" jdbcType="BIT" property="delFlg"/>
+        <result column="create_user" jdbcType="VARCHAR" property="createUser"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_user" jdbcType="VARCHAR" property="updateUser"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+
+    <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.jason.news.dao.vo.Notice">
+        <result column="content" jdbcType="LONGVARCHAR" property="content"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        notice_id, title, start_time, end_time, community_id, del_flg, create_user, create_time,
+    update_user, update_time
+    </sql>
+
+    <sql id="Blob_Column_List">
+        content
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from cs_news_notice
+        where notice_id = #{noticeId,jdbcType=VARCHAR}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete
+        from cs_news_notice
+        where notice_id = #{noticeId,jdbcType=VARCHAR}
+    </delete>
+
+    <insert id="insert" parameterType="com.jason.news.dao.vo.Notice">
+        insert into cs_news_notice (notice_id, title, start_time,
+                                    end_time, community_id, del_flg,
+                                    create_user, create_time, update_user,
+                                    update_time, content)
+        values (#{noticeId,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{startTime,jdbcType=TIMESTAMP},
+                #{endTime,jdbcType=TIMESTAMP}, #{communityId,jdbcType=VARCHAR}, #{delFlg,jdbcType=BIT},
+                #{createUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=VARCHAR},
+                #{updateTime,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARCHAR})
+    </insert>
+
+    <insert id="insertSelective" parameterType="com.jason.news.dao.vo.Notice">
+        insert into cs_news_notice
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="noticeId != null">
+                notice_id,
+            </if>
+            <if test="title != null">
+                title,
+            </if>
+            <if test="startTime != null">
+                start_time,
+            </if>
+            <if test="endTime != null">
+                end_time,
+            </if>
+            <if test="communityId != null">
+                community_id,
+            </if>
+            <if test="delFlg != null">
+                del_flg,
+            </if>
+            <if test="createUser != null">
+                create_user,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateUser != null">
+                update_user,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="content != null">
+                content,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="noticeId != null">
+                #{noticeId,jdbcType=VARCHAR},
+            </if>
+            <if test="title != null">
+                #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="startTime != null">
+                #{startTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="endTime != null">
+                #{endTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="communityId != null">
+                #{communityId,jdbcType=VARCHAR},
+            </if>
+            <if test="delFlg != null">
+                #{delFlg,jdbcType=BIT},
+            </if>
+            <if test="createUser != null">
+                #{createUser,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUser != null">
+                #{updateUser,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="content != null">
+                #{content,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.jason.news.dao.vo.Notice">
+        update cs_news_notice
+        <set>
+            <if test="title != null">
+                title = #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="startTime != null">
+                start_time = #{startTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="endTime != null">
+                end_time = #{endTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="communityId != null">
+                community_id = #{communityId,jdbcType=VARCHAR},
+            </if>
+            <if test="delFlg != null">
+                del_flg = #{delFlg,jdbcType=BIT},
+            </if>
+            <if test="createUser != null">
+                create_user = #{createUser,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUser != null">
+                update_user = #{updateUser,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="content != null">
+                content = #{content,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where notice_id = #{noticeId,jdbcType=VARCHAR}
+    </update>
+
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.jason.news.dao.vo.Notice">
+        update cs_news_notice
+        set title        = #{title,jdbcType=VARCHAR},
+            start_time   = #{startTime,jdbcType=TIMESTAMP},
+            end_time     = #{endTime,jdbcType=TIMESTAMP},
+            community_id = #{communityId,jdbcType=VARCHAR},
+            del_flg      = #{delFlg,jdbcType=BIT},
+            create_user  = #{createUser,jdbcType=VARCHAR},
+            create_time  = #{createTime,jdbcType=TIMESTAMP},
+            update_user  = #{updateUser,jdbcType=VARCHAR},
+            update_time  = #{updateTime,jdbcType=TIMESTAMP},
+            content      = #{content,jdbcType=LONGVARCHAR}
+        where notice_id = #{noticeId,jdbcType=VARCHAR}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.jason.news.dao.vo.Notice">
+        update cs_news_notice
+        set title        = #{title,jdbcType=VARCHAR},
+            start_time   = #{startTime,jdbcType=TIMESTAMP},
+            end_time     = #{endTime,jdbcType=TIMESTAMP},
+            community_id = #{communityId,jdbcType=VARCHAR},
+            del_flg      = #{delFlg,jdbcType=BIT},
+            create_user  = #{createUser,jdbcType=VARCHAR},
+            create_time  = #{createTime,jdbcType=TIMESTAMP},
+            update_user  = #{updateUser,jdbcType=VARCHAR},
+            update_time  = #{updateTime,jdbcType=TIMESTAMP}
+        where notice_id = #{noticeId,jdbcType=VARCHAR}
+    </update>
+</mapper>

@@ -54,8 +54,8 @@
 </template>
 
 <script>
-import { Form, Field, Button, Icon, Row, Col, Toast, Divider } from "vant";
-import { register } from "@/api/member";
+import { Form, Field, Button, Icon, Row, Col, Toast, Divider, Dialog } from "vant"
+import { register } from "@/api/member"
 
 export default {
   components: {
@@ -66,7 +66,7 @@ export default {
     [Row.name]: Row,
     [Col.name]: Col,
     [Toast.name]: Toast,
-    [Divider.name]: Divider,
+    [Divider.name]: Divider
   },
 
   data() {
@@ -79,51 +79,59 @@ export default {
       confirmPasswordMsg: "确认密码与密码不一致",
       passwordShow: false,
       confirmPasswordShow: false
-    };
+    }
   },
 
   computed: {},
 
   methods: {
     formatter(val) {
-      return val.replace(/\s*/g, "");
+      return val.replace(/\s*/g, "")
     },
     checkUsername(val) {
-      return /^[0-9a-zA-Z]{1,}$/.test(val);
+      return /^[0-9a-zA-Z]{1,}$/.test(val)
     },
     blurUsername() {
-      this.$refs.form.validate("u");
+      this.$refs.form.validate("u")
     },
     checkPassword(val) {
-      return /^[0-9a-zA-Z~!@#$%^&*()_+-=]{6,20}$/.test(val);
+      return /^[0-9a-zA-Z~!@#$%^&*()_+-=]{6,20}$/.test(val)
     },
     checkConfirmPassword(val) {
-      return val == this.password;
+      return val == this.password
     },
     onSubmit(values) {
       this.$toast.loading({
-        duration: 1500,
+        duration: 0,
         message: "加载中...",
         forbidClick: true
-      });
-      console.log("submit", values);
-      register({ username: this.username, password: this.password }).then(
-        res => {
+      })
+      register({ username: this.username, password: this.password }).then(res => {
+        // if (res.success) {
+          this.$toast({
+            type: res.success && res.data ? 'success' : 'fail',
+            message: res.description
+          })
           if (res.data) {
-            this.$toast.success("注册成功");
+            // this.$toast.success("注册成功")
             this.$router.push({
               path: "/login",
               query: { username: this.username }
-            });
+            })
           }
-        }
-      );
+          // else {
+            // this.$toast.fail('该用户名已被注册，请更换')
+          // }
+        // } else {
+          // this.$toast.fail(res.description)
+        // }
+      })
     },
     toLogin() {
       this.$router.push({
         path: "/login",
         query: { username: this.username }
-      });
+      })
     }
   }
 };

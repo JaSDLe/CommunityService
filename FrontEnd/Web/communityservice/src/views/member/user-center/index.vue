@@ -1,47 +1,162 @@
 <template>
   <div>
-    <van-form @submit="onSubmit">
-      <van-row>
-        <van-col span="2">
-          <van-icon name="manager" size="30" />
-        </van-col>
-        <van-col span="22">
-          <van-field
-            v-model="username"
-            name="用户名"
-            placeholder="请输入用户名"
-            clearable
-            class="login"
-            :rules="[{ required: true, message: '请填写用户名' }]"
-          />
-        </van-col>
-      </van-row>
-      <van-row style="margin-top: 20px">
-        <van-col span="2">
-          <van-icon name="lock" size="30" />
-        </van-col>
-        <van-col span="22">
-          <van-field
-            v-model="password"
-            type="password"
-            name="密码"
-            placeholder="请输入密码"
-            class="login"
-            :rules="[{ required: true, message: '请填写密码' }]"
-          />
-        </van-col>
-      </van-row>
-      <div style="margin: 20px;">
-        <van-button round block type="info" native-type="submit">登录</van-button>
-      </div>
-    </van-form>
+    <van-cell center is-link style="margin-bottom: 40px;">
+      <template #title>
+        <van-row style="display: flex;align-items: center;">
+          <van-image round width="80px" height="80px"></van-image>
+          <div style="margin-left: 10px;font-size: 18px;">用户名</div>
+        </van-row>
+      </template>
+    </van-cell>
+
+    <van-cell style center is-link>
+      <template #title>
+        <van-row style="display: flex;align-items: center;">
+          <van-icon name="setting-o" size="22" />
+          <div style="margin-left: 13px;font-size: 17px;">设置</div>
+        </van-row>
+      </template>
+    </van-cell>
+
+    <van-cell center is-link>
+      <template #title>
+        <van-row style="display: flex;align-items: center;">
+          <van-icon name="setting-o" size="22" />
+          <div style="margin-left: 13px;font-size: 17px;">设置</div>
+        </van-row>
+      </template>
+    </van-cell>
+
+    <van-cell center is-link>
+      <template #title>
+        <van-row style="display: flex;align-items: center;">
+          <van-icon name="setting-o" size="22" />
+          <div style="margin-left: 13px;font-size: 17px;">设置</div>
+        </van-row>
+      </template>
+    </van-cell>
+
+    <van-cell center is-link>
+      <template #title>
+        <van-row style="display: flex;align-items: center;">
+          <van-icon name="setting-o" size="22" />
+          <div style="margin-left: 13px;font-size: 17px;">设置</div>
+        </van-row>
+      </template>
+    </van-cell>
+
+<van-cell style center is-link>
+      <template #title>
+        <van-row style="display: flex;align-items: center;">
+          <van-icon name="setting-o" size="22" />
+          <div style="margin-left: 13px;font-size: 17px;">设置</div>
+        </van-row>
+      </template>
+    </van-cell>
+
+    <van-cell center is-link>
+      <template #title>
+        <van-row style="display: flex;align-items: center;">
+          <van-icon name="setting-o" size="22" />
+          <div style="margin-left: 13px;font-size: 17px;">设置</div>
+        </van-row>
+      </template>
+    </van-cell>
+
+    <van-cell center is-link>
+      <template #title>
+        <van-row style="display: flex;align-items: center;">
+          <van-icon name="setting-o" size="22" />
+          <div style="margin-left: 13px;font-size: 17px;">设置</div>
+        </van-row>
+      </template>
+    </van-cell>
+
+    <van-cell center is-link>
+      <template #title>
+        <van-row style="display: flex;align-items: center;">
+          <van-icon name="setting-o" size="22" />
+          <div style="margin-left: 13px;font-size: 17px;">设置</div>
+        </van-row>
+      </template>
+    </van-cell>
+    <van-cell style center is-link>
+      <template #title>
+        <van-row style="display: flex;align-items: center;">
+          <van-icon name="setting-o" size="22" />
+          <div style="margin-left: 13px;font-size: 17px;">设置</div>
+        </van-row>
+      </template>
+    </van-cell>
+
+    <van-cell center is-link>
+      <template #title>
+        <van-row style="display: flex;align-items: center;">
+          <van-icon name="setting-o" size="22" />
+          <div style="margin-left: 13px;font-size: 17px;">设置</div>
+        </van-row>
+      </template>
+    </van-cell>
+
+    <van-cell center is-link>
+      <template #title>
+        <van-row style="display: flex;align-items: center;">
+          <van-icon name="setting-o" size="22" />
+          <div style="margin-left: 13px;font-size: 17px;">设置</div>
+        </van-row>
+      </template>
+    </van-cell>
+
+    <van-cell center is-link>
+      <template #title>
+        <van-row style="display: flex;align-items: center;">
+          <van-icon name="setting-o" size="22" />
+          <div style="margin-left: 13px;font-size: 17px;">设置</div>
+        </van-row>
+      </template>
+    </van-cell>
+    <van-cell style center is-link>
+      <template #title>
+        <van-row style="display: flex;align-items: center;">
+          <van-icon name="setting-o" size="22" />
+          <div style="margin-left: 13px;font-size: 17px;">设置</div>
+        </van-row>
+      </template>
+    </van-cell>
+
+    <van-cell center is-link>
+      <template #title>
+        <van-row style="display: flex;align-items: center;">
+          <van-icon name="setting-o" size="22" />
+          <div style="margin-left: 13px;font-size: 17px;">设置</div>
+        </van-row>
+      </template>
+    </van-cell>
+
+    <van-cell center is-link>
+      <template #title>
+        <van-row style="display: flex;align-items: center;">
+          <van-icon name="setting-o" size="22" />
+          <div style="margin-left: 13px;font-size: 17px;">设置</div>
+        </van-row>
+      </template>
+    </van-cell>
+
+    <van-cell center is-link>
+      <template #title>
+        <van-row style="display: flex;align-items: center;">
+          <van-icon name="setting-o" size="22" />
+          <div style="margin-left: 13px;font-size: 17px;">设置</div>
+        </van-row>
+      </template>
+    </van-cell>
     <tabbar />
   </div>
 </template>
 
 <script>
 import tabbar from "@/components/tab-bar";
-import { Form, Field, Button, Icon, Row, Col } from "vant";
+import { Form, Field, Button, Icon, Row, Col, Cell, Image } from "vant";
 
 export default {
   components: {
@@ -51,43 +166,17 @@ export default {
     [Button.name]: Button,
     [Icon.name]: Icon,
     [Row.name]: Row,
-    [Col.name]: Col
+    [Col.name]: Col,
+    [Cell.name]: Cell,
+    [Image.name]: Image
   },
 
   data() {
-    return {
-      username: "",
-      password: ""
-    };
+    return {};
   },
 
-  methods: {
-    onSubmit(values) {
-      console.log("submit", values);
-      this.$router.push({
-        path: "/member/user-center",
-        query: {}
-      });
-    }
-  }
+  methods: {}
 };
 </script>
 
-<style scoped>
-.van-form {
-  width: 80%;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 50px;
-}
-.van-row {
-  display: flex;
-  align-items: center;
-}
-.van-field {
-  font-size: 25px;
-}
-.van-button {
-  font-size: 20px;
-}
-</style>
+<style scoped></style>

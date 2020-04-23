@@ -1,5 +1,6 @@
 <template>
   <div>
+    <van-search v-model="value" placeholder="请输入搜索关键词" />
     <van-pull-refresh v-model="isRefreshing" @refresh="onRefresh" success-text="刷新成功">
       <van-list
         v-model="isListLoading"
@@ -19,14 +20,15 @@
 
 <script>
 import tabbar from "@/components/tab-bar";
-import { PullRefresh, List, Cell } from "vant";
+import { PullRefresh, List, Cell, Search } from "vant";
 
 export default {
   components: {
     tabbar,
     [PullRefresh.name]: PullRefresh,
     [List.name]: List,
-    [Cell.name]: Cell
+    [Cell.name]: Cell,
+    [Search.name]: Search
   },
 
   data() {

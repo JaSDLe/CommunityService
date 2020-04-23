@@ -48,8 +48,8 @@
 </template>
 
 <script>
-import { Form, Field, Button, Icon, Row, Col, Toast, Divider } from "vant";
-import { findAll, login } from "@/api/member";
+import { Form, Field, Button, Icon, Row, Col, Toast, Divider } from "vant"
+import { findAll, login } from "@/api/member"
 
 export default {
   components: {
@@ -60,48 +60,59 @@ export default {
     [Row.name]: Row,
     [Col.name]: Col,
     [Toast.name]: Toast,
-    [Divider.name]: Divider,
+    [Divider.name]: Divider
   },
 
   data() {
     return {
       username: "",
       password: "",
+      passwordShow: false,
       data: []
-    };
+    }
   },
 
   created() {
     // this.findAll()
-    console.log(this.$route.query);
+    console.log(this.$route.query)
     if (this.$route.query.username) {
-      this.username = this.$route.query.username;
-      console.log(this.username);
+      this.username = this.$route.query.username
+      console.log(this.username)
     }
   },
 
   methods: {
+    formatter(val) {
+      return val.replace(/\s*/g, "")
+    },
     onSubmit(values) {
-      console.log("submit", values);
+      this.$toast.loading({
+        duration: 0,
+        message: "加载中...",
+        forbidClick: true
+      })
       login({ username: this.username, password: this.password }).then(res => {
         if (res.data) {
+          this.$toast.success("登录成功")
           this.$router.push({
             path: "/member/user-center",
             query: {}
-          });
+          })
+        } else {
+          this.$toast.fail("用户名或密码错误")
         }
-      });
+      })
     },
     findAll() {
       findAll().then(res => {
-        console.log(res);
-        this.data = res;
-      });
+        console.log(res)
+        this.data = res
+      })
     },
     toRegister() {
       this.$router.push({
         path: "/register"
-      });
+      })
     }
   }
 };
