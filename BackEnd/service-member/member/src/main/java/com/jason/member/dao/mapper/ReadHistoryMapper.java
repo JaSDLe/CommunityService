@@ -1,7 +1,9 @@
 package com.jason.member.dao.mapper;
 
 import com.jason.member.dao.vo.ReadHistory;
+import org.springframework.stereotype.Component;
 
+@Component
 public interface ReadHistoryMapper {
 
     int deleteByPrimaryKey(String id);

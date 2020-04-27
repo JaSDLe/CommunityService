@@ -28,6 +28,12 @@
         where id = #{id,jdbcType=VARCHAR}
     </select>
 
+    <select id="findAccountDetailByAccountId" resultType="com.jason.member.dao.vo.AccountDetail">
+        SELECT *
+        FROM cs_member_account_detail
+        WHERE account_id = #{accountId}
+    </select>
+
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
         delete
         from cs_member_account_detail
@@ -169,5 +175,30 @@
             update_user   = #{updateUser,jdbcType=VARCHAR},
             update_time   = #{updateTime,jdbcType=TIMESTAMP}
         where id = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <update id="updateAccountDetailByAccountId" parameterType="com.jason.member.dao.vo.AccountDetail">
+        UPDATE cs_member_account_detail
+        <set>
+            <if test="sex != null">
+                sex = #{sex,jdbcType=BIT},
+            </if>
+            <if test="birthday != null">
+                birthday = #{birthday,jdbcType=TIMESTAMP},
+            </if>
+            <if test="constellation != null">
+                constellation = #{constellation,jdbcType=INTEGER},
+            </if>
+            <if test="address != null">
+                address = #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="updateUser != null">
+                update_user = #{updateUser,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        WHERE account_id = #{accountId,jdbcType=VARCHAR}
     </update>
 </mapper>

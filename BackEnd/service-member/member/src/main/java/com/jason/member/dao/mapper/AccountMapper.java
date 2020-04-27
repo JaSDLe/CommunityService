@@ -2,9 +2,11 @@ package com.jason.member.dao.mapper;
 
 import com.jason.member.dao.vo.Account;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public interface AccountMapper {
 
     List<Account> findAll();
