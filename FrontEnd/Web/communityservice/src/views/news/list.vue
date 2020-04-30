@@ -1,30 +1,36 @@
 <template>
   <div>
     <van-search v-model="value" placeholder="请输入搜索关键词" />
+
     <van-pull-refresh v-model="isRefreshing" @refresh="onRefresh" success-text="刷新成功">
       <van-list
         v-model="isListLoading"
         :finished="isListFinished"
         :error.sync="isListError"
-        @load="onLoad"
         finished-text="没有更多了"
         error-text="请求失败，点击重新加载"
+        @load="onLoad"
       >
-        <van-cell v-for="item in list" :key="item" :title="item" />
+        <!-- <van-cell v-for="item in list" :key="item" :title="item" /> -->
+        <news-item v-for="item in list" :key="item" :title="item" />
       </van-list>
     </van-pull-refresh>
+
     <div style="height: 50px;" />
-    <tabbar />
+
+    <tab-bar />
   </div>
 </template>
 
 <script>
-import tabbar from "@/components/tab-bar";
+import TabBar from "@/components/tab-bar";
+import NewsItem from "@/components/news-item";
 import { PullRefresh, List, Cell, Search } from "vant";
 
 export default {
   components: {
-    tabbar,
+    TabBar,
+    NewsItem,
     [PullRefresh.name]: PullRefresh,
     [List.name]: List,
     [Cell.name]: Cell,
@@ -62,7 +68,6 @@ export default {
     onRefresh() {
       // 清空列表数据
       this.isListFinished = false;
-
       // 重新加载数据
       // 将 loading 设置为 true，表示处于加载状态
       this.isListLoading = true;

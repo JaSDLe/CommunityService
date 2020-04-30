@@ -33,6 +33,12 @@ export default {
   },
 
   created() {
+    console.log('created')
+    this.active = this.routerArray.indexOf(this.$route.path);
+  },
+
+  activated() {
+    console.log('activated')
     this.active = this.routerArray.indexOf(this.$route.path);
   },
 

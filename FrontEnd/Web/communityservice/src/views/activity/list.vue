@@ -4,17 +4,17 @@
       <div>实际内容</div>
     </van-skeleton>
 
-    <tabbar />
+    <tab-bar />
   </div>
 </template>
 
 <script>
-import tabbar from "@/components/tab-bar";
+import TabBar from "@/components/tab-bar";
 import { Skeleton } from "vant";
 
 export default {
   components: {
-    tabbar,
+    TabBar,
     [Skeleton.name]: Skeleton
   },
 

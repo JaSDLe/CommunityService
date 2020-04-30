@@ -6,7 +6,7 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    redirect: '/login'
+    redirect: '/member/user-center'
   },
   {
     path: '/login',
@@ -16,21 +16,38 @@ const routes = [
     path: '/register',
     component: () => import('@/views/register')
   },
+  // member
   {
     path: '/member/user-center',
     component: () => import('@/views/member/user-center')
   },
   {
+    path: '/member/account-detail',
+    component: () => import('@/views/member/user-center/detail')
+  },
+  // news
+  {
     path: '/news/list',
     component: () => import('@/views/news/list')
   },
+  // activity
   {
     path: '/activity/list',
     component: () => import('@/views/activity/list')
   },
+  // message
   {
     path: '/message/list',
     component: () => import('@/views/message/list')
+  },
+  // community
+  {
+    path: '/community/list',
+    component: () => import('@/views/community/list')
+  },
+  {
+    path: '/community/detail',
+    component: () => import('@/views/community/detail')
   },
 ]
 
