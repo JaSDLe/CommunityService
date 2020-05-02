@@ -6,9 +6,9 @@
       <van-cell title="头像" is-link center>
         <template #default>
           <div style="display: flex;align-items: center;float: right;">
-            <van-image round width="70px" height="70px"></van-image>
+            <van-image round width="70" height="70"></van-image>
           </div>
-          <!-- <van-image round width="80px" height="80px"></van-image> -->
+          <!-- <van-image round width="80" height="80"></van-image> -->
         </template>
       </van-cell>
       <van-cell title="用户名" is-link value />

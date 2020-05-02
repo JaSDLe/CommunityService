@@ -1,6 +1,12 @@
 <template>
   <div>
-    <van-search v-model="value" placeholder="请输入搜索关键词" />
+    <van-search
+      v-model="search"
+      :show-action="isShowCancel"
+      placeholder="请输入搜索关键词"
+      @search="onSearch"
+      @cancel="onCancel"
+    />
 
     <van-pull-refresh v-model="isRefreshing" @refresh="onRefresh" success-text="刷新成功">
       <van-list
@@ -11,8 +17,7 @@
         error-text="请求失败，点击重新加载"
         @load="onLoad"
       >
-        <!-- <van-cell v-for="item in list" :key="item" :title="item" /> -->
-        <news-item v-for="item in list" :key="item" :title="item" />
+        <news-item v-for="item in list" :key="item" />
       </van-list>
     </van-pull-refresh>
 
@@ -23,9 +28,9 @@
 </template>
 
 <script>
-import TabBar from "@/components/tab-bar";
-import NewsItem from "@/components/news-item";
-import { PullRefresh, List, Cell, Search } from "vant";
+import TabBar from "@/components/tab-bar"
+import NewsItem from "@/components/news-item"
+import { PullRefresh, List, Cell, Search } from "vant"
 
 export default {
   components: {
@@ -39,40 +44,49 @@ export default {
 
   data() {
     return {
+      search: '',
+      isShowCancel: false,
       list: [],
       isRefreshing: false,
       isListLoading: false,
       isListFinished: false,
       isListError: false
-    };
+    }
   },
 
   methods: {
     onLoad() {
       setTimeout(() => {
         if (this.isRefreshing) {
-          this.list = [];
-          this.isRefreshing = false;
+          this.list = []
+          this.isRefreshing = false
         }
 
         for (let i = 0; i < 10; i++) {
-          this.list.push(this.list.length + 1);
+          this.list.push(this.list.length + 1)
         }
-        this.isListLoading = false;
+        this.isListLoading = false
 
         if (this.list.length >= 40) {
-          this.isListFinished = true;
+          this.isListFinished = true
         }
-      }, 1000);
+      }, 1000)
     },
     onRefresh() {
       // 清空列表数据
-      this.isListFinished = false;
+      this.isListFinished = false
       // 重新加载数据
       // 将 loading 设置为 true，表示处于加载状态
-      this.isListLoading = true;
-      this.onLoad();
-    }
+      this.isListLoading = true
+      this.onLoad()
+    },
+    onSearch(val) {
+      console.log(val)
+      this.isShowCancel = true
+    },
+    onCancel() {
+      this.isShowCancel = false
+    },
   }
 };
 </script>

@@ -1,17 +1,20 @@
 <template>
   <div>
-    <van-nav-bar style="font-size: 18px;" :title="title" left-arrow @click-left="onClickLeft" />
+    <van-sticky>
+      <van-nav-bar style="font-size: 18px;" :title="title" left-arrow @click-left="onClickLeft" />
+    </van-sticky>
   </div>
 </template>
 
 <script>
-import { NavBar } from "vant";
+import { NavBar, Sticky } from "vant"
 
 export default {
   name: "nav-bar",
 
   components: {
-    [NavBar.name]: NavBar
+    [NavBar.name]: NavBar,
+    [Sticky.name]: Sticky,
   },
 
   props: {
@@ -19,28 +22,26 @@ export default {
   },
 
   data() {
-    return {};
+    return {}
   },
 
-  created() {},
+  created() { },
 
   methods: {
     onClickLeft() {
-      this.$router.go(-1);
+      this.$router.go(-1)
     }
   }
 };
 </script>
 
 <style>
-/* .van-nav-bar {
-  /deep/ */
 .van-nav-bar {
   height: 55px;
   line-height: 55px;
 }
-.van-nav-bar__title, .van-nav-bar__arrow {
+.van-nav-bar__title,
+.van-nav-bar__arrow {
   font-size: 20px;
 }
-/* } */
 </style>
