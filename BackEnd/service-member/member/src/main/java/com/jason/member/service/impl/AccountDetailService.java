@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.UUID;
 
 @Slf4j
 @Service
@@ -25,5 +26,19 @@ public class AccountDetailService implements IAccountDetailService {
     public Integer updateAccountDetailByAccountId(AccountDetail accountDetail) {
         accountDetail.setUpdateTime(new Date());
         return accountDetailMapper.updateAccountDetailByAccountId(accountDetail);
+    }
+
+    @Override
+    public Integer createAccountDetail(String accountId) {
+        AccountDetail accountDetail=new AccountDetail();
+        accountDetail.setId(UUID.randomUUID().toString().replace("-", ""));
+        accountDetail.setAccountId(accountId);
+        accountDetail.setDelFlg(Boolean.FALSE);
+        accountDetail.setCreateUser("system");
+        accountDetail.setCreateTime(new Date());
+        accountDetail.setUpdateUser("system");
+        accountDetail.setUpdateTime(new Date());
+        log.info("=====> createAccountDetail : {}", accountDetail);
+        return accountDetailMapper.insertSelective(accountDetail);
     }
 }

@@ -6,6 +6,7 @@
         <id column="community_id" jdbcType="VARCHAR" property="communityId"/>
         <result column="community_name" jdbcType="VARCHAR" property="communityName"/>
         <result column="community_info" jdbcType="VARCHAR" property="communityInfo"/>
+        <result column="index" jdbcType="CHAR" property="index"/>
         <result column="del_flg" jdbcType="BIT" property="delFlg"/>
         <result column="create_user" jdbcType="VARCHAR" property="createUser"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
@@ -14,8 +15,8 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-        community_id, community_name, community_info, del_flg, create_user, create_time,
-    update_user, update_time
+        community_id, community_name, community_info, `index`, del_flg, create_user, create_time,
+        update_user, update_time
     </sql>
 
     <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
@@ -25,6 +26,20 @@
         where community_id = #{communityId,jdbcType=VARCHAR}
     </select>
 
+    <select id="findAll" resultMap="BaseResultMap">
+        SELECT *
+        FROM cs_community_community
+        WHERE del_flg = 0
+        ORDER BY `index`, CONVERT(community_name USING GBK)
+    </select>
+
+    <select id="findByCommunityId" resultMap="BaseResultMap">
+        SELECT *
+        FROM cs_community_community
+        WHERE del_flg = 0
+          AND community_id = #{communityId}
+    </select>
+
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
         delete
         from cs_community_community
@@ -32,10 +47,11 @@
     </delete>
 
     <insert id="insert" parameterType="com.jason.community.dao.vo.Community">
-        insert into cs_community_community (community_id, community_name, community_info,
+        insert into cs_community_community (community_id, community_name, community_info, `index`,
                                             del_flg, create_user, create_time,
                                             update_user, update_time)
         values (#{communityId,jdbcType=VARCHAR}, #{communityName,jdbcType=VARCHAR}, #{communityInfo,jdbcType=VARCHAR},
+                #{index,jdbcType=CHAR},
                 #{delFlg,jdbcType=BIT}, #{createUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
                 #{updateUser,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP})
     </insert>
@@ -51,6 +67,9 @@
             </if>
             <if test="communityInfo != null">
                 community_info,
+            </if>
+            <if test="index != null">
+                `index`,
             </if>
             <if test="delFlg != null">
                 del_flg,
@@ -77,6 +96,9 @@
             </if>
             <if test="communityInfo != null">
                 #{communityInfo,jdbcType=VARCHAR},
+            </if>
+            <if test="index != null">
+                #{index,jdbcType=CHAR},
             </if>
             <if test="delFlg != null">
                 #{delFlg,jdbcType=BIT},
@@ -105,6 +127,9 @@
             <if test="communityInfo != null">
                 community_info = #{communityInfo,jdbcType=VARCHAR},
             </if>
+            <if test="index != null">
+                `index` = #{index,jdbcType=CHAR},
+            </if>
             <if test="delFlg != null">
                 del_flg = #{delFlg,jdbcType=BIT},
             </if>
@@ -128,6 +153,7 @@
         update cs_community_community
         set community_name = #{communityName,jdbcType=VARCHAR},
             community_info = #{communityInfo,jdbcType=VARCHAR},
+            `index`        = #{v,jdbcType=CHAR},
             del_flg        = #{delFlg,jdbcType=BIT},
             create_user    = #{createUser,jdbcType=VARCHAR},
             create_time    = #{createTime,jdbcType=TIMESTAMP},

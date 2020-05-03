@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { Toast,Dialog } from 'vant'
+import { Toast, Dialog } from 'vant'
 
 const __CACHE__ = {}
 
@@ -14,12 +14,17 @@ export default function createWebServiceHelper(baseUrl) {
     timeout: 30000 // 请求超时时间
   })
 
-  // // request拦截器
-  // service.interceptors.request.use(config => {
-  //   return config
-  // }, error => {
-  //   Promise.reject(error)
-  // })
+  // request拦截器
+  service.interceptors.request.use(config => {
+    Toast.loading({
+      duration: 0,
+      message: "加载中...",
+      forbidClick: true
+    })
+    return config
+  }, error => {
+    Promise.reject(error)
+  })
 
   // respone拦截器
   service.interceptors.response.use(
@@ -32,7 +37,9 @@ export default function createWebServiceHelper(baseUrl) {
       if (res.success !== true) {
         console.log(res.description || '请求失败，请联系管理员')
       }
-      return res.success !== true ? Promise.reject(res) : Promise.resolve(res)
+      Toast.clear()
+      // return res.success !== true ? Promise.reject(res) : Promise.resolve(res)
+      return res
     },
     error => {
       Toast.fail()
@@ -41,7 +48,7 @@ export default function createWebServiceHelper(baseUrl) {
       Dialog.alert({
         title: error.config.url,
         message: error.message,
-      }).then(() => {});
+      }).then(() => { })
       return Promise.reject(new Error(error))
     }
   )

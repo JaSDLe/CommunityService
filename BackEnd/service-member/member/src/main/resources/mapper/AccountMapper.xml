@@ -19,8 +19,8 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-    account_id, community_id, username, password, type, nickname, phone, email, del_flg,
-    create_user, create_time, update_user, update_time
+        account_id, community_id, username, password, type, nickname, phone, email, del_flg,
+        create_user, create_time, update_user, update_time
     </sql>
 
     <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
@@ -31,21 +31,21 @@
     </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-        delete from cs_member_account
+        delete
+        from cs_member_account
         where account_id = #{accountId,jdbcType=VARCHAR}
     </delete>
 
     <insert id="insert" parameterType="com.jason.member.dao.vo.Account">
         insert into cs_member_account (account_id, community_id, username,
-          password, type, nickname,
-          phone, email, del_flg, create_user,
-          create_time, update_user, update_time
-          )
+                                       password, type, nickname,
+                                       phone, email, del_flg, create_user,
+                                       create_time, update_user, update_time)
         values (#{accountId,jdbcType=VARCHAR}, #{communityId,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR},
-          #{password,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, #{nickname,jdbcType=VARCHAR},
-          #{phone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{delFlg,jdbcType=BIT}, #{createUser,jdbcType=VARCHAR},
-          #{createTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}
-          )
+                #{password,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, #{nickname,jdbcType=VARCHAR},
+                #{phone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{delFlg,jdbcType=BIT},
+                #{createUser,jdbcType=VARCHAR},
+                #{createTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP})
     </insert>
 
     <insert id="insertSelective" parameterType="com.jason.member.dao.vo.Account">
@@ -180,17 +180,17 @@
     <update id="updateByPrimaryKey" parameterType="com.jason.member.dao.vo.Account">
         update cs_member_account
         set community_id = #{communityId,jdbcType=VARCHAR},
-          username = #{username,jdbcType=VARCHAR},
-          password = #{password,jdbcType=VARCHAR},
-          type = #{type,jdbcType=INTEGER},
-          nickname = #{nickname,jdbcType=VARCHAR},
-          phone = #{phone,jdbcType=VARCHAR},
-          email = #{email,jdbcType=VARCHAR},
-          del_flg = #{delFlg,jdbcType=BIT},
-          create_user = #{createUser,jdbcType=VARCHAR},
-          create_time = #{createTime,jdbcType=TIMESTAMP},
-          update_user = #{updateUser,jdbcType=VARCHAR},
-          update_time = #{updateTime,jdbcType=TIMESTAMP}
+            username     = #{username,jdbcType=VARCHAR},
+            password     = #{password,jdbcType=VARCHAR},
+            type         = #{type,jdbcType=INTEGER},
+            nickname     = #{nickname,jdbcType=VARCHAR},
+            phone        = #{phone,jdbcType=VARCHAR},
+            email        = #{email,jdbcType=VARCHAR},
+            del_flg      = #{delFlg,jdbcType=BIT},
+            create_user  = #{createUser,jdbcType=VARCHAR},
+            create_time  = #{createTime,jdbcType=TIMESTAMP},
+            update_user  = #{updateUser,jdbcType=VARCHAR},
+            update_time  = #{updateTime,jdbcType=TIMESTAMP}
         where account_id = #{accountId,jdbcType=VARCHAR}
     </update>
 
@@ -202,12 +202,63 @@
     <select id="login" resultType="java.lang.Boolean">
         SELECT COUNT(*)
         FROM cs_member_account
-        WHERE `username` = #{username} AND `password` = #{password} AND del_flg = 0
+        WHERE `username` = #{username}
+          AND `password` = #{password}
+          AND del_flg = 0
     </select>
 
     <select id="isUsernameOnly" resultType="java.lang.Boolean">
         SELECT COUNT(*) = 0
         FROM cs_member_account
-        WHERE `username` = #{username} AND del_flg = 0
+        WHERE `username` = #{username}
+          AND del_flg = 0
+    </select>
+
+    <select id="findAccountByUsername" resultType="com.jason.member.dao.vo.Account">
+        SELECT a.`account_id`   AS accountId,
+               a.`community_id` AS communityId,
+               a.`username`     AS username,
+               a.`type`         AS type,
+               a.`nickname`     AS nickname,
+               a.`phone`        AS phone,
+               a.`email`        AS email
+        FROM cs_member_account a
+        WHERE a.username = #{username}
+          AND a.del_flg = 0
+    </select>
+
+    <select id="findAccountByAccountId" resultType="com.jason.member.dao.vo.Account">
+        SELECT a.`account_id`   AS accountId,
+               a.`community_id` AS communityId,
+               a.`username`     AS username,
+               a.`type`         AS type,
+               a.`nickname`     AS nickname,
+               a.`phone`        AS phone,
+               a.`email`        AS email
+        FROM cs_member_account a
+        WHERE a.account_id = #{accountId}
+          AND a.del_flg = 0
+    </select>
+
+    <select id="findAdminListByCommunityId" resultType="com.jason.member.dao.vo.Account">
+        SELECT a.`account_id`   AS accountId,
+               a.`community_id` AS communityId,
+               a.`username`     AS username,
+               a.`type`         AS type,
+               a.`nickname`     AS nickname,
+               a.`phone`        AS phone,
+               a.`email`        AS email
+        FROM cs_member_account a
+        WHERE a.del_flg = 0
+          AND a.community_id = #{communityId}
+          AND a.type = #{type}
+    </select>
+
+    <select id="findPopulationByCommunityId" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM cs_member_account
+        WHERE del_flg = 0
+          AND community_id = #{communityId}
+          AND type = #{type}
     </select>
 </mapper>

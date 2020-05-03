@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
-@EnableFeignClients({"com.jason.member.api"})
+@EnableFeignClients({"com.jason.member.api", "com.jason.community.api"})
 @EnableEurekaClient
 @SpringBootApplication
 public class WebUserApplication {

@@ -13,5 +13,13 @@ public interface IAccountService {
 
     Boolean isUsernameOnly(String username);
 
-    Integer createAccount(Account account);
+    String createAccount(Account account);
+
+    Account findAccountByUsername(String username);
+
+    Account findAccountByAccountId(String accountId);
+
+    List<Account> findAdminListByCommunityId(String communityId);
+
+    Integer findPopulationByCommunityId(String communityId);
 }

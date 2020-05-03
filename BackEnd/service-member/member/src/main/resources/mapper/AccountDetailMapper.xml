@@ -17,7 +17,7 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-        id, account_id, sex, birthday, constellation, address, del_flg, create_user, create_time,
+    id, account_id, sex, birthday, constellation, address, del_flg, create_user, create_time,
     update_user, update_time
     </sql>
 
@@ -28,10 +28,10 @@
         where id = #{id,jdbcType=VARCHAR}
     </select>
 
-    <select id="findAccountDetailByAccountId" resultType="com.jason.member.dao.vo.AccountDetail">
+    <select id="findAccountDetailByAccountId" resultMap="BaseResultMap">
         SELECT *
         FROM cs_member_account_detail
-        WHERE account_id = #{accountId}
+        WHERE account_id = #{accountId} AND del_flg = 0
     </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String">

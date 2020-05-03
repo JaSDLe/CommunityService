@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="page">
     <van-form ref="form" autocomplete="off" @submit="onSubmit">
       <van-row>
         <van-icon name="manager" size="30" />
@@ -101,30 +101,17 @@ export default {
       return val == this.password
     },
     onSubmit(values) {
-      this.$toast.loading({
-        duration: 0,
-        message: "加载中...",
-        forbidClick: true
-      })
       register({ username: this.username, password: this.password }).then(res => {
-        // if (res.success) {
-          this.$toast({
-            type: res.success && res.data ? 'success' : 'fail',
-            message: res.description
+        this.$toast({
+          type: res.success && res.data ? 'success' : 'fail',
+          message: res.description
+        })
+        if (res.data) {
+          this.$router.push({
+            path: "/login",
+            query: { username: this.username }
           })
-          if (res.data) {
-            // this.$toast.success("注册成功")
-            this.$router.push({
-              path: "/login",
-              query: { username: this.username }
-            })
-          }
-          // else {
-            // this.$toast.fail('该用户名已被注册，请更换')
-          // }
-        // } else {
-          // this.$toast.fail(res.description)
-        // }
+        }
       })
     },
     toLogin() {
@@ -138,6 +125,12 @@ export default {
 </script>
 
 <style scoped>
+.page {
+  height: 100%;
+  width: 100%;
+  background-color: #fff;
+  position: fixed;
+}
 .van-form {
   width: 80%;
   margin-left: auto;

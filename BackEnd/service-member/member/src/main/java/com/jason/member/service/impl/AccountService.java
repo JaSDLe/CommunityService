@@ -36,7 +36,7 @@ public class AccountService implements IAccountService {
     }
 
     @Override
-    public Integer createAccount(Account account) {
+    public String createAccount(Account account) {
         account.setAccountId(UUID.randomUUID().toString().replace("-", ""));
         account.setType(AccountTypeEnum.RESIDENT.getKey());
         account.setDelFlg(Boolean.FALSE);
@@ -45,6 +45,30 @@ public class AccountService implements IAccountService {
         account.setUpdateUser("system");
         account.setUpdateTime(new Date());
         log.info("=====> createAccount : {}", account);
-        return accountMapper.insertSelective(account);
+        if (accountMapper.insertSelective(account) == 1) {
+            return account.getAccountId();
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public Account findAccountByUsername(String username) {
+        return accountMapper.findAccountByUsername(username);
+    }
+
+    @Override
+    public Account findAccountByAccountId(String accountId) {
+        return accountMapper.findAccountByAccountId(accountId);
+    }
+
+    @Override
+    public List<Account> findAdminListByCommunityId(String communityId) {
+        return accountMapper.findAdminListByCommunityId(communityId, AccountTypeEnum.ADMINISTRATOR.getKey());
+    }
+
+    @Override
+    public Integer findPopulationByCommunityId(String communityId) {
+        return accountMapper.findPopulationByCommunityId(communityId, AccountTypeEnum.RESIDENT.getKey());
     }
 }

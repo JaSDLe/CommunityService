@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="page">
     <van-form autocomplete="off" @submit="onSubmit">
       <van-row>
         <van-icon name="manager" size="30" />
@@ -41,15 +41,12 @@
         >没有账号? 去注册</van-button>
       </div>
     </van-form>
-    <div>
-      <!-- <span>{{data}}</span> -->
-    </div>
   </div>
 </template>
 
 <script>
 import { Form, Field, Button, Icon, Row, Col, Toast, Divider } from "vant"
-import { findAll, login } from "@/api/member"
+import { login } from "@/api/member"
 
 export default {
   components: {
@@ -73,7 +70,6 @@ export default {
   },
 
   created() {
-    // this.findAll()
     console.log(this.$route.query)
     if (this.$route.query.username) {
       this.username = this.$route.query.username
@@ -86,27 +82,18 @@ export default {
       return val.replace(/\s*/g, "")
     },
     onSubmit(values) {
-      this.$toast.loading({
-        duration: 0,
-        message: "加载中...",
-        forbidClick: true
-      })
       login({ username: this.username, password: this.password }).then(res => {
+        this.$toast({
+          type: res.success && res.data ? 'success' : 'fail',
+          message: res.description
+        })
         if (res.data) {
-          this.$toast.success("登录成功")
-          this.$router.push({
-            path: "/member/user-center",
-            query: {}
+          this.$store.dispatch('login', res.data).then(() => {
+            this.$router.push({
+              path: "/member/user-center"
+            })
           })
-        } else {
-          this.$toast.fail("用户名或密码错误")
         }
-      })
-    },
-    findAll() {
-      findAll().then(res => {
-        console.log(res)
-        this.data = res
       })
     },
     toRegister() {
@@ -119,6 +106,12 @@ export default {
 </script>
 
 <style scoped>
+.page {
+  height: 100%;
+  width: 100%;
+  background-color: #fff;
+  position: fixed;
+}
 .van-form {
   width: 80%;
   margin-left: auto;

@@ -1,6 +1,7 @@
 package com.jason.web.user.controller;
 
 import com.jason.member.api.dto.AccountDTO;
+import com.jason.member.api.dto.AccountSimpleDTO;
 import com.jason.member.api.dto.LoginDTO;
 import com.jason.member.api.dto.RegisterDTO;
 import com.jason.member.api.service.IAccountService;
@@ -27,8 +28,13 @@ public class AccountController {
     }
 
     @PostMapping("/login")
-    public ItemResult<Boolean> login(@RequestBody LoginDTO loginDTO) {
-        return new ItemResult<>(accountService.login(loginDTO));
+    public ItemResult<AccountSimpleDTO> login(@RequestBody LoginDTO loginDTO) {
+        AccountSimpleDTO accountSimpleDTO = accountService.login(loginDTO);
+        if (accountSimpleDTO != null && accountSimpleDTO.getAccountId() != null) {
+            return new ItemResult<>(accountSimpleDTO, "登录成功");
+        } else {
+            return new ItemResult<>("400", "用户名或密码错误");
+        }
     }
 
     @PostMapping("/register")

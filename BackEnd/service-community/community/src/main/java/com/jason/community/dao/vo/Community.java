@@ -13,6 +13,8 @@ public class Community {
 
     private String communityInfo;
 
+    private String index;
+
     private Boolean delFlg;
 
     private String createUser;

@@ -1,6 +1,7 @@
 package com.jason.member.controller;
 
 import com.jason.member.api.dto.AccountDTO;
+import com.jason.member.api.dto.AccountSimpleDTO;
 import com.jason.member.api.dto.LoginDTO;
 import com.jason.member.api.dto.RegisterDTO;
 import com.jason.member.biz.IAccountBiz;
@@ -32,12 +33,22 @@ public class AccountController {
     }
 
     @PostMapping("/login")
-    public Boolean login(@RequestBody LoginDTO loginDTO) {
+    public AccountSimpleDTO login(@RequestBody LoginDTO loginDTO) {
         return accountBiz.login(loginDTO);
     }
 
     @PostMapping("/register")
     public Boolean register(@RequestBody RegisterDTO registerDTO) {
         return accountBiz.register(registerDTO);
+    }
+
+    @GetMapping("/findAdminListByCommunityId")
+    public List<AccountSimpleDTO> findAdminListByCommunityId(@RequestParam("communityId") String communityId) {
+        return accountBiz.findAdminListByCommunityId(communityId);
+    }
+
+    @GetMapping("/findPopulationByCommunityId")
+    public Integer findPopulationByCommunityId(@RequestParam("communityId") String communityId) {
+        return accountBiz.findPopulationByCommunityId(communityId);
     }
 }

@@ -15,6 +15,10 @@ public interface AccountMapper {
 
     Boolean isUsernameOnly(@Param("username") String username);
 
+    Account findAccountByUsername(@Param("username") String username);
+
+    Account findAccountByAccountId(@Param("accountId") String accountId);
+
 
     int deleteByPrimaryKey(String accountId);
 
@@ -27,4 +31,8 @@ public interface AccountMapper {
     int updateByPrimaryKeySelective(Account account);
 
     int updateByPrimaryKey(Account account);
+
+    List<Account> findAdminListByCommunityId(@Param("communityId") String communityId, @Param("type") Integer type);
+
+    Integer findPopulationByCommunityId(@Param("communityId") String communityId, @Param("type") Integer type);
 }

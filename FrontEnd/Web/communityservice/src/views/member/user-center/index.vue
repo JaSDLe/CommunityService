@@ -6,10 +6,10 @@
           <van-image round width="80" height="80"></van-image>
           <van-col style="margin-left: 13px;">
             <van-row>
-              <div style="font-size: 19px;">昵称</div>
+              <div style="font-size: 19px;">{{ nickname }}</div>
             </van-row>
             <van-row>
-              <div style="font-size: 13px;">用户名</div>
+              <div style="font-size: 13px;">{{ username }}</div>
             </van-row>
           </van-col>
         </van-row>
@@ -110,8 +110,8 @@
 </template>
 
 <script>
-import TabBar from "@/components/tab-bar";
-import { Form, Field, Button, Icon, Row, Col, Cell, Image } from "vant";
+import TabBar from "@/components/tab-bar"
+import { Form, Field, Button, Icon, Row, Col, Cell, Image } from "vant"
 
 export default {
   components: {
@@ -127,19 +127,27 @@ export default {
   },
 
   data() {
-    return {};
+    return {
+      nickname: '',
+      username: ''
+    }
+  },
+
+  created() {
+    this.nickname = this.$store.getters.getNickname || '未设置昵称'
+    this.username = this.$store.getters.getUsername
   },
 
   methods: {
     toDetail() {
       this.$router.push({
         path: "/member/account-detail"
-      });
+      })
     },
     toCommunity() {
       this.$router.push({
         path: "/community/list"
-      });
+      })
     }
   }
 };
