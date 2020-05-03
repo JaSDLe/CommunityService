@@ -2,7 +2,9 @@ package com.jason.news.dao.mapper;
 
 
 import com.jason.news.dao.vo.Notice;
+import org.springframework.stereotype.Component;
 
+@Component
 public interface NoticeMapper {
 
     int deleteByPrimaryKey(String noticeId);

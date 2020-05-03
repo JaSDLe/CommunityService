@@ -52,19 +52,19 @@ export default {
   props: {
     title: {
       type: String,
-      default: '新款小米笔记本获蓝牙认证：13.3/14/16.1英寸全覆盖'
+      // default: '新款小米笔记本获蓝牙认证：13.3/14/16.1英寸全覆盖'
     },
     cover: {
       type: String,
-      default: 'https://img.yzcdn.cn/vant/cat1.jpeg'
+      // default: 'https://img.yzcdn.cn/vant/cat1.jpeg'
     },
     replyNum: {
       type: Number,
-      default: 0
+      // default: 0
     },
     createTime: {
-      type: Number,
-      default: Date.now()
+      type: String,
+      // default: Date.now()
     },
   },
 

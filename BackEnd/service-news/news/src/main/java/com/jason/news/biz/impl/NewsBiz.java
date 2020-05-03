@@ -1,0 +1,41 @@
+package com.jason.news.biz.impl;
+
+import com.github.pagehelper.PageInfo;
+import com.jason.news.api.dto.NewsDTO;
+import com.jason.news.api.dto.NewsQueryDTO;
+import com.jason.news.biz.INewsBiz;
+import com.jason.news.dao.vo.News;
+import com.jason.news.service.INewsService;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.stream.Collectors;
+
+@Slf4j
+@Service
+public class NewsBiz implements INewsBiz {
+
+    @Autowired
+    private INewsService newsService;
+
+    @Override
+    public PageInfo<NewsDTO> pageNews(NewsQueryDTO queryDTO) {
+        return PageInfo.of(newsService.pageNews(queryDTO).stream().map(this::vO2DTO).collect(Collectors.toList()));
+    }
+
+    @Override
+    public NewsDTO findByNewsId(String newsId) {
+        return vO2DTO(newsService.findByNewsId(newsId));
+    }
+
+    private NewsDTO vO2DTO(News news) {
+        if (news == null) {
+            return null;
+        }
+        NewsDTO newsDTO = new NewsDTO();
+        BeanUtils.copyProperties(news, newsDTO);
+        return newsDTO;
+    }
+}

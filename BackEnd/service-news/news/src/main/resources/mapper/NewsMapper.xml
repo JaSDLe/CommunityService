@@ -21,7 +21,7 @@
 
     <sql id="Base_Column_List">
         news_id, title, cover, reply_num, community_id, del_flg, create_user, create_time,
-    update_user, update_time
+        update_user, update_time
     </sql>
 
     <sql id="Blob_Column_List">
@@ -35,6 +35,22 @@
         <include refid="Blob_Column_List"/>
         from cs_news_news
         where news_id = #{newsId,jdbcType=VARCHAR}
+    </select>
+
+    <select id="findByNewsId" resultMap="BaseResultMap">
+        SELECT *
+        FROM cs_news_news
+        WHERE del_flg = 0
+          AND news_id = #{newsId}
+    </select>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        SELECT *
+        FROM cs_news_news
+        WHERE del_flg = 0
+        <if test='communityId != null and communityId != ""'>
+            AND community_id = #{communityId}
+        </if>
     </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String">

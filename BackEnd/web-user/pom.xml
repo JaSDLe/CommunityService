@@ -45,6 +45,12 @@
         </dependency>
 
         <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper-spring-boot-starter</artifactId>
+            <version>1.2.13</version>
+        </dependency>
+
+        <dependency>
             <groupId>com.jason</groupId>
             <artifactId>member-api</artifactId>
             <version>0.0.1-SNAPSHOT</version>
@@ -53,6 +59,12 @@
         <dependency>
             <groupId>com.jason</groupId>
             <artifactId>community-api</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.jason</groupId>
+            <artifactId>news-api</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
