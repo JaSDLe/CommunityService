@@ -1,8 +1,9 @@
 package com.jason.message.dao.mapper;
 
-
 import com.jason.message.dao.vo.Message;
+import org.springframework.stereotype.Component;
 
+@Component
 public interface MessageMapper {
 
     int deleteByPrimaryKey(String id);

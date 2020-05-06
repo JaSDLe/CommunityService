@@ -1,8 +1,9 @@
 package com.jason.activity.dao.mapper;
 
-
 import com.jason.activity.dao.vo.Comment;
+import org.springframework.stereotype.Component;
 
+@Component
 public interface CommentMapper {
 
     int deleteByPrimaryKey(String commentId);

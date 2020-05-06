@@ -1,8 +1,12 @@
 package com.jason.activity.dao.mapper;
 
-
 import com.jason.activity.dao.vo.Activity;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Component;
 
+import java.util.List;
+
+@Component
 public interface ActivityMapper {
 
     int deleteByPrimaryKey(String activityId);
@@ -16,4 +20,8 @@ public interface ActivityMapper {
     int updateByPrimaryKeySelective(Activity record);
 
     int updateByPrimaryKey(Activity record);
+
+    List<Activity> findAll(@Param("communityId") String communityId);
+
+    Activity findByActivityId(@Param("activityId") String activityId);
 }

@@ -26,6 +26,22 @@
         where activity_id = #{activityId,jdbcType=VARCHAR}
     </select>
 
+    <select id="findAll" resultMap="BaseResultMap">
+        SELECT *
+        FROM cs_activity_activity
+        WHERE del_flg = 0
+        <if test='communityId != null and communityId != ""'>
+            AND community_id = #{communityId}
+        </if>
+    </select>
+
+    <select id="findByActivityId" resultMap="BaseResultMap">
+        SELECT *
+        FROM cs_activity_activity
+        WHERE del_flg = 0
+          AND activity_id = #{activityId}
+    </select>
+
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
         delete
         from cs_activity_activity
