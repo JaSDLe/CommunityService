@@ -37,7 +37,7 @@
 <script>
 import TabBar from "@/components/tab-bar"
 import NewsItem from "@/components/news-item"
-import { PullRefresh, List, Cell, Search } from "vant"
+import { PullRefresh, List, Search } from "vant"
 import { pageNews } from '@/api/news'
 
 export default {
@@ -46,7 +46,6 @@ export default {
     NewsItem,
     [PullRefresh.name]: PullRefresh,
     [List.name]: List,
-    [Cell.name]: Cell,
     [Search.name]: Search
   },
 

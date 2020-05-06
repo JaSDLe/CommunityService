@@ -65,7 +65,7 @@ export default {
       default: 4
     },
     createTime: {
-      type: Number,
+      type: String,
       default: Date.now()
     },
   },
