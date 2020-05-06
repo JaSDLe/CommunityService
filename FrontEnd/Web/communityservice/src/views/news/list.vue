@@ -8,6 +8,24 @@
       @cancel="onCancel"
     />
 
+    <news-item
+      title="titleeee"
+      cover="item.cover"
+      reply-num="item.replyNum"
+      create-time="item.createTime"
+    />
+
+    <!-- <van-skeleton title avatar avatar-shape="square" avatar-size="50" :row="2" :loading="loading">
+      <news-item
+        title="titleeee"
+        cover="item.cover"
+        reply-num="item.replyNum"
+        create-time="item.createTime"
+      />
+    </van-skeleton> -->
+
+    <skeleton-news-item />
+
     <van-pull-refresh v-model="isRefreshing" @refresh="onRefresh" success-text="刷新成功">
       <van-list
         v-model="isListLoading"
@@ -35,23 +53,26 @@
 </template>
 
 <script>
-import TabBar from "@/components/tab-bar"
-import NewsItem from "@/components/news-item"
-import { PullRefresh, List, Search } from "vant"
-import { pageNews } from '@/api/news'
+import TabBar from "@/components/tab-bar";
+import NewsItem from "@/components/news-item";
+import SkeletonNewsItem from "@/components/skeleton-news-item";
+import { PullRefresh, List, Search, Skeleton } from "vant";
+import { pageNews } from "@/api/news";
 
 export default {
   components: {
     TabBar,
     NewsItem,
+    SkeletonNewsItem,
     [PullRefresh.name]: PullRefresh,
     [List.name]: List,
-    [Search.name]: Search
+    [Search.name]: Search,
+    [Skeleton.name]: Skeleton
   },
 
   data() {
     return {
-      search: '',
+      search: "",
       isShowCancel: false,
       list: [],
       isRefreshing: false,
@@ -62,21 +83,21 @@ export default {
         communityId: null,
         pageNum: 1,
         pageSize: 10
-      }
-    }
+      },
+      loading: true
+    };
   },
 
-  created() {
-  },
+  created() {},
 
   methods: {
     onLoad() {
       // setTimeout(() => {
       if (this.isRefreshing) {
-        this.list = []
-        this.isRefreshing = false
+        this.list = [];
+        this.isRefreshing = false;
       }
-      this.getData()
+      // this.getData()
 
       // for (let i = 0; i < 10; i++) {
       //   this.list.push(this.list.length + 1)
@@ -90,31 +111,31 @@ export default {
     },
     onRefresh() {
       // 清空列表数据
-      this.isListFinished = false
+      this.isListFinished = false;
       // 重新加载数据
       // 将 loading 设置为 true，表示处于加载状态
-      this.isListLoading = true
-      this.onLoad()
+      this.isListLoading = true;
+      this.onLoad();
     },
     getData() {
       pageNews(this.query).then(res => {
         if (res.data) {
-          this.list = this.list.concat(res.data.list)
-          this.isListLoading = false
+          this.list = this.list.concat(res.data.list);
+          this.isListLoading = false;
 
           if (res.data.isLastPage) {
-            this.isListFinished = true
+            this.isListFinished = true;
           }
         }
-      })
+      });
     },
     onSearch(val) {
-      console.log(val)
-      this.isShowCancel = true
+      console.log(val);
+      this.isShowCancel = true;
     },
     onCancel() {
-      this.isShowCancel = false
-    },
+      this.isShowCancel = false;
+    }
   }
 };
 </script>
