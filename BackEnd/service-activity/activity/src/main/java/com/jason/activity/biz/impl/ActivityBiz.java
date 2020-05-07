@@ -11,8 +11,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.stream.Collectors;
-
 @Slf4j
 @Service
 public class ActivityBiz implements IActivityBiz {
@@ -21,7 +19,7 @@ public class ActivityBiz implements IActivityBiz {
     private IActivityService activityService;
 
     public PageInfo<ActivityDTO> pageActivity(ActivityQueryDTO queryDTO) {
-        return PageInfo.of(activityService.pageActivity(queryDTO).stream().map(this::vO2DTO).collect(Collectors.toList()));
+        return activityService.pageActivity(queryDTO);
     }
 
     @Override

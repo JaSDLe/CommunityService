@@ -35,13 +35,13 @@ export default {
 };
 </script>
 
-<style>
-.van-nav-bar {
+<style scoped lang='postcss'>
+/deep/.van-nav-bar {
   height: 55px;
   line-height: 55px;
 }
-.van-nav-bar__title,
-.van-nav-bar__arrow {
+/deep/.van-nav-bar__title,
+/deep/.van-nav-bar__arrow {
   font-size: 20px;
 }
 </style>

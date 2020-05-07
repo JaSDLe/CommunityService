@@ -26,13 +26,25 @@
         where activity_id = #{activityId,jdbcType=VARCHAR}
     </select>
 
-    <select id="findAll" resultMap="BaseResultMap">
-        SELECT *
-        FROM cs_activity_activity
-        WHERE del_flg = 0
+    <select id="findAll" resultType="com.jason.activity.api.dto.ActivityDTO">
+        SELECT
+        aa.activity_id AS activityId,
+        aa.content AS content,
+        aa.reply_num AS replyNum,
+        aa.community_id AS communityId,
+        aa.del_flg AS delFlg,
+        aa.create_user AS createUser,
+        aa.create_time AS createTime,
+        aa.update_user AS updateUser,
+        aa.update_time AS updateTime
+        FROM
+        cs_activity_activity AS aa
+        WHERE
+        aa.del_flg = 0
         <if test='communityId != null and communityId != ""'>
-            AND community_id = #{communityId}
+            AND aa.community_id = #{communityId}
         </if>
+        ORDER BY aa.create_time DESC
     </select>
 
     <select id="findByActivityId" resultMap="BaseResultMap">

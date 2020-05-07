@@ -44,13 +44,27 @@
           AND news_id = #{newsId}
     </select>
 
-    <select id="findAll" resultMap="BaseResultMap">
-        SELECT *
-        FROM cs_news_news
-        WHERE del_flg = 0
+    <select id="findAll" resultType="com.jason.news.api.dto.NewsDTO">
+        SELECT
+        nn.news_id AS newsId,
+        nn.title AS title,
+        nn.content AS content,
+        nn.cover AS cover,
+        nn.reply_num AS replyNum,
+        nn.community_id AS communityId,
+        nn.del_flg AS delFlg,
+        nn.create_user AS createUser,
+        nn.create_time AS createTime,
+        nn.update_user AS updateUser,
+        nn.update_time AS updateTime
+        FROM
+        cs_news_news AS nn
+        WHERE
+        nn.del_flg = 0
         <if test='communityId != null and communityId != ""'>
             AND community_id = #{communityId}
         </if>
+        ORDER BY nn.create_time DESC
     </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String">

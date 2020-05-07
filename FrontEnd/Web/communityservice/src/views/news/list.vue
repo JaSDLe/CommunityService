@@ -8,23 +8,14 @@
       @cancel="onCancel"
     />
 
-    <news-item
+    <!-- <news-item
       title="titleeee"
       cover="item.cover"
       reply-num="item.replyNum"
       create-time="item.createTime"
-    />
+    />-->
 
-    <!-- <van-skeleton title avatar avatar-shape="square" avatar-size="50" :row="2" :loading="loading">
-      <news-item
-        title="titleeee"
-        cover="item.cover"
-        reply-num="item.replyNum"
-        create-time="item.createTime"
-      />
-    </van-skeleton> -->
-
-    <skeleton-news-item />
+    <!-- <skeleton-news-item v-for="i in 3" :key="i" :loading="loading" /> -->
 
     <van-pull-refresh v-model="isRefreshing" @refresh="onRefresh" success-text="刷新成功">
       <van-list
@@ -43,6 +34,15 @@
           :reply-num="item.replyNum"
           :create-time="item.createTime"
         />
+        <!-- <skeleton-news-item
+          v-for="(item, index) in list"
+          :key="index"
+          :loading="loading"
+          :title="item.title"
+          :cover="item.cover"
+          :reply-num="item.replyNum"
+          :create-time="item.createTime"
+        />-->
       </van-list>
     </van-pull-refresh>
 
@@ -53,11 +53,11 @@
 </template>
 
 <script>
-import TabBar from "@/components/tab-bar";
-import NewsItem from "@/components/news-item";
-import SkeletonNewsItem from "@/components/skeleton-news-item";
-import { PullRefresh, List, Search, Skeleton } from "vant";
-import { pageNews } from "@/api/news";
+import TabBar from "@/components/tab-bar"
+import NewsItem from "@/components/news-item"
+import SkeletonNewsItem from "@/components/skeleton-news-item"
+import { PullRefresh, List, Search, Skeleton } from "vant"
+import { pageNews } from "@/api/news"
 
 export default {
   components: {
@@ -84,57 +84,54 @@ export default {
         pageNum: 1,
         pageSize: 10
       },
-      loading: true
-    };
+    }
   },
 
-  created() {},
+  created() { },
 
   methods: {
     onLoad() {
       // setTimeout(() => {
+      //   this.loading = false
+      // }, 1500)
       if (this.isRefreshing) {
-        this.list = [];
-        this.isRefreshing = false;
+        this.list = []
+        this.isRefreshing = false
       }
-      // this.getData()
-
-      // for (let i = 0; i < 10; i++) {
-      //   this.list.push(this.list.length + 1)
-      // }
-      // this.isListLoading = false
-
-      // if (this.list.length >= 40) {
-      //   this.isListFinished = true
-      // }
-      // }, 1000)
+      this.getData()
     },
     onRefresh() {
+      this.query.pageNum = 1
       // 清空列表数据
-      this.isListFinished = false;
+      this.isListFinished = false
       // 重新加载数据
       // 将 loading 设置为 true，表示处于加载状态
-      this.isListLoading = true;
-      this.onLoad();
+      this.isListError = false
+      this.isListLoading = true
+      this.onLoad()
     },
     getData() {
       pageNews(this.query).then(res => {
         if (res.data) {
-          this.list = this.list.concat(res.data.list);
-          this.isListLoading = false;
-
+          this.isListError = false
+          this.list = this.list.concat(res.data.list)
           if (res.data.isLastPage) {
-            this.isListFinished = true;
+            this.isListFinished = true
+          } else {
+            this.query.pageNum = res.data.nextPage
           }
+        } else {
+          this.isListError = true
         }
-      });
+        this.isListLoading = false
+      })
     },
     onSearch(val) {
-      console.log(val);
-      this.isShowCancel = true;
+      console.log(val)
+      this.isShowCancel = true
     },
     onCancel() {
-      this.isShowCancel = false;
+      this.isShowCancel = false
     }
   }
 };

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <van-cell style="padding-bottom: 0;" center @click="toDetail">
+    <van-cell style="padding-bottom: 0;margin-bottom: 10px;" center @click="toDetail">
       <template #default>
         <van-row>
           <van-col>
@@ -13,7 +13,7 @@
               </template>
             </van-image>
           </van-col>
-          <van-col style="margin-left: 10px;">
+          <van-col style="margin-left: 15px;">
             <van-row>
               <div class="nickname">{{ nickname }}</div>
             </van-row>
@@ -100,10 +100,6 @@ export default {
 </script>
 
 <style scoped>
-.button-row {
-  margin-top: 10px;
-  border-top: 0.5px solid #ebedf0;
-}
 .nickname {
   font-size: 16px;
   color: black;
@@ -117,6 +113,10 @@ export default {
   font-size: 16px;
   color: black;
   word-break: break-all;
+}
+.button-row {
+  margin-top: 10px;
+  border-top: 0.5px solid #ebedf0;
 }
 .btn {
   background-color: rgba(255, 255, 255, 0);

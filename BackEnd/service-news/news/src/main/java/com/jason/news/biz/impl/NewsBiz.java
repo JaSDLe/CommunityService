@@ -11,8 +11,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.stream.Collectors;
-
 @Slf4j
 @Service
 public class NewsBiz implements INewsBiz {
@@ -22,7 +20,8 @@ public class NewsBiz implements INewsBiz {
 
     @Override
     public PageInfo<NewsDTO> pageNews(NewsQueryDTO queryDTO) {
-        return PageInfo.of(newsService.pageNews(queryDTO).stream().map(this::vO2DTO).collect(Collectors.toList()));
+//        return PageInfo.of(newsService.pageNews(queryDTO).stream().map(this::vO2DTO).collect(Collectors.toList()));
+        return newsService.pageNews(queryDTO);
     }
 
     @Override

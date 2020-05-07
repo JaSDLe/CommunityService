@@ -17,7 +17,7 @@
 <script>
 import NavBar from "@/components/nav-bar"
 import CommunityItem from "@/components/community-item"
-import { IndexBar, IndexAnchor, Cell, Toast } from "vant"
+import { IndexBar, IndexAnchor, Cell } from "vant"
 import { findAll } from "@/api/community"
 
 export default {
@@ -27,7 +27,6 @@ export default {
     [IndexBar.name]: IndexBar,
     [IndexAnchor.name]: IndexAnchor,
     [Cell.name]: Cell,
-    [Toast.name]: Toast,
   },
 
   data() {

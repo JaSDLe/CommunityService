@@ -29,7 +29,7 @@
 
 <script>
 import NavBar from "@/components/nav-bar"
-import { CellGroup, Cell, Image,Toast } from "vant"
+import { CellGroup, Cell, Image } from "vant"
 import { getUserInfoByAccountId } from "@/api/member"
 
 export default {
@@ -38,7 +38,6 @@ export default {
     [CellGroup.name]: CellGroup,
     [Cell.name]: Cell,
     [Image.name]: Image,
-    [Toast.name]: Toast,
   },
 
   props: {},
@@ -73,8 +72,8 @@ export default {
 };
 </script>
 
-<style>
-.van-cell {
+<style scoped lang='postcss'>
+/deep/.van-cell {
   font-size: 16px;
 }
 </style>

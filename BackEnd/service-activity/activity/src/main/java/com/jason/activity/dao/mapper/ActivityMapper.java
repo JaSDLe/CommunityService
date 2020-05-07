@@ -1,5 +1,6 @@
 package com.jason.activity.dao.mapper;
 
+import com.jason.activity.api.dto.ActivityDTO;
 import com.jason.activity.dao.vo.Activity;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
@@ -21,7 +22,7 @@ public interface ActivityMapper {
 
     int updateByPrimaryKey(Activity record);
 
-    List<Activity> findAll(@Param("communityId") String communityId);
+    List<ActivityDTO> findAll(@Param("communityId") String communityId);
 
     Activity findByActivityId(@Param("activityId") String activityId);
 }

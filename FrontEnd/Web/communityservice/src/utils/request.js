@@ -17,7 +17,7 @@ export default function createWebServiceHelper(baseUrl) {
   // request拦截器
   service.interceptors.request.use(config => {
     Toast.loading({
-      duration: 0,
+      duration: 3000,
       message: "加载中...",
       forbidClick: true
     })
