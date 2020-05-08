@@ -10,9 +10,9 @@ import java.util.List;
 @Component
 public interface CommunityMapper {
 
-    int deleteByPrimaryKey(String communityId);
+    Integer deleteByPrimaryKey(@Param("communityId") String communityId, @Param("operator") String operator);
 
-    int insert(Community record);
+    Integer insert(Community record);
 
     int insertSelective(Community record);
 
@@ -25,4 +25,6 @@ public interface CommunityMapper {
     List<Community> findAll();
 
     Community findByCommunityId(@Param("communityId") String communityId);
+
+    Integer updateCommunity(@Param("community") Community community);
 }

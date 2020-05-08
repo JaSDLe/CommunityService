@@ -35,4 +35,8 @@ public interface AccountMapper {
     List<Account> findAdminListByCommunityId(@Param("communityId") String communityId, @Param("type") Integer type);
 
     Integer findPopulationByCommunityId(@Param("communityId") String communityId, @Param("type") Integer type);
+
+    Boolean joinCommunity(@Param("accountId") String accountId, @Param("communityId") String communityId);
+
+    Integer updateAccountBaseInfo(Account account);
 }

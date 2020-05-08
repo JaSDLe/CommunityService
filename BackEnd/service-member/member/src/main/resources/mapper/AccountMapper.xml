@@ -194,6 +194,37 @@
         where account_id = #{accountId,jdbcType=VARCHAR}
     </update>
 
+    <update id="joinCommunity">
+        UPDATE cs_member_account
+        SET community_id = #{communityId}
+        WHERE account_id = #{accountId}
+    </update>
+
+    <update id="updateAccountBaseInfo" parameterType="com.jason.member.dao.vo.Account">
+        UPDATE cs_member_account
+        <set>
+            <if test="username != null">
+                username = #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="nickname != null">
+                nickname = #{nickname,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                phone = #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                email = #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="updateUser != null">
+                update_user = #{updateUser,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        WHERE account_id = #{accountId,jdbcType=VARCHAR}
+    </update>
+
     <select id="findAll" resultMap="BaseResultMap">
         SELECT *
         FROM cs_member_account

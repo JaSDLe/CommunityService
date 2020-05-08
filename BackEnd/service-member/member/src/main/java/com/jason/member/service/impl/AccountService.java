@@ -71,4 +71,16 @@ public class AccountService implements IAccountService {
     public Integer findPopulationByCommunityId(String communityId) {
         return accountMapper.findPopulationByCommunityId(communityId, AccountTypeEnum.RESIDENT.getKey());
     }
+
+    @Override
+    public Boolean joinCommunity(String accountId, String communityId) {
+        return accountMapper.joinCommunity(accountId, communityId);
+    }
+
+    @Override
+    public Integer updateAccountBaseInfo(Account account) {
+        account.setUpdateUser(account.getAccountId());
+        account.setUpdateTime(new Date());
+        return accountMapper.updateAccountBaseInfo(account);
+    }
 }

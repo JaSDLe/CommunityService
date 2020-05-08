@@ -29,4 +29,10 @@ public interface IAccountService {
 
     @RequestMapping(method = RequestMethod.GET, path = "/account/findPopulationByCommunityId", consumes = "application/json")
     Integer findPopulationByCommunityId(@RequestParam("communityId") String communityId);
+
+    @RequestMapping(method = RequestMethod.PUT, path = "/account/joinCommunity", consumes = "application/json")
+    Boolean joinCommunity(@RequestParam("accountId") String accountId, @RequestParam("communityId") String communityId);
+
+    @RequestMapping(method = RequestMethod.PUT, path = "/account/updateAccountBaseInfo", consumes = "application/json")
+    Boolean updateAccountBaseInfo(@RequestBody AccountDTO accountDTO);
 }

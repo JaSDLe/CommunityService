@@ -1,5 +1,6 @@
 package com.jason.member.biz;
 
+import com.jason.member.api.dto.AccountDTO;
 import com.jason.member.api.dto.AccountSimpleDTO;
 import com.jason.member.api.dto.LoginDTO;
 import com.jason.member.api.dto.RegisterDTO;
@@ -18,4 +19,8 @@ public interface IAccountBiz {
     List<AccountSimpleDTO> findAdminListByCommunityId(String communityId);
 
     Integer findPopulationByCommunityId(String communityId);
+
+    Boolean joinCommunity(String accountId, String communityId);
+
+    Boolean updateAccountBaseInfo(AccountDTO accountDTO);
 }

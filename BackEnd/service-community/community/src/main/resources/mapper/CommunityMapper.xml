@@ -40,11 +40,13 @@
           AND community_id = #{communityId}
     </select>
 
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-        delete
-        from cs_community_community
-        where community_id = #{communityId,jdbcType=VARCHAR}
-    </delete>
+    <update id="deleteByPrimaryKey">
+        UPDATE cs_community_community
+        SET del_flg        = 1,
+            update_user    = #{operator},
+            update_time    = NOW()
+        WHERE community_id = #{communityId}
+    </update>
 
     <insert id="insert" parameterType="com.jason.community.dao.vo.Community">
         insert into cs_community_community (community_id, community_name, community_info, `index`,
@@ -160,5 +162,27 @@
             update_user    = #{updateUser,jdbcType=VARCHAR},
             update_time    = #{updateTime,jdbcType=TIMESTAMP}
         where community_id = #{communityId,jdbcType=VARCHAR}
+    </update>
+
+    <update id="updateCommunity" parameterType="com.jason.community.dao.vo.Community">
+        UPDATE cs_community_community
+        <set>
+            <if test="communityName != null">
+                community_name = #{communityName,jdbcType=VARCHAR},
+            </if>
+            <if test="communityInfo != null">
+                community_info = #{communityInfo,jdbcType=VARCHAR},
+            </if>
+            <if test="index != null">
+                `index` = #{index,jdbcType=CHAR},
+            </if>
+            <if test="updateUser != null">
+                update_user = #{updateUser,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        WHERE community_id = #{communityId,jdbcType=VARCHAR}
     </update>
 </mapper>

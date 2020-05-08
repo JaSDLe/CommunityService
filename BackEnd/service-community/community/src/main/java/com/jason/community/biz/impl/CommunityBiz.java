@@ -29,6 +29,21 @@ public class CommunityBiz implements ICommunityBiz {
         return vO2DTO(communityService.findByCommunityId(communityId));
     }
 
+    @Override
+    public Boolean createCommunity(CommunityDTO communityDTO) {
+        return communityService.createCommunity(dTO2VO(communityDTO)) == 1;
+    }
+
+    @Override
+    public Boolean updateCommunity(CommunityDTO communityDTO) {
+        return communityService.updateCommunity(dTO2VO(communityDTO)) == 1;
+    }
+
+    @Override
+    public Boolean deleteCommunity(String communityId,String operator) {
+        return communityService.deleteCommunity(communityId, operator) == 1;
+    }
+
     private CommunityDTO vO2DTO(Community community) {
         if (community == null) {
             return null;
@@ -36,5 +51,14 @@ public class CommunityBiz implements ICommunityBiz {
         CommunityDTO communityDTO = new CommunityDTO();
         BeanUtils.copyProperties(community, communityDTO);
         return communityDTO;
+    }
+
+    private Community dTO2VO(CommunityDTO communityDTO) {
+        if (communityDTO == null) {
+            return null;
+        }
+        Community community = new Community();
+        BeanUtils.copyProperties(communityDTO, community);
+        return community;
     }
 }

@@ -51,4 +51,9 @@ public class AccountController {
             return new ItemResult<>(false, "该用户名已被注册，请更换");
         }
     }
+
+    @PutMapping("/joinCommunity")
+    public Boolean joinCommunity(@RequestParam("accountId") String accountId, @RequestParam("communityId") String communityId) {
+        return accountService.joinCommunity(accountId, communityId);
+    }
 }

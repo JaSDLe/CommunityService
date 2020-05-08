@@ -51,4 +51,14 @@ public class AccountController {
     public Integer findPopulationByCommunityId(@RequestParam("communityId") String communityId) {
         return accountBiz.findPopulationByCommunityId(communityId);
     }
+
+    @PutMapping("/account/joinCommunity")
+    public Boolean joinCommunity(@RequestParam("accountId") String accountId, @RequestParam("communityId") String communityId) {
+        return accountBiz.joinCommunity(accountId, communityId);
+    }
+
+    @PutMapping("/updateAccountBaseInfo")
+    public Boolean updateAccountBaseInfo(@RequestBody AccountDTO accountDTO){
+        return accountBiz.updateAccountBaseInfo(accountDTO);
+    }
 }

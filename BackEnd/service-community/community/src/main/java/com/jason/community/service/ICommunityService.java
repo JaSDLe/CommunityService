@@ -9,4 +9,10 @@ public interface ICommunityService {
     List<Community> findAll();
 
     Community findByCommunityId(String communityId);
+
+    Integer createCommunity(Community community);
+
+    Integer updateCommunity(Community community);
+
+    Integer deleteCommunity(String communityId, String operator);
 }

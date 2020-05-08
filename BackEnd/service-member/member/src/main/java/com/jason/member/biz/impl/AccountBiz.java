@@ -61,6 +61,16 @@ public class AccountBiz implements IAccountBiz {
         return accountService.findPopulationByCommunityId(communityId);
     }
 
+    @Override
+    public Boolean joinCommunity(String accountId, String communityId) {
+        return accountService.joinCommunity(accountId, communityId);
+    }
+
+    @Override
+    public Boolean updateAccountBaseInfo(AccountDTO accountDTO) {
+        return accountService.updateAccountBaseInfo(dTO2VO(accountDTO)) == 1;
+    }
+
     private Account dTO2VO(AccountDTO accountDTO) {
         if (accountDTO == null) {
             return null;

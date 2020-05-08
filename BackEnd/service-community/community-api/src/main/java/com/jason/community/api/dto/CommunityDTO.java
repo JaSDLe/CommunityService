@@ -16,4 +16,6 @@ public class CommunityDTO {
     private String index;
 
     private Date createTime;
+
+    private String updateUser;
 }

@@ -22,4 +22,8 @@ public interface IAccountService {
     List<Account> findAdminListByCommunityId(String communityId);
 
     Integer findPopulationByCommunityId(String communityId);
+
+    Boolean joinCommunity(String accountId, String communityId);
+
+    Integer updateAccountBaseInfo(Account account);
 }
