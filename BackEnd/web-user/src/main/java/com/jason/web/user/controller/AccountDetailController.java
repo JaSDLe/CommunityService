@@ -26,8 +26,12 @@ public class AccountDetailController {
         return new ItemResult<>(userInfo);
     }
 
-    @PostMapping("/updateAccountDetailByAccountId")
-    public ItemResult<Boolean> updateAccountDetailByAccountId(@RequestBody AccountDetailDTO accountDetailDTO) {
-        return new ItemResult<>(accountDetailService.updateAccountDetailByAccountId(accountDetailDTO));
+    @PutMapping("/updateAccountDetail")
+    public ItemResult<Boolean> updateAccountDetail(@RequestBody AccountDetailDTO accountDetailDTO) {
+        if (accountDetailService.updateAccountDetailByAccountId(accountDetailDTO)) {
+            return new ItemResult<>(true, "更新成功");
+        } else {
+            return new ItemResult<>(false, "更新失败");
+        }
     }
 }

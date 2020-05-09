@@ -53,7 +53,20 @@ public class AccountController {
     }
 
     @PutMapping("/joinCommunity")
-    public Boolean joinCommunity(@RequestParam("accountId") String accountId, @RequestParam("communityId") String communityId) {
-        return accountService.joinCommunity(accountId, communityId);
+    public ItemResult<Boolean> joinCommunity(@RequestParam("accountId") String accountId, @RequestParam("communityId") String communityId) {
+        if (accountService.joinCommunity(accountId, communityId)) {
+            return new ItemResult<>(true, "加入成功");
+        } else {
+            return new ItemResult<>(false, "加入失败");
+        }
+    }
+
+    @PutMapping("/updateAccountBaseInfo")
+    public ItemResult<Boolean> updateAccountBaseInfo(@RequestBody AccountDTO accountDTO) {
+        if (accountService.updateAccountBaseInfo(accountDTO)) {
+            return new ItemResult<>(true, "更新成功");
+        } else {
+            return new ItemResult<>(false, "更新失败");
+        }
     }
 }

@@ -28,9 +28,13 @@
 </template>
 
 <script>
-import NavBar from "@/components/nav-bar"
-import { CellGroup, Cell, Image } from "vant"
-import { getUserInfoByAccountId } from "@/api/member"
+import NavBar from "@/components/nav-bar";
+import { CellGroup, Cell, Image, Toast } from "vant";
+import {
+  getUserInfoByAccountId,
+  updateAccountBaseInfo,
+  updateAccountDetail
+} from "@/api/member";
 
 export default {
   components: {
@@ -38,15 +42,31 @@ export default {
     [CellGroup.name]: CellGroup,
     [Cell.name]: Cell,
     [Image.name]: Image,
+    [Toast.name]: Toast
   },
 
   props: {},
 
   data() {
     return {
+      accountId: null,
       account: {},
-      accountDetail: {}
-    }
+      accountDetail: {},
+      newAccount: {
+        accountId: null,
+        username: null,
+        nickname: null,
+        phone: null,
+        email: null
+      },
+      newAccountDetail: {
+        accountId: null,
+        sex: null,
+        birthday: null,
+        constellation: null,
+        address: null
+      }
+    };
   },
 
   computed: {},
@@ -54,19 +74,46 @@ export default {
   watch: {},
 
   created() {
-    this.getUserInfo(this.$store.getters.getAccountId)
+    this.accountId = this.$store.getters.getAccountId;
+    this.getUserInfo(this.accountId);
   },
 
-  mounted() { },
+  mounted() {},
 
   methods: {
     getUserInfo(accountId) {
       getUserInfoByAccountId(accountId).then(res => {
         if (res.data) {
-          this.account = res.data.accountSimpleDTO
-          this.accountDetail = res.data.accountDetailDTO
+          this.account = res.data.accountSimpleDTO;
+          this.accountDetail = res.data.accountDetailDTO;
         }
-      })
+      });
+    },
+    updateAccountBaseInfo(data) {
+      updateAccountBaseInfo(data).then(res => {
+        this.$toast({
+          type: res.success && res.data ? "success" : "fail",
+          message: res.description
+        });
+        if (res.data) {
+          this.$router.push({
+            path: "/member/account-detail"
+          });
+        }
+      });
+    },
+    updateAccountDetail(data) {
+      updateAccountDetail(data).then(res => {
+        this.$toast({
+          type: res.success && res.data ? "success" : "fail",
+          message: res.description
+        });
+        if (res.data) {
+          this.$router.push({
+            path: "/member/account-detail"
+          });
+        }
+      });
     }
   }
 };

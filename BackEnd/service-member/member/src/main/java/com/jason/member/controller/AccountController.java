@@ -58,7 +58,7 @@ public class AccountController {
     }
 
     @PutMapping("/updateAccountBaseInfo")
-    public Boolean updateAccountBaseInfo(@RequestBody AccountDTO accountDTO){
+    public Boolean updateAccountBaseInfo(@RequestBody AccountDTO accountDTO) {
         return accountBiz.updateAccountBaseInfo(accountDTO);
     }
 }

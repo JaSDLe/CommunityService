@@ -24,6 +24,7 @@ public class AccountDetailService implements IAccountDetailService {
 
     @Override
     public Integer updateAccountDetailByAccountId(AccountDetail accountDetail) {
+        accountDetail.setUpdateUser(accountDetail.getAccountId());
         accountDetail.setUpdateTime(new Date());
         return accountDetailMapper.updateAccountDetailByAccountId(accountDetail);
     }

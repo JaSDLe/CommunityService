@@ -27,9 +27,18 @@ export function getUserInfoByAccountId(data) {
   })
 }
 
-// export function findAll() {
-//   return user({
-//     url: '/userApi/accountDetail/findAll',
-//     method: 'get',
-//   })
-// }
+export function updateAccountBaseInfo(data) {
+  return user({
+    url: '/userApi/account/updateAccountBaseInfo',
+    method: 'put',
+    data
+  })
+}
+
+export function updateAccountDetail(data) {
+  return user({
+    url: '/userApi/accountDetail/updateAccountDetail',
+    method: 'put',
+    data
+  })
+}
