@@ -1,20 +1,26 @@
 package com.jason.activity.dao.mapper;
 
+import com.jason.activity.api.dto.CommentDTO;
 import com.jason.activity.dao.vo.Comment;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public interface CommentMapper {
 
-    int deleteByPrimaryKey(String commentId);
+    Integer deleteByPrimaryKey(@Param("commentId") String commentId);
 
-    int insert(Comment record);
+    Integer insert(Comment record);
 
-    int insertSelective(Comment record);
+    Integer insertSelective(Comment record);
 
     Comment selectByPrimaryKey(String commentId);
 
-    int updateByPrimaryKeySelective(Comment record);
+    Integer updateByPrimaryKeySelective(Comment record);
 
-    int updateByPrimaryKey(Comment record);
+    Integer updateByPrimaryKey(Comment record);
+
+    List<CommentDTO> findAll(@Param("parentId") String parentId);
 }

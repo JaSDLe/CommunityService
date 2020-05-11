@@ -24,11 +24,33 @@
         where comment_id = #{commentId,jdbcType=VARCHAR}
     </select>
 
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-        delete
-        from cs_activity_comment
-        where comment_id = #{commentId,jdbcType=VARCHAR}
-    </delete>
+    <select id="findAll" resultType="com.jason.activity.api.dto.CommentDTO">
+        SELECT
+        ac.comment_id AS commentId,
+        ac.content AS content,
+        ac.parent_id AS parentId,
+        ac.del_flg AS delFlg,
+        ac.create_user AS createUser,
+        ac.create_time AS createTime,
+        ac.update_user AS updateUser,
+        ac.update_time AS updateTime
+        FROM
+        cs_activity_comment AS ac
+        WHERE
+        ac.del_flg = 0
+        <if test='parentId != null and parentId != ""'>
+            AND ac.parent_id = #{parentId}
+        </if>
+        ORDER BY ac.create_time DESC
+    </select>
+
+    <update id="deleteByPrimaryKey" parameterType="java.lang.String">
+        UPDATE cs_activity_comment
+        SET
+            del_flg = 1,
+            update_time = NOW(),
+        WHERE comment_id = #{commentId}
+    </update>
 
     <insert id="insert" parameterType="com.jason.activity.dao.vo.Comment">
         insert into cs_activity_comment (comment_id, content, parent_id,
