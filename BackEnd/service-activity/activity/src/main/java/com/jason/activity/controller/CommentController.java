@@ -28,8 +28,8 @@ public class CommentController {
 
     @GetMapping("/pageCommentByParentId")
     PageInfo<CommentDTO> pageCommentByParentId(@RequestParam(value = "parentId", required = false) String parentId,
-                                         @RequestParam("pageNum") Integer pageNum,
-                                         @RequestParam("pageSize") Integer pageSize) {
+                                               @RequestParam("pageNum") Integer pageNum,
+                                               @RequestParam("pageSize") Integer pageSize) {
         return commentBiz.pageCommentByParentId(new CommentQueryDTO(parentId, pageNum, pageSize));
     }
 }

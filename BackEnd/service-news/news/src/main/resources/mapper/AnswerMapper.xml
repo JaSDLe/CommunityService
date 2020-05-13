@@ -24,11 +24,33 @@
         where answer_id = #{answerId,jdbcType=VARCHAR}
     </select>
 
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-        delete
-        from cs_news_answer
-        where answer_id = #{answerId,jdbcType=VARCHAR}
-    </delete>
+    <select id="findAll" resultType="com.jason.news.api.dto.AnswerDTO">
+        SELECT
+        na.answer_id AS answerId,
+        na.parent_id AS parentId,
+        na.content AS content,
+        na.del_flg AS delFlg,
+        na.create_user AS createUser,
+        na.create_time AS createTime,
+        na.update_user AS updateUser,
+        na.update_time AS updateTime
+        FROM
+        cs_news_answer AS na
+        WHERE
+        na.del_flg = 0
+        <if test='parentId != null and parentId != ""'>
+            AND na.parent_id = #{parentId}
+        </if>
+        ORDER BY na.create_time DESC
+    </select>
+
+    <update id="deleteByPrimaryKey" parameterType="java.lang.String">
+        UPDATE cs_news_answer
+        SET
+            del_flg = 1,
+            update_time = NOW(),
+        WHERE answer_id = #{answerId}
+    </update>
 
     <insert id="insert" parameterType="com.jason.news.dao.vo.Answer">
         insert into cs_news_answer (answer_id, parent_id, content,

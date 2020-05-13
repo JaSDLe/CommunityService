@@ -1,21 +1,27 @@
 package com.jason.news.dao.mapper;
 
 
+import com.jason.news.api.dto.AnswerDTO;
 import com.jason.news.dao.vo.Answer;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public interface AnswerMapper {
 
-    int deleteByPrimaryKey(String answerId);
+    Integer deleteByPrimaryKey(@Param("answerId") String answerId);
 
-    int insert(Answer record);
+    Integer insert(Answer record);
 
-    int insertSelective(Answer record);
+    Integer insertSelective(Answer record);
 
     Answer selectByPrimaryKey(String answerId);
 
-    int updateByPrimaryKeySelective(Answer record);
+    Integer updateByPrimaryKeySelective(Answer record);
 
-    int updateByPrimaryKey(Answer record);
+    Integer updateByPrimaryKey(Answer record);
+
+    List<AnswerDTO> findAll(@Param("parentId") String parentId);
 }
