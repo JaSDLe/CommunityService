@@ -37,7 +37,7 @@
         where news_id = #{newsId,jdbcType=VARCHAR}
     </select>
 
-    <select id="findByNewsId" resultMap="BaseResultMap">
+    <select id="findByNewsId" resultMap="ResultMapWithBLOBs">
         SELECT *
         FROM cs_news_news
         WHERE del_flg = 0

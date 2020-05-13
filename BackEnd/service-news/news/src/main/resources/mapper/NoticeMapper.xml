@@ -37,6 +37,36 @@
         where notice_id = #{noticeId,jdbcType=VARCHAR}
     </select>
 
+    <select id="findAll" resultType="com.jason.news.api.dto.NoticeDTO">
+        SELECT
+        nn.notice_id AS noticeId,
+        nn.title AS title,
+        nn.content AS content,
+        nn.start_time AS startTime,
+        nn.end_time AS endTime,
+        nn.community_id AS communityId,
+        nn.del_flg AS delFlg,
+        nn.create_user AS createUser,
+        nn.create_time AS createTime,
+        nn.update_user AS updateUser,
+        nn.update_time AS updateTime
+        FROM
+        cs_news_notice AS nn
+        WHERE
+        nn.del_flg = 0
+        <if test='communityId != null and communityId != ""'>
+            AND community_id = #{communityId}
+        </if>
+        ORDER BY nn.create_time DESC
+    </select>
+
+    <select id="findByNoticeId" resultMap="ResultMapWithBLOBs">
+        SELECT *
+        FROM cs_news_notice
+        WHERE del_flg = 0
+          AND notice_id = #{noticeId}
+    </select>
+
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
         delete
         from cs_news_notice
