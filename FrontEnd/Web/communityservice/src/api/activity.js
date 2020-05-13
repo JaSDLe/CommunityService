@@ -1,6 +1,7 @@
 import createWebServiceHelper from '@/utils/request'
 const user = createWebServiceHelper(process.env.VUE_APP_USER)
 
+// 分页查询动态列表
 export function pageActivity(data) {
   return user({
     url: '/userApi/activity/pageActivity',
@@ -13,27 +14,46 @@ export function pageActivity(data) {
   })
 }
 
-export function findDetailByCommunityId(data) {
+// 根据动态id查询动态详情
+export function findByActivityId(data) {
   return user({
-    url: '/userApi/community/findDetailByCommunityId',
+    url: '/userApi/activity/findByActivityId',
     method: 'get',
     params: {
-      communityId: data
+      activityId: data
     }
   })
 }
 
-export function login(data) {
+// 创建评论
+export function createComment(data) {
   return user({
-    url: '/userApi/account/login',
+    url: '/userApi/comment/createComment',
     method: 'post',
     data
   })
 }
 
-// export function findAll() {
-//   return user({
-//     url: '/userApi/accountDetail/findAll',
-//     method: 'get',
-//   })
-// }
+// 删除评论
+export function deleteComment(data) {
+  return user({
+    url: '/userApi/comment/deleteComment',
+    method: 'delete',
+    params: {
+      commentId: data
+    }
+  })
+}
+
+// 分页查询根评论
+export function pageBaseComment(data) {
+  return user({
+    url: '/userApi/comment/pageBaseComment',
+    method: 'get',
+    params: {
+      activityId: data.activityId,
+      pageNum: data.pageNum,
+      pageSize: data.pageSize
+    }
+  })
+}

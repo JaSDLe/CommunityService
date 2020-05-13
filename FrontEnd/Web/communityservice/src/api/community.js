@@ -1,6 +1,7 @@
 import createWebServiceHelper from '@/utils/request'
 const user = createWebServiceHelper(process.env.VUE_APP_USER)
 
+// 查询社区列表
 export function findAll() {
   return user({
     url: '/userApi/community/findAll',
@@ -8,6 +9,7 @@ export function findAll() {
   })
 }
 
+// 根据社区id查询社区详情
 export function findDetailByCommunityId(data) {
   return user({
     url: '/userApi/community/findDetailByCommunityId',
@@ -17,18 +19,3 @@ export function findDetailByCommunityId(data) {
     }
   })
 }
-
-export function login(data) {
-  return user({
-    url: '/userApi/account/login',
-    method: 'post',
-    data
-  })
-}
-
-// export function findAll() {
-//   return user({
-//     url: '/userApi/accountDetail/findAll',
-//     method: 'get',
-//   })
-// }

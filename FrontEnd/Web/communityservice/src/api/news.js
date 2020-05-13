@@ -1,6 +1,7 @@
 import createWebServiceHelper from '@/utils/request'
 const user = createWebServiceHelper(process.env.VUE_APP_USER)
 
+// 分页查询新闻列表
 export function pageNews(data) {
   return user({
     url: '/userApi/news/pageNews',
@@ -13,27 +14,70 @@ export function pageNews(data) {
   })
 }
 
-export function findDetailByCommunityId(data) {
+// 根据新闻id查询新闻详情
+export function findByNewsId(data) {
   return user({
-    url: '/userApi/community/findDetailByCommunityId',
+    url: '/userApi/news/findByNewsId',
     method: 'get',
     params: {
-      communityId: data
+      newsId: data
     }
   })
 }
 
-export function login(data) {
+// 分页查询公告列表
+export function pageNotice(data) {
   return user({
-    url: '/userApi/account/login',
+    url: '/userApi/notice/pageNotice',
+    method: 'get',
+    params: {
+      communityId: data.communityId,
+      pageNum: data.pageNum,
+      pageSize: data.pageSize
+    }
+  })
+}
+
+// 根据公告id查询公告详情
+export function findByNoticeId(data) {
+  return user({
+    url: '/userApi/notice/findByNoticeId',
+    method: 'get',
+    params: {
+      noticeId: data
+    }
+  })
+}
+
+// 创建留言
+export function createAnswer(data) {
+  return user({
+    url: '/userApi/answer/createAnswer',
     method: 'post',
     data
   })
 }
 
-// export function findAll() {
-//   return user({
-//     url: '/userApi/accountDetail/findAll',
-//     method: 'get',
-//   })
-// }
+// 删除留言
+export function deleteAnswer(data) {
+  return user({
+    url: '/userApi/answer/deleteAnswer',
+    method: 'delete',
+    params: {
+      answerId: data
+    }
+  })
+}
+
+// 分页查询根留言
+export function pageBaseAnswer(data) {
+  return user({
+    url: '/userApi/answer/pageBaseAnswer',
+    method: 'get',
+    params: {
+      id: data.id,
+      pageNum: data.pageNum,
+      pageSize: data.pageSize
+    }
+  })
+}

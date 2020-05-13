@@ -35,7 +35,7 @@ public class AnswerController {
         }
     }
 
-    @GetMapping("/pageBaseComment")
+    @GetMapping("/pageBaseAnswer")
     public ItemResult<PageInfo<AnswerDTO>> pageBaseAnswer(@RequestParam(value = "id", required = false) String id,
                                                           @RequestParam("pageNum") Integer pageNum,
                                                           @RequestParam("pageSize") Integer pageSize) {
