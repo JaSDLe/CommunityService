@@ -1,13 +1,13 @@
 <template>
   <div>
-    <nav-bar title="新闻详情" />
+    <nav-bar title="公告详情" />
   </div>
 </template>
 
 <script>
 import NavBar from "@/components/nav-bar";
 import {} from "vant";
-import { findByNewsId } from "@/api/news";
+import { findByNoticeId } from "@/api/news";
 
 export default {
   components: {
@@ -18,7 +18,7 @@ export default {
 
   data() {
     return {
-      newsId: null,
+      noticeId: null,
       data: {}
     };
   },
@@ -28,15 +28,15 @@ export default {
   watch: {},
 
   created() {
-    this.newsId = this.$store.getters.getAccountId;
-    this.getData(this.newsId);
+    this.noticeId = this.$store.getters.getAccountId;
+    this.getData(this.noticeId);
   },
 
   mounted() {},
 
   methods: {
     getData(param) {
-      findByNewsId(param).then(res => {
+      findByNoticeId(param).then(res => {
         if (res.data) {
           this.data = res.data;
         }
