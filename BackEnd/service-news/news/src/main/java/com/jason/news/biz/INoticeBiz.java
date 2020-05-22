@@ -9,4 +9,6 @@ public interface INoticeBiz {
     PageInfo<NoticeDTO> pageNotice(NoticeQueryDTO queryDTO);
 
     NoticeDTO findByNoticeId(String noticeId);
+
+    Boolean createNotice(NoticeDTO noticeDTO);
 }

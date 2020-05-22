@@ -11,6 +11,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+import java.util.UUID;
+
 @Slf4j
 @Service
 public class NoticeService implements INoticeService {
@@ -27,5 +30,15 @@ public class NoticeService implements INoticeService {
     @Override
     public Notice findByNoticeId(String noticeId) {
         return noticeMapper.findByNoticeId(noticeId);
+    }
+
+    @Override
+    public Integer createNews(Notice notice) {
+        notice.setNoticeId(UUID.randomUUID().toString().replace("-", ""));
+        notice.setDelFlg(Boolean.FALSE);
+        notice.setCreateTime(new Date());
+        notice.setUpdateUser(notice.getCreateUser());
+        notice.setUpdateTime(new Date());
+        return noticeMapper.insert(notice);
     }
 }

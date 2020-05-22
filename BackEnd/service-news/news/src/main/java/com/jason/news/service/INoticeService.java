@@ -10,4 +10,6 @@ public interface INoticeService {
     PageInfo<NoticeDTO> pageNotice(NoticeQueryDTO queryDTO);
 
     Notice findByNoticeId(String noticeId);
+
+    Integer createNews(Notice notice);
 }

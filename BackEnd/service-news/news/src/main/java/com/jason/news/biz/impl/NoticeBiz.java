@@ -28,6 +28,11 @@ public class NoticeBiz implements INoticeBiz {
         return vO2DTO(noticeService.findByNoticeId(noticeId));
     }
 
+    @Override
+    public Boolean createNotice(NoticeDTO noticeDTO) {
+        return noticeService.createNews(dTO2VO(noticeDTO)) == 1;
+    }
+
     private NoticeDTO vO2DTO(Notice notice) {
         if (notice == null) {
             return null;
@@ -35,5 +40,14 @@ public class NoticeBiz implements INoticeBiz {
         NoticeDTO noticeDTO = new NoticeDTO();
         BeanUtils.copyProperties(notice, noticeDTO);
         return noticeDTO;
+    }
+
+    private Notice dTO2VO(NoticeDTO noticeDTO) {
+        if (noticeDTO == null) {
+            return null;
+        }
+        Notice notice = new Notice();
+        BeanUtils.copyProperties(noticeDTO, notice);
+        return notice;
     }
 }
