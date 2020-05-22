@@ -9,4 +9,6 @@ public interface INewsBiz {
     PageInfo<NewsDTO> pageNews(NewsQueryDTO queryDTO);
 
     NewsDTO findByNewsId(String newsId);
+
+    Boolean createNews(NewsDTO newsDTO);
 }

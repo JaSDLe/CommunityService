@@ -29,6 +29,11 @@ public class NewsBiz implements INewsBiz {
         return vO2DTO(newsService.findByNewsId(newsId));
     }
 
+    @Override
+    public Boolean createNews(NewsDTO newsDTO) {
+        return newsService.createNews(dTO2VO(newsDTO)) == 1;
+    }
+
     private NewsDTO vO2DTO(News news) {
         if (news == null) {
             return null;
@@ -36,5 +41,14 @@ public class NewsBiz implements INewsBiz {
         NewsDTO newsDTO = new NewsDTO();
         BeanUtils.copyProperties(news, newsDTO);
         return newsDTO;
+    }
+
+    private News dTO2VO(NewsDTO newsDTO) {
+        if (newsDTO == null) {
+            return null;
+        }
+        News news = new News();
+        BeanUtils.copyProperties(newsDTO, news);
+        return news;
     }
 }

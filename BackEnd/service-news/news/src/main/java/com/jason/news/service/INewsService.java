@@ -10,4 +10,6 @@ public interface INewsService {
     PageInfo<NewsDTO> pageNews(NewsQueryDTO queryDTO);
 
     News findByNewsId(String newsId);
+
+    Integer createNews(News news);
 }

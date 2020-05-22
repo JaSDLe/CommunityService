@@ -28,8 +28,8 @@ public class AnswerController {
 
     @GetMapping("/pageAnswerByParentId")
     PageInfo<AnswerDTO> pageAnswerByParentId(@RequestParam(value = "parentId", required = false) String parentId,
-                                               @RequestParam("pageNum") Integer pageNum,
-                                               @RequestParam("pageSize") Integer pageSize) {
+                                             @RequestParam("pageNum") Integer pageNum,
+                                             @RequestParam("pageSize") Integer pageSize) {
         return answerBiz.pageAnswerByParentId(new AnswerQueryDTO(parentId, pageNum, pageSize));
     }
 }

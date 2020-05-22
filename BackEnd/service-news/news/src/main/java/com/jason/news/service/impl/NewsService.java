@@ -11,6 +11,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+import java.util.UUID;
+
 @Slf4j
 @Service
 public class NewsService implements INewsService {
@@ -28,5 +31,16 @@ public class NewsService implements INewsService {
     @Override
     public News findByNewsId(String newsId) {
         return newsMapper.findByNewsId(newsId);
+    }
+
+    @Override
+    public Integer createNews(News news) {
+        news.setNewsId(UUID.randomUUID().toString().replace("-", ""));
+        news.setReplyNum(0);
+        news.setDelFlg(Boolean.FALSE);
+        news.setCreateTime(new Date());
+        news.setUpdateUser(news.getCreateUser());
+        news.setUpdateTime(new Date());
+        return newsMapper.insert(news);
     }
 }
