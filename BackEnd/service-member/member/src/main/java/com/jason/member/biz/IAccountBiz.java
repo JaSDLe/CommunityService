@@ -22,5 +22,7 @@ public interface IAccountBiz {
 
     Boolean joinCommunity(String accountId, String communityId);
 
+    Boolean becomeAdmin(String accountId);
+
     Boolean updateAccountBaseInfo(AccountDTO accountDTO);
 }

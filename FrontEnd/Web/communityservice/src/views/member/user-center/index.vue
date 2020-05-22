@@ -29,7 +29,7 @@
       <template #title>
         <van-row class="my-row">
           <van-icon name="setting-o" size="22" />
-          <div class="my-cell-title">设置</div>
+          <div class="my-cell-title">我的动态</div>
         </van-row>
       </template>
     </van-cell>
@@ -38,7 +38,7 @@
       <template #title>
         <van-row class="my-row">
           <van-icon name="setting-o" size="22" />
-          <div class="my-cell-title">设置</div>
+          <div class="my-cell-title">我的评论</div>
         </van-row>
       </template>
     </van-cell>
@@ -47,7 +47,7 @@
       <template #title>
         <van-row class="my-row">
           <van-icon name="setting-o" size="22" />
-          <div class="my-cell-title">设置</div>
+          <div class="my-cell-title">我的留言</div>
         </van-row>
       </template>
     </van-cell>

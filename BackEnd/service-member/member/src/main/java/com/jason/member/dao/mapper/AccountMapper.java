@@ -36,7 +36,9 @@ public interface AccountMapper {
 
     Integer findPopulationByCommunityId(@Param("communityId") String communityId, @Param("type") Integer type);
 
-    Boolean joinCommunity(@Param("accountId") String accountId, @Param("communityId") String communityId);
+    Integer joinCommunity(@Param("accountId") String accountId, @Param("communityId") String communityId, @Param("type") Integer type);
 
     Integer updateAccountBaseInfo(Account account);
+
+    Integer becomeAdmin(@Param("accountId") String accountId, @Param("type") Integer type);
 }

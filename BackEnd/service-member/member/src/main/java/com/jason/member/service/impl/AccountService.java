@@ -6,6 +6,7 @@ import com.jason.member.dao.mapper.AccountMapper;
 import com.jason.member.dao.vo.Account;
 import com.jason.member.service.IAccountService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -73,13 +74,20 @@ public class AccountService implements IAccountService {
     }
 
     @Override
-    public Boolean joinCommunity(String accountId, String communityId) {
-        return accountMapper.joinCommunity(accountId, communityId);
+    public Integer joinCommunity(String accountId, String communityId) {
+        return accountMapper.joinCommunity(accountId, communityId, AccountTypeEnum.RESIDENT.getKey());
+    }
+
+    @Override
+    public Integer becomeAdmin(String accountId) {
+        return accountMapper.becomeAdmin(accountId, AccountTypeEnum.ADMINISTRATOR.getKey());
     }
 
     @Override
     public Integer updateAccountBaseInfo(Account account) {
-        account.setUpdateUser(account.getAccountId());
+        if (StringUtils.isEmpty(account.getUpdateUser())) {
+            account.setUpdateUser(account.getAccountId());
+        }
         account.setUpdateTime(new Date());
         return accountMapper.updateAccountBaseInfo(account);
     }

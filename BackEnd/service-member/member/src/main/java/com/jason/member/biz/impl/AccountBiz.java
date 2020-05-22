@@ -63,7 +63,12 @@ public class AccountBiz implements IAccountBiz {
 
     @Override
     public Boolean joinCommunity(String accountId, String communityId) {
-        return accountService.joinCommunity(accountId, communityId);
+        return accountService.joinCommunity(accountId, communityId) == 1;
+    }
+
+    @Override
+    public Boolean becomeAdmin(String accountId) {
+        return accountService.becomeAdmin(accountId) == 1;
     }
 
     @Override

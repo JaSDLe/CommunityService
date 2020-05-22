@@ -196,7 +196,9 @@
 
     <update id="joinCommunity">
         UPDATE cs_member_account
-        SET community_id = #{communityId}
+        SET community_id = #{communityId},
+            `type` = #{type},
+            update_time = NOW()
         WHERE account_id = #{accountId}
     </update>
 
@@ -223,6 +225,13 @@
             </if>
         </set>
         WHERE account_id = #{accountId,jdbcType=VARCHAR}
+    </update>
+
+    <update id="becomeAdmin">
+        UPDATE cs_member_account
+        SET `type` = #{type},
+            update_time = NOW()
+        WHERE account_id = #{accountId}
     </update>
 
     <select id="findAll" resultMap="BaseResultMap">

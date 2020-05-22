@@ -1,17 +1,21 @@
 <template>
   <div>
     <nav-bar title="新闻详情" />
+
+    <article-detail />
   </div>
 </template>
 
 <script>
 import NavBar from "@/components/nav-bar";
+import ArticleDetail from "@/components/article-detail";
 import {} from "vant";
 import { findByNewsId } from "@/api/news";
 
 export default {
   components: {
-    NavBar
+    NavBar,
+    ArticleDetail
   },
 
   props: {},
@@ -29,7 +33,7 @@ export default {
 
   created() {
     this.newsId = this.$store.getters.getAccountId;
-    this.getData(this.newsId);
+    // this.getData(this.newsId);
   },
 
   mounted() {},
