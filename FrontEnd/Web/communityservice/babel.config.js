@@ -7,6 +7,10 @@ module.exports = {
       libraryName: 'vant',
       libraryDirectory: 'es',
       style: true
-    }, 'vant']
+    }, 'vant'],
+    ['import', {
+      libraryName: 'js-md5',
+      libraryDirectory: 'src',
+    }, 'js-md5']
   ]
 }

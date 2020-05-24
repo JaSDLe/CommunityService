@@ -7,6 +7,7 @@ import com.jason.member.api.dto.RegisterDTO;
 import com.jason.member.api.service.IAccountService;
 import com.jason.web.user.dto.ItemResult;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,6 +30,9 @@ public class AccountController {
 
     @PostMapping("/login")
     public ItemResult<AccountSimpleDTO> login(@RequestBody LoginDTO loginDTO) {
+        if (loginDTO == null || StringUtils.isBlank(loginDTO.getUsername()) || StringUtils.isBlank(loginDTO.getPassword())) {
+            return new ItemResult<>("400", "用户名或密码不能为空");
+        }
         AccountSimpleDTO accountSimpleDTO = accountService.login(loginDTO);
         if (accountSimpleDTO != null && accountSimpleDTO.getAccountId() != null) {
             return new ItemResult<>(accountSimpleDTO, "登录成功");

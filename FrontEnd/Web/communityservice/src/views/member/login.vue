@@ -47,6 +47,7 @@
 <script>
 import { Form, Field, Button, Icon, Row, Col, Toast, Divider } from "vant"
 import { login } from "@/api/member"
+import { md5 } from 'js-md5'
 
 export default {
   components: {
@@ -82,6 +83,7 @@ export default {
       return val.replace(/\s*/g, "")
     },
     onSubmit(values) {
+      console.log(md5(this.password))
       login({ username: this.username, password: this.password }).then(res => {
         this.$toast({
           type: res.success && res.data ? 'success' : 'fail',
