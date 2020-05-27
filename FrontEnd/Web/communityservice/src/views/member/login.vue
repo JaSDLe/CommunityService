@@ -83,8 +83,7 @@ export default {
       return val.replace(/\s*/g, "")
     },
     onSubmit(values) {
-      console.log(md5(this.password))
-      login({ username: this.username, password: this.password }).then(res => {
+      login({ username: this.username, password: md5(this.password) }).then(res => {
         this.$toast({
           type: res.success && res.data ? 'success' : 'fail',
           message: res.description

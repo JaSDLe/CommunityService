@@ -9,6 +9,7 @@ import com.jason.member.dao.vo.Account;
 import com.jason.member.service.IAccountDetailService;
 import com.jason.member.service.IAccountService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,11 +34,14 @@ public class AccountBiz implements IAccountBiz {
 
     @Override
     public AccountSimpleDTO login(LoginDTO loginDTO) {
-        if (accountService.login(loginDTO)) {
-            return vO2DTO(accountService.findAccountByUsername(loginDTO.getUsername()));
-        } else {
-            return null;
+        AccountSimpleDTO accountSimpleDTO = vO2DTO(accountService.findAccountByUsername(loginDTO.getUsername()));
+        if (accountSimpleDTO != null && StringUtils.isNotBlank(accountSimpleDTO.getAccountId())) {
+            loginDTO.setAccountId(accountSimpleDTO.getAccountId());
+            if (accountService.login(loginDTO)) {
+                return accountSimpleDTO;
+            }
         }
+        return null;
     }
 
     @Override

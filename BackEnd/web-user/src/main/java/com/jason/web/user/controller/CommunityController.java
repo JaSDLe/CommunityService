@@ -2,7 +2,10 @@ package com.jason.web.user.controller;
 
 import com.jason.community.api.dto.CommunityDTO;
 import com.jason.community.api.service.ICommunityService;
+import com.jason.member.api.dto.ReadHistoryDTO;
+import com.jason.member.api.enums.ReadHistoryTypeEnum;
 import com.jason.member.api.service.IAccountService;
+import com.jason.member.api.service.IReadHistoryService;
 import com.jason.web.user.dto.ItemResult;
 import com.jason.web.user.dto.community.CommunityDetailDTO;
 import com.jason.web.user.dto.community.CommunityIndexDTO;
@@ -27,6 +30,9 @@ public class CommunityController {
     @Autowired
     private IAccountService accountService;
 
+    @Autowired
+    private IReadHistoryService readHistoryService;
+
     @GetMapping("/findAll")
     public ItemResult<List<CommunityIndexDTO>> findAll() {
         List<CommunityIndexDTO> result = new ArrayList<>();
@@ -39,7 +45,7 @@ public class CommunityController {
     }
 
     @GetMapping("/findDetailByCommunityId")
-    public ItemResult<CommunityDetailDTO> findDetailByCommunityId(@RequestParam("communityId") String communityId) {
+    public ItemResult<CommunityDetailDTO> findDetailByCommunityId(@RequestParam("communityId") String communityId, @RequestParam("operator") String operator) {
         log.info(communityId);
         CommunityDetailDTO result = new CommunityDetailDTO();
         CommunityDTO communityDTO = communityService.findByCommunityId(communityId);
@@ -47,14 +53,10 @@ public class CommunityController {
             BeanUtils.copyProperties(communityDTO, result);
             result.setAdminList(accountService.findAdminListByCommunityId(communityId));
             result.setPopulation(accountService.findPopulationByCommunityId(communityId));
+            readHistoryService.add(new ReadHistoryDTO(ReadHistoryTypeEnum.COMMUNITY.getKey(), operator, communityId));
             return new ItemResult<>(result);
         } else {
             return new ItemResult<>("400", "没有找到该社区");
         }
     }
-
-    //    @PostMapping("/updateAccountDetailByAccountId")
-//    public ItemResult<Boolean> updateAccountDetailByAccountId(@RequestBody AccountDetailDTO accountDetailDTO) {
-//        return new ItemResult<>(accountDetailService.updateAccountDetailByAccountId(accountDetailDTO));
-//    }
 }

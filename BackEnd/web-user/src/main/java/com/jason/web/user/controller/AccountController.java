@@ -34,7 +34,7 @@ public class AccountController {
             return new ItemResult<>("400", "用户名或密码不能为空");
         }
         AccountSimpleDTO accountSimpleDTO = accountService.login(loginDTO);
-        if (accountSimpleDTO != null && accountSimpleDTO.getAccountId() != null) {
+        if (accountSimpleDTO != null && StringUtils.isNotBlank(accountSimpleDTO.getAccountId())) {
             return new ItemResult<>(accountSimpleDTO, "登录成功");
         } else {
             return new ItemResult<>("400", "用户名或密码错误");
@@ -46,9 +46,9 @@ public class AccountController {
         if (!Pattern.matches("^[0-9a-zA-Z]+$", registerDTO.getUsername())) {
             return new ItemResult<>("400", "用户名不符合规范");
         }
-        if (!Pattern.matches("^[0-9a-zA-Z~!@#$%^&*()_+-=]{6,20}$", registerDTO.getPassword())) {
-            return new ItemResult<>("400", "密码不符合规范");
-        }
+//        if (!Pattern.matches("^[0-9a-zA-Z~!@#$%^&*()_+-=]{6,20}$", registerDTO.getPassword())) {
+//            return new ItemResult<>("400", "密码不符合规范");
+//        }
         if (accountService.register(registerDTO)) {
             return new ItemResult<>(true, "注册成功");
         } else {

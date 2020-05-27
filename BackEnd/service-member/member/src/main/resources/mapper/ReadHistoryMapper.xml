@@ -26,11 +26,34 @@
         where id = #{id,jdbcType=VARCHAR}
     </select>
 
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-        delete
-        from cs_member_read_history
-        where id = #{id,jdbcType=VARCHAR}
-    </delete>
+    <select id="findAll" resultType="com.jason.member.api.dto.ReadHistoryDTO">
+        SELECT
+        rh.`id` AS id,
+        rh.`type` AS type,
+        rh.account_id AS accountId,
+        rh.content_id AS contentId,
+        rh.del_flg AS delFlg,
+        rh.create_user AS createUser,
+        rh.create_time AS createTime,
+        rh.update_user AS updateUser,
+        rh.update_time AS updateTime
+        FROM
+        cs_member_read_history AS rh
+        WHERE
+        rh.del_flg = 0
+        <if test='accountId != null and accountId != ""'>
+            AND account_id = #{accountId}
+        </if>
+        ORDER BY rh.create_time DESC
+    </select>
+
+    <update id="deleteByPrimaryKey">
+        UPDATE cs_member_read_history
+        SET del_flg = 1
+        AND update_user = #{operator}
+        AND update_time = NOW()
+        where id = #{id}
+    </update>
 
     <insert id="insert" parameterType="com.jason.member.dao.vo.ReadHistory">
         insert into cs_member_read_history (id, type, account_id,

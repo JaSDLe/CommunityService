@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.DigestUtils;
 
 import java.util.Date;
 import java.util.List;
@@ -28,7 +29,7 @@ public class AccountService implements IAccountService {
 
     @Override
     public Boolean login(LoginDTO loginDTO) {
-        return accountMapper.login(loginDTO.getUsername(), loginDTO.getPassword());
+        return accountMapper.login(loginDTO.getUsername(), addSalt(loginDTO.getPassword(), loginDTO.getAccountId()));
     }
 
     @Override
@@ -39,6 +40,7 @@ public class AccountService implements IAccountService {
     @Override
     public String createAccount(Account account) {
         account.setAccountId(UUID.randomUUID().toString().replace("-", ""));
+        account.setPassword(this.addSalt(account.getPassword(), account.getAccountId()));
         account.setType(AccountTypeEnum.RESIDENT.getKey());
         account.setDelFlg(Boolean.FALSE);
         account.setCreateUser("system");
@@ -90,5 +92,9 @@ public class AccountService implements IAccountService {
         }
         account.setUpdateTime(new Date());
         return accountMapper.updateAccountBaseInfo(account);
+    }
+
+    private String addSalt(String password, String salt) {
+        return DigestUtils.md5DigestAsHex((password + salt).getBytes());
     }
 }
