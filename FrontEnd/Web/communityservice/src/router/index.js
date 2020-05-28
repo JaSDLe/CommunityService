@@ -16,7 +16,10 @@ const routes = [
     path: '/register',
     component: () => import('@/views/member/register')
   },
-  // member
+  /**
+   * member
+   * 会员模块
+   */
   {
     path: '/member/user-center',
     component: () => import('@/views/member/user-center')
@@ -25,7 +28,10 @@ const routes = [
     path: '/member/account-detail',
     component: () => import('@/views/member/user-center/detail')
   },
-  // news
+  /**
+   * news
+   * 新闻公告模块
+   */
   {
     path: '/news/list',
     component: () => import('@/views/news/list')
@@ -34,17 +40,26 @@ const routes = [
     path: '/news/detail',
     component: () => import('@/views/news/detail')
   },
-  // activity
+  /**
+   * activity
+   * 动态模块
+   */
   {
     path: '/activity/list',
     component: () => import('@/views/activity/list')
   },
-  // message
+  /**
+   * message
+   * 私信模块
+   */
   {
     path: '/message/list',
     component: () => import('@/views/message/list')
   },
-  // community
+  /**
+   * community
+   * 社区模块
+   */
   {
     path: '/community/list',
     component: () => import('@/views/community/list')
@@ -52,6 +67,10 @@ const routes = [
   {
     path: '/community/detail',
     component: () => import('@/views/community/detail')
+  },
+  {
+    path: '/community/create',
+    component: () => import('@/views/community/create')
   },
 ]
 

@@ -1,0 +1,93 @@
+3.2.2	用户管理模块的设计与实现
+    1)	新用户注册
+        ！！注册界面如图 3 4所示。
+        前端的校验如下：
+            …
+            checkUsername(val) {
+                return /^[0-9a-zA-Z]{1,}$/.test(val)
+            },
+            checkPassword(val) {
+                return /^[0-9a-zA-Z~!@#$%^&*()_+-=]{6,20}$/.test(val)
+            },
+            checkConfirmPassword(val) {
+                return val == this.password
+            }
+            …
+        ！！注册的参数校验效果如图 3 5所示。
+        注册的controller层代码如下：
+            @PostMapping("/register")
+            public ItemResult<Boolean> register(@RequestBody RegisterDTO registerDTO) {
+                if (!Pattern.matches("^[0-9a-zA-Z]+$", registerDTO.getUsername())) {
+                    return new ItemResult<>("400", "用户名不符合规范");
+                }
+                if (accountService.register(registerDTO)) {
+                    return new ItemResult<>(true, "注册成功");
+                } else {
+                    return new ItemResult<>(false, "该用户名已被注册，请更换");
+                }
+            }
+        具体的流程如下所示
+        开始
+        输入用户名密码
+        前端参数校验？
+        密码MD5加密
+        后端参数校验？
+        用户名是否唯一？
+        密码加盐
+        创建账号
+        创建账号详情
+    2)	登录
+        ！！登录界面如图 3 6所示。
+        前端的校验如下：
+            …
+            :rules="[{ required: true, message: '请填写用户名' }]"
+            …
+            :rules="[{ required: true, message: '请填写密码' }]"
+            …
+        ！！登录的参数校验效果如图 3 7所示。
+        登录的mapper.xml代码如下：
+            <select id="login" resultType="java.lang.Boolean">
+                SELECT COUNT(*)
+                FROM cs_member_account
+                WHERE `username` = #{username}
+                AND `password` = #{password}
+                AND del_flg = 0
+            </select>
+        登录的controller层代码如下：
+                @PostMapping("/login")
+                public ItemResult<AccountSimpleDTO> login(@RequestBody LoginDTO loginDTO) {
+                    if (loginDTO == null || StringUtils.isBlank(loginDTO.getUsername()) || StringUtils.isBlank(loginDTO.getPassword())) {
+                        return new ItemResult<>("400", "用户名或密码不能为空");
+                    }
+                    AccountSimpleDTO accountSimpleDTO = accountService.login(loginDTO);
+                    if (accountSimpleDTO != null && StringUtils.isNotBlank(accountSimpleDTO.getAccountId())) {
+                        return new ItemResult<>(accountSimpleDTO, "登录成功");
+                    } else {
+                        return new ItemResult<>("400", "用户名或密码错误");
+                    }
+                }
+        ！！登录失败的效果如图 3 8所示。
+        ！！登录成功的效果如图 3 8所示。
+    3)	基本信息维护
+        所有用户都可以在个人资料页面修改基本信息和详细信息。！！个人资料的界面如图所示：
+        
+3.2.3	新闻公告模块的设计与实现
+    社区管理员可以发布属于所在社区的新闻和公告，！！界面如图所示：
+    社区居民可以看见所在社区的新闻和公告，！！界面如图所示：
+    社区居民可以进行留言，社区管理员可以回复留言。！！界面如图所示：
+
+3.2.4	动态管理模块的设计与实现
+    只有社区居民有动态管理功能，可以发表或删除动态，只能看见所在社区的社区居民发表的动态和自己的动态，！！界面如图所示：
+    可以对动态或动态的评论进行评论。！！界面如图所示：
+
+3.2.5	社区管理模块的设计与实现
+    社区由超级管理员创建，！！界面如图所示：
+    超级管理员不能加入社区，其他每个用户在同一时间只能加入一个社区，加入其他社区默认退出原社区。
+    超级管理员可以为社区设置社区管理员，一个社区管理员只服务一个社区，一个社区可以有多个社区管理员，是一对多的关系。
+    社区管理员也可以维护所在社区的基本信息。！！界面如图所示：
+    社区管理员退出或变更社区，默认变为社区居民角色。
+
+3.2.6	私信管理模块的设计与实现
+    所有角色都可以发送私信，每条私信只对应一个发送者和一个接受者，是一对一的关系，
+    在私信tab页展示按收件人划分的历史记录列表，点击进去可以查看和发送私信。！！界面如图所示：
+    没有往来记录的通过模糊搜索用户名或昵称选择接收人来新建私信。！！界面如图所示：
