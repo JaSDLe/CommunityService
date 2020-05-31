@@ -20,7 +20,8 @@ export function findByActivityId(data) {
     url: '/userApi/activity/findByActivityId',
     method: 'get',
     params: {
-      activityId: data
+      activityId: data.activityId,
+      operator: data.operator
     }
   })
 }
@@ -40,7 +41,8 @@ export function deleteComment(data) {
     url: '/userApi/comment/deleteComment',
     method: 'delete',
     params: {
-      commentId: data
+      commentId: data.commentId,
+      operator: data.operator
     }
   })
 }

@@ -8,7 +8,7 @@ public interface IAnswerBiz {
 
     Boolean createAnswer(AnswerDTO answerDTO);
 
-    Boolean deleteAnswer(String answerId);
+    Boolean deleteAnswer(String answerId, String operator);
 
     PageInfo<AnswerDTO> pageAnswerByParentId(AnswerQueryDTO queryDTO);
 }

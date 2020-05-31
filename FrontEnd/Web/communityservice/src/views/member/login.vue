@@ -23,7 +23,7 @@
           :formatter="formatter"
           :right-icon="password.length > 0 ? passwordShow ? 'eye-o' : 'closed-eye' : ''"
           @click-right-icon="passwordShow = !passwordShow"
-          :rules="[{ required: true, message: '请填写密码' }]"
+          :rules="[{ validator: checkPassword, message: '请输入6-20位的字母、数字或特殊符号', trigger: 'onChange' }]"
         />
       </van-row>
       <div style="margin-top: 40px;">
@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import { Form, Field, Button, Icon, Row, Col, Toast, Divider } from "vant"
+import { Form, Field, Button, Icon, Row, Col, Divider } from "vant"
 import { login } from "@/api/member"
 import { md5 } from 'js-md5'
 
@@ -57,7 +57,6 @@ export default {
     [Icon.name]: Icon,
     [Row.name]: Row,
     [Col.name]: Col,
-    [Toast.name]: Toast,
     [Divider.name]: Divider
   },
 
@@ -71,10 +70,9 @@ export default {
   },
 
   created() {
-    console.log(this.$route.query)
+    this.$store.dispatch('logout')
     if (this.$route.query.username) {
       this.username = this.$route.query.username
-      console.log(this.username)
     }
   },
 
@@ -82,12 +80,11 @@ export default {
     formatter(val) {
       return val.replace(/\s*/g, "")
     },
+    checkPassword(val) {
+      return /^[0-9a-zA-Z~!@#$%^&*()_+-=]{6,20}$/.test(val)
+    },
     onSubmit(values) {
       login({ username: this.username, password: md5(this.password) }).then(res => {
-        this.$toast({
-          type: res.success && res.data ? 'success' : 'fail',
-          message: res.description
-        })
         if (res.data) {
           this.$store.dispatch('login', res.data).then(() => {
             this.$router.push({

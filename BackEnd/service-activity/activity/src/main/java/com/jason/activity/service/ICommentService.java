@@ -9,7 +9,7 @@ public interface ICommentService {
 
     Integer createComment(Comment comment);
 
-    Integer deleteComment(String commentId);
+    Integer deleteComment(String commentId, String operator);
 
     PageInfo<CommentDTO> pageCommentByParentId(CommentQueryDTO queryDTO);
 }

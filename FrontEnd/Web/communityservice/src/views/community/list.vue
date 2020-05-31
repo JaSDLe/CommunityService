@@ -1,6 +1,10 @@
 <template>
   <div>
-    <nav-bar title="社区列表" />
+    <nav-bar title="社区列表" @right-method="toCreate">
+      <template v-if="canCreate" #my-right>
+        <van-icon name="plus" size="20" />
+      </template>
+    </nav-bar>
 
     <van-index-bar :index-list="indexList" :sticky-offset-top="55" @select="onSelect">
       <community-item
@@ -8,7 +12,8 @@
         :key="index"
         :index="indexList[index]"
         :list="item.communityDTOList"
-        @onClick="onClick"
+        @on-click="onClick"
+        @refresh="getList"
       />
     </van-index-bar>
   </div>
@@ -17,7 +22,7 @@
 <script>
 import NavBar from "@/components/nav-bar"
 import CommunityItem from "@/components/community-item"
-import { IndexBar, IndexAnchor, Cell } from "vant"
+import { IndexBar, IndexAnchor, Cell, Icon } from "vant"
 import { findAll } from "@/api/community"
 
 export default {
@@ -27,6 +32,7 @@ export default {
     [IndexBar.name]: IndexBar,
     [IndexAnchor.name]: IndexAnchor,
     [Cell.name]: Cell,
+    [Icon.name]: Icon,
   },
 
   data() {
@@ -36,7 +42,11 @@ export default {
     }
   },
 
-  computed: {},
+  computed: {
+    canCreate() {
+      return this.$store.getters.isSuperAdmin
+    }
+  },
 
   watch: {},
 
@@ -69,6 +79,16 @@ export default {
           communityId: val
         }
       })
+    },
+    toCreate() {
+      if (this.canCreate) {
+        this.$router.push({
+          path: "/community/create",
+          query: {
+            type: '创建'
+          }
+        })
+      }
     }
   }
 };

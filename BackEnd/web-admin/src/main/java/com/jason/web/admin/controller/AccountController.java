@@ -16,8 +16,8 @@ public class AccountController {
     private IAccountService accountService;
 
     @PutMapping("/setAdmin")
-    public ItemResult<Boolean> setAdmin(@RequestParam("accountId") String accountId, @RequestParam("communityId") String communityId) {
-        if (accountService.joinCommunity(accountId, communityId) && accountService.becomeAdmin(accountId)) {
+    public ItemResult<Boolean> setAdmin(@RequestParam("accountId") String accountId, @RequestParam("communityId") String communityId, @RequestParam("operator") String operator) {
+        if (accountService.joinCommunity(accountId, communityId, operator) && accountService.becomeAdmin(accountId)) {
             return new ItemResult<>(true, "更新成功");
         } else {
             return new ItemResult<>(false, "更新失败");
@@ -25,8 +25,8 @@ public class AccountController {
     }
 
     @PutMapping("/unsetAdmin")
-    public ItemResult<Boolean> unsetAdmin(@RequestParam("accountId") String accountId) {
-        if (accountService.joinCommunity(accountId, null)) {
+    public ItemResult<Boolean> unsetAdmin(@RequestParam("accountId") String accountId, @RequestParam("operator") String operator) {
+        if (accountService.joinCommunity(accountId, null, operator)) {
             return new ItemResult<>(true, "更新成功");
         } else {
             return new ItemResult<>(false, "更新失败");

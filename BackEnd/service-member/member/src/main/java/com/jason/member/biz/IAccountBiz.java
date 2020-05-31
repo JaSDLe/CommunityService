@@ -10,8 +10,6 @@ import java.util.List;
 
 public interface IAccountBiz {
 
-    List<Account> findAll();
-
     AccountSimpleDTO login(LoginDTO loginDTO);
 
     Boolean register(RegisterDTO registerDTO);
@@ -20,7 +18,7 @@ public interface IAccountBiz {
 
     Integer findPopulationByCommunityId(String communityId);
 
-    Boolean joinCommunity(String accountId, String communityId);
+    Boolean joinCommunity(String accountId, String communityId, String operator);
 
     Boolean becomeAdmin(String accountId);
 

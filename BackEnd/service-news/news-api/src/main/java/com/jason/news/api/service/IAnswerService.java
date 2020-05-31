@@ -15,7 +15,7 @@ public interface IAnswerService {
     Boolean createAnswer(@RequestBody AnswerDTO answerDTO);
 
     @RequestMapping(method = RequestMethod.DELETE, path = "/answer/deleteAnswer", consumes = "application/json")
-    Boolean deleteAnswer(@RequestParam("answerId") String answerId);
+    Boolean deleteAnswer(@RequestParam("answerId") String answerId, @RequestParam("operator") String operator);
 
     @RequestMapping(method = RequestMethod.GET, path = "/answer/pageAnswerByParentId", consumes = "application/json")
     PageInfo<AnswerDTO> pageAnswerByParentId(@RequestParam(value = "parentId", required = false) String parentId, @RequestParam("pageNum") Integer pageNum, @RequestParam("pageSize") Integer pageSize);

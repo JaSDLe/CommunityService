@@ -28,4 +28,6 @@ public interface NoticeMapper {
     List<NoticeDTO> findAll(@Param("communityId") String communityId);
 
     Notice findByNoticeId(@Param("noticeId") String noticeId);
+
+    List<NoticeDTO> findAllValid(@Param("communityId") String communityId);
 }

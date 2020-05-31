@@ -20,7 +20,8 @@ export function findByNewsId(data) {
     url: '/userApi/news/findByNewsId',
     method: 'get',
     params: {
-      newsId: data
+      newsId: data.newsId,
+      operator: data.operator
     }
   })
 }
@@ -44,7 +45,8 @@ export function findByNoticeId(data) {
     url: '/userApi/notice/findByNoticeId',
     method: 'get',
     params: {
-      noticeId: data
+      noticeId: data.noticeId,
+      operator: data.operator
     }
   })
 }
@@ -64,7 +66,8 @@ export function deleteAnswer(data) {
     url: '/userApi/answer/deleteAnswer',
     method: 'delete',
     params: {
-      answerId: data
+      answerId: data.answerId,
+      operator: data.operator
     }
   })
 }

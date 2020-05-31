@@ -8,7 +8,7 @@ public interface ICommentBiz {
 
     Boolean createComment(CommentDTO commentDTO);
 
-    Boolean deleteComment(String commentId);
+    Boolean deleteComment(String commentId, String operator);
 
     PageInfo<CommentDTO> pageCommentByParentId(CommentQueryDTO queryDTO);
 }

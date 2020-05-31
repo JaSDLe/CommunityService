@@ -46,9 +46,9 @@
 
     <update id="deleteByPrimaryKey" parameterType="java.lang.String">
         UPDATE cs_activity_comment
-        SET
-            del_flg = 1,
+        SET del_flg     = 1,
             update_time = NOW(),
+            update_user = #{operator}
         WHERE comment_id = #{commentId}
     </update>
 

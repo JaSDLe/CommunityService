@@ -11,7 +11,6 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.regex.Pattern;
 
 @Slf4j
@@ -22,11 +21,6 @@ public class AccountController {
 
     @Autowired
     private IAccountService accountService;
-
-    @GetMapping("/findAll")
-    public ItemResult<List<AccountDTO>> findAll() {
-        return new ItemResult<>(accountService.findAll());
-    }
 
     @PostMapping("/login")
     public ItemResult<AccountSimpleDTO> login(@RequestBody LoginDTO loginDTO) {
@@ -58,10 +52,19 @@ public class AccountController {
 
     @PutMapping("/joinCommunity")
     public ItemResult<Boolean> joinCommunity(@RequestParam("accountId") String accountId, @RequestParam("communityId") String communityId) {
-        if (accountService.joinCommunity(accountId, communityId)) {
+        if (accountService.joinCommunity(accountId, communityId, accountId)) {
             return new ItemResult<>(true, "加入成功");
         } else {
             return new ItemResult<>(false, "加入失败");
+        }
+    }
+
+    @PutMapping("/leaveCommunity")
+    public ItemResult<Boolean> leaveCommunity(@RequestParam("accountId") String accountId) {
+        if (accountService.joinCommunity(accountId, null, accountId)) {
+            return new ItemResult<>(true, "退出成功");
+        } else {
+            return new ItemResult<>(false, "退出失败");
         }
     }
 

@@ -2,7 +2,7 @@
   <div>
     <van-cell center is-link @click="toDetail" style="margin-bottom: 40px;">
       <template #title>
-        <van-row class="my-row">
+        <van-row type="flex" align="center">
           <van-image round width="80" height="80"></van-image>
           <van-col style="margin-left: 13px;">
             <van-row>
@@ -18,8 +18,8 @@
 
     <van-cell center is-link @click="toCommunity">
       <template #title>
-        <van-row class="my-row">
-          <van-icon name="setting-o" size="22" />
+        <van-row type="flex" align="center">
+          <van-icon name="shop-o" size="22" />
           <div class="my-cell-title">社区</div>
         </van-row>
       </template>
@@ -27,8 +27,8 @@
 
     <van-cell center is-link>
       <template #title>
-        <van-row class="my-row">
-          <van-icon name="setting-o" size="22" />
+        <van-row type="flex" align="center">
+          <van-icon name="smile-comment-o" size="22" />
           <div class="my-cell-title">我的动态</div>
         </van-row>
       </template>
@@ -36,8 +36,8 @@
 
     <van-cell center is-link>
       <template #title>
-        <van-row class="my-row">
-          <van-icon name="setting-o" size="22" />
+        <van-row type="flex" align="center">
+          <van-icon name="comment-o" size="22" />
           <div class="my-cell-title">我的评论</div>
         </van-row>
       </template>
@@ -45,17 +45,17 @@
 
     <van-cell center is-link>
       <template #title>
-        <van-row class="my-row">
-          <van-icon name="setting-o" size="22" />
+        <van-row type="flex" align="center">
+          <van-icon name="notes-o" size="22" />
           <div class="my-cell-title">我的留言</div>
         </van-row>
       </template>
     </van-cell>
 
-    <van-cell style center is-link>
+    <van-cell center is-link>
       <template #title>
-        <van-row class="my-row">
-          <van-icon name="setting-o" size="22" />
+        <van-row type="flex" align="center">
+          <van-icon name="bullhorn-o" size="22" />
           <div class="my-cell-title">公告</div>
         </van-row>
       </template>
@@ -63,8 +63,8 @@
 
     <van-cell center is-link>
       <template #title>
-        <van-row class="my-row">
-          <van-icon name="setting-o" size="22" />
+        <van-row type="flex" align="center">
+          <van-icon name="clock-o" size="22" />
           <div class="my-cell-title">我的足迹</div>
         </van-row>
       </template>
@@ -72,7 +72,7 @@
 
     <van-cell center is-link>
       <template #title>
-        <van-row class="my-row">
+        <van-row type="flex" align="center">
           <van-icon name="setting-o" size="22" />
           <div class="my-cell-title">设置</div>
         </van-row>
@@ -81,26 +81,25 @@
 
     <van-cell center is-link>
       <template #title>
-        <van-row class="my-row">
+        <van-row type="flex" align="center">
           <van-icon name="setting-o" size="22" />
           <div class="my-cell-title">设置</div>
         </van-row>
       </template>
     </van-cell>
-    <van-cell style center is-link>
+    <van-cell center is-link>
       <template #title>
-        <van-row class="my-row">
+        <van-row type="flex" align="center">
           <van-icon name="setting-o" size="22" />
           <div class="my-cell-title">设置</div>
         </van-row>
       </template>
     </van-cell>
 
-    <van-cell center is-link>
+    <van-cell center clickable @click="logout" style="margin-top: 40px;">
       <template #title>
-        <van-row class="my-row">
-          <van-icon name="setting-o" size="22" />
-          <div class="my-cell-title">设置</div>
+        <van-row type="flex" align="center" justify="center">
+          <div style="color: red;font-size: 17px;">退出登录</div>
         </van-row>
       </template>
     </van-cell>
@@ -111,7 +110,7 @@
 
 <script>
 import TabBar from "@/components/tab-bar"
-import { Form, Field, Button, Icon, Row, Col, Cell, Image } from "vant"
+import { Form, Field, Button, Icon, Row, Col, Cell, Image, Dialog } from "vant"
 
 export default {
   components: {
@@ -123,7 +122,8 @@ export default {
     [Row.name]: Row,
     [Col.name]: Col,
     [Cell.name]: Cell,
-    [Image.name]: Image
+    [Image.name]: Image,
+    [Dialog.name]: Dialog,
   },
 
   data() {
@@ -148,16 +148,26 @@ export default {
       this.$router.push({
         path: "/community/list"
       })
+    },
+    logout() {
+      this.$dialog({
+        title: '提示',
+        message: '确认要退出登录？',
+        showCancelButton: true,
+        closeOnClickOverlay: true,
+        confirmButtonColor: 'red'
+      }).then(() => {
+        this.$router.push({
+          path: "/login"
+        })
+        this.$store.dispatch('logout')
+      })
     }
   }
 };
 </script>
 
 <style scoped>
-.my-row {
-  display: flex;
-  align-items: center;
-}
 .my-cell-title {
   margin-left: 13px;
   font-size: 17px;

@@ -28,11 +28,6 @@ public class AccountBiz implements IAccountBiz {
     private IAccountDetailService accountDetailService;
 
     @Override
-    public List<Account> findAll() {
-        return accountService.findAll();
-    }
-
-    @Override
     public AccountSimpleDTO login(LoginDTO loginDTO) {
         AccountSimpleDTO accountSimpleDTO = vO2DTO(accountService.findAccountByUsername(loginDTO.getUsername()));
         if (accountSimpleDTO != null && StringUtils.isNotBlank(accountSimpleDTO.getAccountId())) {
@@ -66,8 +61,8 @@ public class AccountBiz implements IAccountBiz {
     }
 
     @Override
-    public Boolean joinCommunity(String accountId, String communityId) {
-        return accountService.joinCommunity(accountId, communityId) == 1;
+    public Boolean joinCommunity(String accountId, String communityId, String operator) {
+        return accountService.joinCommunity(accountId, communityId, operator) == 1;
     }
 
     @Override

@@ -32,8 +32,8 @@ public class AnswerService implements IAnswerService {
     }
 
     @Override
-    public Integer deleteAnswer(String commentId) {
-        return answerMapper.deleteByPrimaryKey(commentId);
+    public Integer deleteAnswer(String commentId, String operator) {
+        return answerMapper.deleteByPrimaryKey(commentId, operator);
     }
 
     @Override

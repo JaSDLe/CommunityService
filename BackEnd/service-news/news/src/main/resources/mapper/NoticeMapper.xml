@@ -67,6 +67,27 @@
           AND notice_id = #{noticeId}
     </select>
 
+    <select id="findAllValid" resultType="com.jason.news.api.dto.NoticeDTO">
+        SELECT nn.notice_id    AS noticeId,
+               nn.title        AS title,
+               nn.content      AS content,
+               nn.start_time   AS startTime,
+               nn.end_time     AS endTime,
+               nn.community_id AS communityId,
+               nn.del_flg      AS delFlg,
+               nn.create_user  AS createUser,
+               nn.create_time  AS createTime,
+               nn.update_user  AS updateUser,
+               nn.update_time  AS updateTime
+        FROM cs_news_notice AS nn
+        WHERE nn.del_flg = 0
+          AND nn.community_id = #{communityId}
+          AND <![CDATA[nn.start_time < NOW()]]>
+          AND nn.end_time > NOW()
+        ORDER BY nn.create_time DESC
+        LIMIT 3
+    </select>
+
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
         delete
         from cs_news_notice

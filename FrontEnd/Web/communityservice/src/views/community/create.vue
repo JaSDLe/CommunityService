@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nav-bar title="创建社区" />
+    <nav-bar :title="type + '社区'" />
 
     <van-form @submit="onSubmit">
       <van-field
@@ -50,16 +50,16 @@
       </van-popup>
 
       <div style="margin: 16px;">
-        <van-button round block type="info" native-type="submit">创建</van-button>
+        <van-button round block type="info" native-type="submit">{{ type }}</van-button>
       </div>
     </van-form>
   </div>
 </template>
 
 <script>
-import NavBar from "@/components/nav-bar";
-import { Form, Field, Button, Popup, Picker } from "vant";
-import { createCommunity } from "@/api/admin";
+import NavBar from "@/components/nav-bar"
+import { Form, Field, Button, Popup, Picker } from "vant"
+import { createCommunity, updateCommunity } from "@/api/admin"
 
 export default {
   components: {
@@ -80,31 +80,74 @@ export default {
       communityInfo: "",
       showPicker: false,
       columns: [],
-      index: ""
-    };
+      index: "",
+      type: '',
+      item: {}
+    }
   },
 
   created() {
-    for (let i = 0; i < 25; i++) {
-      this.columns.push(String.fromCharCode(65 + i));
+    this.type = this.$route.query.type
+    this.item = this.$route.query.item
+    if (this.item != undefined) {
+      this.communityName = this.item.communityName
+      this.communityInfo = this.item.communityInfo
+      this.index = this.item.index
+    }
+    for (let i = 0; i < 26; i++) {
+      this.columns.push(String.fromCharCode(65 + i))
     }
   },
 
   methods: {
     checkName(val) {
-      this.isNameError = val == null || val == "";
+      this.isNameError = val == null || val == ""
     },
     checkInfo(val) {
-      this.isInfoError = val == null || val == "";
+      this.isInfoError = val == null || val == ""
     },
     onConfirm(value, index) {
-      this.index = value;
-      this.showPicker = false;
+      this.index = value
+      this.isIndexError = false
+      this.showPicker = false
     },
     onSubmit() {
       if (this.index == null || this.index == "") {
-        this.isIndexError = true;
-        return;
+        this.isIndexError = true
+        return
+      }
+      if (this.isNameError || this.isInfoError) {
+        return
+      }
+      if (this.type == '创建') {
+        let param = {
+          communityName: this.communityName,
+          communityInfo: this.communityInfo,
+          index: this.index,
+          createUser: this.$store.getters.getAccountId
+        }
+        createCommunity(param).then(res => {
+          if (res.data) {
+            this.$router.push({
+              path: "/community/list"
+            })
+          }
+        })
+      } else {
+        let param = {
+          communityId: this.item.communityId,
+          communityName: this.communityName,
+          communityInfo: this.communityInfo,
+          index: this.index,
+          updateUser: this.$store.getters.getAccountId
+        }
+        updateCommunity(param).then(res => {
+          if (res.data) {
+            this.$router.push({
+              path: "/community/list"
+            })
+          }
+        })
       }
     }
   }

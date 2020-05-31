@@ -23,8 +23,12 @@ public class NoticeService implements INoticeService {
 
     @Override
     public PageInfo<NoticeDTO> pageNotice(NoticeQueryDTO queryDTO) {
-        PageHelper.startPage(queryDTO.getPageNum(), queryDTO.getPageSize());
-        return PageInfo.of(noticeMapper.findAll(queryDTO.getCommunityId()));
+        if (queryDTO.getPageSize() == 3) {
+            return PageInfo.of(noticeMapper.findAllValid(queryDTO.getCommunityId()));
+        } else {
+            PageHelper.startPage(queryDTO.getPageNum(), queryDTO.getPageSize());
+            return PageInfo.of(noticeMapper.findAll(queryDTO.getCommunityId()));
+        }
     }
 
     @Override

@@ -197,8 +197,9 @@
     <update id="joinCommunity">
         UPDATE cs_member_account
         SET community_id = #{communityId},
-            `type` = #{type},
-            update_time = NOW()
+            `type`       = #{type},
+            update_time  = NOW(),
+            update_user  = #{operator}
         WHERE account_id = #{accountId}
     </update>
 
@@ -229,15 +230,10 @@
 
     <update id="becomeAdmin">
         UPDATE cs_member_account
-        SET `type` = #{type},
+        SET `type`      = #{type},
             update_time = NOW()
         WHERE account_id = #{accountId}
     </update>
-
-    <select id="findAll" resultMap="BaseResultMap">
-        SELECT *
-        FROM cs_member_account
-    </select>
 
     <select id="login" resultType="java.lang.Boolean">
         SELECT COUNT(*)

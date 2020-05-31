@@ -8,7 +8,8 @@ export function setAdmin(data) {
     method: 'put',
     params: {
       accountId: data.accountId,
-      communityId: data.communityId
+      communityId: data.communityId,
+      operator: data.operator
     }
   })
 }
@@ -19,7 +20,8 @@ export function unsetAdmin(data) {
     url: '/adminApi/account/unsetAdmin',
     method: 'put',
     params: {
-      accountId: data
+      accountId: data.accountId,
+      operator: data.operator
     }
   })
 }
@@ -29,9 +31,7 @@ export function createCommunity(data) {
   return admin({
     url: '/adminApi/community/createCommunity',
     method: 'post',
-    params: {
-      communityDTO: data
-    }
+    data
   })
 }
 
@@ -40,9 +40,7 @@ export function updateCommunity(data) {
   return admin({
     url: '/adminApi/community/updateCommunity',
     method: 'put',
-    params: {
-      communityDTO: data
-    }
+    data
   })
 }
 
@@ -63,9 +61,7 @@ export function createNews(data) {
   return admin({
     url: '/adminApi/news/createNews',
     method: 'post',
-    params: {
-      newsDTO: data
-    }
+    data
   })
 }
 
@@ -74,8 +70,6 @@ export function createNotice(data) {
   return admin({
     url: '/adminApi/notice/createNotice',
     method: 'post',
-    params: {
-      noticeDTO: data
-    }
+    data
   })
 }

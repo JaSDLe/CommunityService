@@ -54,8 +54,9 @@
 </template>
 
 <script>
-import { Form, Field, Button, Icon, Row, Col, Toast, Divider, Dialog } from "vant"
+import { Form, Field, Button, Icon, Row, Col, Divider, Dialog } from "vant"
 import { register } from "@/api/member"
+import { md5 } from 'js-md5'
 
 export default {
   components: {
@@ -65,7 +66,6 @@ export default {
     [Icon.name]: Icon,
     [Row.name]: Row,
     [Col.name]: Col,
-    [Toast.name]: Toast,
     [Divider.name]: Divider
   },
 
@@ -101,11 +101,7 @@ export default {
       return val == this.password
     },
     onSubmit(values) {
-      register({ username: this.username, password: this.password }).then(res => {
-        this.$toast({
-          type: res.success && res.data ? 'success' : 'fail',
-          message: res.description
-        })
+      register({ username: this.username, password: md5(this.password) }).then(res => {
         if (res.data) {
           this.$router.push({
             path: "/login",

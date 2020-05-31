@@ -50,23 +50,23 @@ export default {
   props: {
     nickname: {
       type: String,
-      default: '新款小米'
+      // default: '新款小米'
     },
     content: {
       type: String,
-      default: 'IT之家5月1日消息 根据NoteBookCheck的报道，大量小米的新型号笔记本电脑获得了蓝牙SIG的认证。外媒认为，小米打算扩大其移动个人电脑产品组合，最多推出6款新的笔记本电脑，其中至少有两款采用了AMD最新的Ryzen 4000 APU。'
+      // default: 'IT之家5月1日消息 根据NoteBookCheck的报道，大量小米的新型号笔记本电脑获得了蓝牙SIG的认证。外媒认为，小米打算扩大其移动个人电脑产品组合，最多推出6款新的笔记本电脑，其中至少有两款采用了AMD最新的Ryzen 4000 APU。'
     },
     headPic: {
       type: String,
-      default: 'https://img.yzcdn.cn/vant/cat1.jpeg'
+      // default: 'https://img.yzcdn.cn/vant/cat1.jpeg'
     },
     replyNum: {
       type: Number,
-      default: 4
+      // default: 4
     },
     createTime: {
       type: String,
-      default: Date.now()
+      // default: Date.now()
     },
   },
 

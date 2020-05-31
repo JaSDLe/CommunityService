@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { Sticky, Row, Col, Button } from "vant";
+import { Sticky, Row, Col, Button } from "vant"
 
 export default {
   components: {
@@ -32,10 +32,10 @@ export default {
   },
 
   data() {
-    return {};
+    return {}
   },
 
-  created() {},
+  created() { },
 
   methods: {
     // onClickLeft() {
@@ -65,6 +65,7 @@ export default {
 }
 .row .btn1 {
   padding-right: 80px;
+  border: none;
 }
 .van-button--default {
   color: #1989fa;
@@ -79,9 +80,8 @@ export default {
 .btn2 .van-icon {
   transform: rotateY(180deg);
   font-size: 25px;
-
 }
 .btn2 .van-button__text {
-  font-size: 23px;
+  font-size: 20px;
 }
 </style>

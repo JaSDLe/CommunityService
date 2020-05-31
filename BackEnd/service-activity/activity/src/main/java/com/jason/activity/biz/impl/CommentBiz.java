@@ -26,8 +26,8 @@ public class CommentBiz implements ICommentBiz {
     }
 
     @Override
-    public Boolean deleteComment(String commentId) {
-        return commentService.deleteComment(commentId) == 1;
+    public Boolean deleteComment(String commentId, String operator) {
+        return commentService.deleteComment(commentId, operator) == 1;
     }
 
     @Override

@@ -27,8 +27,8 @@ public class CommentController {
     }
 
     @DeleteMapping("/deleteComment")
-    public ItemResult<Boolean> deleteComment(@RequestParam("commentId") String commentId) {
-        if (commentService.deleteComment(commentId)) {
+    public ItemResult<Boolean> deleteComment(@RequestParam("commentId") String commentId, @RequestParam("operator") String operator) {
+        if (commentService.deleteComment(commentId, operator)) {
             return new ItemResult<>(true, "删除成功");
         } else {
             return new ItemResult<>(false, "删除失败");

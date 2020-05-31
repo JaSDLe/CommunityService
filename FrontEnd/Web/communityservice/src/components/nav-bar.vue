@@ -1,7 +1,17 @@
 <template>
   <div>
     <van-sticky>
-      <van-nav-bar style="font-size: 18px;" :title="title" left-arrow @click-left="onClickLeft" />
+      <van-nav-bar
+        style="font-size: 18px;"
+        :title="title"
+        left-arrow
+        @click-left="onClickLeft"
+        @click-right="onClickRight"
+      >
+        <template #right>
+          <slot name="my-right"></slot>
+        </template>
+      </van-nav-bar>
     </van-sticky>
   </div>
 </template>
@@ -30,6 +40,9 @@ export default {
   methods: {
     onClickLeft() {
       this.$router.go(-1)
+    },
+    onClickRight() {
+      this.$emit('right-method')
     }
   }
 };

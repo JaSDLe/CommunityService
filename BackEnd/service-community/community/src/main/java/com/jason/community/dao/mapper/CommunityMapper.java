@@ -26,5 +26,5 @@ public interface CommunityMapper {
 
     Community findByCommunityId(@Param("communityId") String communityId);
 
-    Integer updateCommunity(@Param("community") Community community);
+    Integer updateCommunity(Community community);
 }

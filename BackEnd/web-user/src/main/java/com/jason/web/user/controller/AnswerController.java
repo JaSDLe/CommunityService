@@ -27,8 +27,8 @@ public class AnswerController {
     }
 
     @DeleteMapping("/deleteAnswer")
-    public ItemResult<Boolean> deleteAnswer(@RequestParam("answerId") String answerId) {
-        if (answerService.deleteAnswer(answerId)) {
+    public ItemResult<Boolean> deleteAnswer(@RequestParam("answerId") String answerId, @RequestParam("operator") String operator) {
+        if (answerService.deleteAnswer(answerId, operator)) {
             return new ItemResult<>(true, "删除成功");
         } else {
             return new ItemResult<>(false, "删除失败");

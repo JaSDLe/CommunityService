@@ -11,7 +11,7 @@ import java.util.List;
 @Component
 public interface AnswerMapper {
 
-    Integer deleteByPrimaryKey(@Param("answerId") String answerId);
+    Integer deleteByPrimaryKey(@Param("answerId") String answerId, @Param("operator") String operator);
 
     Integer insert(Answer record);
 

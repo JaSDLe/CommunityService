@@ -9,8 +9,6 @@ import java.util.List;
 @Component
 public interface AccountMapper {
 
-    List<Account> findAll();
-
     Boolean login(@Param("username") String username, @Param("password") String password);
 
     Boolean isUsernameOnly(@Param("username") String username);
@@ -36,7 +34,7 @@ public interface AccountMapper {
 
     Integer findPopulationByCommunityId(@Param("communityId") String communityId, @Param("type") Integer type);
 
-    Integer joinCommunity(@Param("accountId") String accountId, @Param("communityId") String communityId, @Param("type") Integer type);
+    Integer joinCommunity(@Param("accountId") String accountId, @Param("communityId") String communityId, @Param("type") Integer type, @Param("operator") String operator);
 
     Integer updateAccountBaseInfo(Account account);
 

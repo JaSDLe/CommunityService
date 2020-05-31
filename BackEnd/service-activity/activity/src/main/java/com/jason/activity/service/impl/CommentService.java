@@ -32,8 +32,8 @@ public class CommentService implements ICommentService {
     }
 
     @Override
-    public Integer deleteComment(String commentId) {
-        return commentMapper.deleteByPrimaryKey(commentId);
+    public Integer deleteComment(String commentId, String operator) {
+        return commentMapper.deleteByPrimaryKey(commentId, operator);
     }
 
     @Override

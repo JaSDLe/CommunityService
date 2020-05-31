@@ -24,8 +24,8 @@ public class AnswerBiz implements IAnswerBiz {
     }
 
     @Override
-    public Boolean deleteAnswer(String answerId) {
-        return answerService.deleteAnswer(answerId) == 1;
+    public Boolean deleteAnswer(String answerId, String operator) {
+        return answerService.deleteAnswer(answerId, operator) == 1;
     }
 
     @Override

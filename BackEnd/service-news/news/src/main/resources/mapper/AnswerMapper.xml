@@ -49,6 +49,7 @@
         SET
             del_flg = 1,
             update_time = NOW(),
+            update_user = #{operator}
         WHERE answer_id = #{answerId}
     </update>
 

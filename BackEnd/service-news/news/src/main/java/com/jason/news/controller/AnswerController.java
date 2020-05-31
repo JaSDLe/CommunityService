@@ -22,8 +22,8 @@ public class AnswerController {
     }
 
     @DeleteMapping("/deleteAnswer")
-    Boolean deleteAnswer(@RequestParam("answerId") String answerId) {
-        return answerBiz.deleteAnswer(answerId);
+    Boolean deleteAnswer(@RequestParam("answerId") String answerId, @RequestParam("operator") String operator) {
+        return answerBiz.deleteAnswer(answerId, operator);
     }
 
     @GetMapping("/pageAnswerByParentId")

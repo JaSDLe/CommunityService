@@ -19,6 +19,8 @@ public class ActivityDTO {
 
     private String createUser;
 
+    private String nickname;
+
     private Date createTime;
 
     private String updateUser;

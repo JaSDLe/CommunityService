@@ -15,9 +15,6 @@ import java.util.List;
 @FeignClient(name = "service-member")
 public interface IAccountService {
 
-    @RequestMapping(method = RequestMethod.GET, path = "/account/findAll", consumes = "application/json")
-    List<AccountDTO> findAll();
-
     @RequestMapping(method = RequestMethod.POST, path = "/account/login", consumes = "application/json")
     AccountSimpleDTO login(@RequestBody LoginDTO loginDTO);
 
@@ -31,7 +28,7 @@ public interface IAccountService {
     Integer findPopulationByCommunityId(@RequestParam("communityId") String communityId);
 
     @RequestMapping(method = RequestMethod.PUT, path = "/account/joinCommunity", consumes = "application/json")
-    Boolean joinCommunity(@RequestParam("accountId") String accountId, @RequestParam("communityId") String communityId);
+    Boolean joinCommunity(@RequestParam("accountId") String accountId, @RequestParam(value = "communityId", required = false) String communityId, @RequestParam("operator") String operator);
 
     @RequestMapping(method = RequestMethod.PUT, path = "/account/becomeAdmin", consumes = "application/json")
     Boolean becomeAdmin(@RequestParam("accountId") String accountId);

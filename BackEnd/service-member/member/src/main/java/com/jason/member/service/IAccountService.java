@@ -7,8 +7,6 @@ import java.util.List;
 
 public interface IAccountService {
 
-    List<Account> findAll();
-
     Boolean login(LoginDTO loginDTO);
 
     Boolean isUsernameOnly(String username);
@@ -23,7 +21,7 @@ public interface IAccountService {
 
     Integer findPopulationByCommunityId(String communityId);
 
-    Integer joinCommunity(String accountId, String communityId);
+    Integer joinCommunity(String accountId, String communityId, String operator);
 
     Integer becomeAdmin(String accountId);
 

@@ -40,6 +40,14 @@ const routes = [
     path: '/news/detail',
     component: () => import('@/views/news/detail')
   },
+  {
+    path: '/news/create',
+    component: () => import('@/views/news/create')
+  },
+  {
+    path: '/notice/create',
+    component: () => import('@/views/news/notice/create')
+  },
   /**
    * activity
    * 动态模块

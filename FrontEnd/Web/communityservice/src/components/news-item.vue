@@ -71,6 +71,7 @@ export default {
   data() {
     return {}
   },
+
   computed: {},
 
   watch: {},
@@ -91,7 +92,7 @@ export default {
 
   methods: {
     toDetail(val) {
-      console.log(val)
+      this.$emit('on-click')
     }
   }
 };

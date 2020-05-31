@@ -1,8 +1,26 @@
 <template>
   <div>
-    <!-- <van-skeleton title avatar :row="3" :loading="loading">
-      <div>实际内容</div>
-    </van-skeleton> -->
+    <van-search
+      v-model.trim="search"
+      placeholder="请输入搜索关键词"
+      :show-action="isShowAdd"
+      @search="onSearch"
+    >
+      <template #action>
+        <van-icon name="add" size="25" color="#1989fa" @click="isShowPopup = true" />
+      </template>
+    </van-search>
+
+    <van-popup v-model="isShowPopup">
+      <van-cell center clickable @click="toCreateActivity">
+        <template #title>
+          <van-row type="flex" align="center">
+            <van-icon name="smile-comment-o" size="27" />
+            <div class="my-cell-title">发布动态</div>
+          </van-row>
+        </template>
+      </van-cell>
+    </van-popup>
 
     <van-pull-refresh v-model="isRefreshing" @refresh="onRefresh" success-text="刷新成功">
       <van-list
@@ -16,11 +34,12 @@
         <activity-item
           v-for="(item, index) in list"
           :key="index"
-          :nickname="item.nickname"
+          :nickname="item.updateUser"
           :content="item.content"
           :headPic="item.headPic"
           :replyNum="item.replyNum"
           :createTime="item.createTime"
+          @on-click="toActivityDetail(item.activityId)"
         />
       </van-list>
     </van-pull-refresh>
@@ -34,8 +53,8 @@
 <script>
 import TabBar from "@/components/tab-bar"
 import ActivityItem from "@/components/activity-item"
-import { PullRefresh, List, Skeleton } from "vant"
-import { pageActivity } from "@/api/activity"
+import { PullRefresh, List, Search, Popup, Cell, Row, Icon } from "vant"
+import { pageActivity, } from "@/api/activity"
 
 export default {
   components: {
@@ -43,7 +62,11 @@ export default {
     ActivityItem,
     [PullRefresh.name]: PullRefresh,
     [List.name]: List,
-    [Skeleton.name]: Skeleton
+    [Search.name]: Search,
+    [Popup.name]: Popup,
+    [Cell.name]: Cell,
+    [Row.name]: Row,
+    [Icon.name]: Icon,
   },
 
   data() {
@@ -58,14 +81,19 @@ export default {
         communityId: null,
         pageNum: 1,
         pageSize: 10
-      }
+      },
+      search: '',
+      isShowPopup: false,
+    }
+  },
+
+  computed: {
+    isShowAdd() {
+      return this.$store.getters.isResident
     }
   },
 
   mounted() {
-    // setTimeout(() => {
-    // this.loading = false;
-    // }, 1000);
   },
 
   methods: {
@@ -101,10 +129,56 @@ export default {
         }
         this.isListLoading = false
       })
-    }
+    },
+    onSearch(val) {
+      console.log(val)
+    },
+    toCreateActivity() { },
+    toActivityDetail(val) { }
   }
 };
 </script>
 
-<style>
+<style lang="postcss" scoped>
+/deep/.van-search__action {
+  height: 34px;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+}
+/deep/.van-overlay {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+.my-cell-title {
+  margin-left: 13px;
+  margin-right: 13px;
+  font-size: 17px;
+}
+/deep/.van-cell--center {
+  padding: 13px;
+  border-radius: 5px;
+}
+/deep/.van-popup--center {
+  left: unset;
+  transform: none;
+}
+/deep/.van-popup {
+  border-radius: 5px;
+  overflow-y: visible;
+  position: absolute;
+  width: fit-content;
+  top: 58px;
+  right: 5px;
+}
+/deep/.van-popup::before {
+  content: "";
+  width: 0;
+  height: 0;
+  position: absolute;
+  top: -8px;
+  right: 10px;
+  border-left: solid 8px transparent;
+  border-right: solid 8px transparent;
+  border-bottom: solid 8px #fff;
+}
 </style>

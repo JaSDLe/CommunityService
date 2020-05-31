@@ -22,8 +22,8 @@ public class CommentController {
     }
 
     @DeleteMapping("/deleteComment")
-    Boolean deleteComment(@RequestParam("commentId") String commentId) {
-        return commentBiz.deleteComment(commentId);
+    Boolean deleteComment(@RequestParam("commentId") String commentId, @RequestParam("operator") String operator) {
+        return commentBiz.deleteComment(commentId, operator);
     }
 
     @GetMapping("/pageCommentByParentId")

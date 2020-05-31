@@ -23,13 +23,8 @@ public class AccountService implements IAccountService {
     private AccountMapper accountMapper;
 
     @Override
-    public List<Account> findAll() {
-        return accountMapper.findAll();
-    }
-
-    @Override
     public Boolean login(LoginDTO loginDTO) {
-        return accountMapper.login(loginDTO.getUsername(), addSalt(loginDTO.getPassword(), loginDTO.getAccountId()));
+        return accountMapper.login(loginDTO.getUsername(), this.addSalt(loginDTO.getPassword(), loginDTO.getAccountId()));
     }
 
     @Override
@@ -76,8 +71,8 @@ public class AccountService implements IAccountService {
     }
 
     @Override
-    public Integer joinCommunity(String accountId, String communityId) {
-        return accountMapper.joinCommunity(accountId, communityId, AccountTypeEnum.RESIDENT.getKey());
+    public Integer joinCommunity(String accountId, String communityId, String operator) {
+        return accountMapper.joinCommunity(accountId, communityId, AccountTypeEnum.RESIDENT.getKey(), operator);
     }
 
     @Override

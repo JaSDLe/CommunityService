@@ -15,7 +15,7 @@ public interface ICommentService {
     Boolean createComment(@RequestBody CommentDTO commentDTO);
 
     @RequestMapping(method = RequestMethod.DELETE, path = "/comment/deleteComment", consumes = "application/json")
-    Boolean deleteComment(@RequestParam("commentId") String commentId);
+    Boolean deleteComment(@RequestParam("commentId") String commentId, @RequestParam("operator") String operator);
 
     @RequestMapping(method = RequestMethod.GET, path = "/comment/pageCommentByParentId", consumes = "application/json")
     PageInfo<CommentDTO> pageCommentByParentId(@RequestParam(value = "parentId", required = false) String parentId, @RequestParam("pageNum") Integer pageNum, @RequestParam("pageSize") Integer pageSize);

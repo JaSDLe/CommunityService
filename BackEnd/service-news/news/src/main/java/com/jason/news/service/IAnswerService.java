@@ -9,7 +9,7 @@ public interface IAnswerService {
 
     Integer createAnswer(Answer answer);
 
-    Integer deleteAnswer(String answerId);
+    Integer deleteAnswer(String answerId, String operator);
 
     PageInfo<AnswerDTO> pageAnswerByParentId(AnswerQueryDTO queryDTO);
 }

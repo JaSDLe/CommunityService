@@ -39,6 +39,12 @@ export default function createWebServiceHelper(baseUrl) {
       }
       Toast.clear()
       // return res.success !== true ? Promise.reject(res) : Promise.resolve(res)
+      if (res.description != null && res.description != '') {
+        Toast({
+          type: res.success && res.data ? "success" : "fail",
+          message: res.description
+        })
+      }
       return res
     },
     error => {

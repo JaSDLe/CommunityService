@@ -44,7 +44,14 @@ const user = {
         commit('SET_NICKNAME', '')
         resolve()
       })
-    }
+    },
+    joinCommunity({ commit }, data) {
+      return new Promise(resolve => {
+        commit('SET_COMMUNITY_ID', data.communityId)
+        commit('SET_TYPE', data.type)
+        resolve()
+      })
+    },
   },
   getters: {
     isSuperAdmin: state => {

@@ -10,7 +10,7 @@ import java.util.List;
 @Component
 public interface CommentMapper {
 
-    Integer deleteByPrimaryKey(@Param("commentId") String commentId);
+    Integer deleteByPrimaryKey(@Param("commentId") String commentId, @Param("operator") String operator);
 
     Integer insert(Comment record);
 

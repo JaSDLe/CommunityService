@@ -21,6 +21,8 @@ public class NewsDTO {
 
     private String createUser;
 
+    private String author;
+
     private Date createTime;
 
     private String updateUser;

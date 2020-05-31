@@ -15,7 +15,8 @@ export function findDetailByCommunityId(data) {
     url: '/userApi/community/findDetailByCommunityId',
     method: 'get',
     params: {
-      communityId: data
+      communityId: data.communityId,
+      operator: data.operator
     }
   })
 }

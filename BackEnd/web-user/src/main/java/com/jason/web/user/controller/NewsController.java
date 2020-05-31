@@ -3,6 +3,7 @@ package com.jason.web.user.controller;
 import com.github.pagehelper.PageInfo;
 import com.jason.member.api.dto.ReadHistoryDTO;
 import com.jason.member.api.enums.ReadHistoryTypeEnum;
+import com.jason.member.api.service.IAccountDetailService;
 import com.jason.member.api.service.IReadHistoryService;
 import com.jason.news.api.dto.NewsDTO;
 import com.jason.news.api.service.INewsService;
@@ -23,6 +24,9 @@ public class NewsController {
     @Autowired
     private IReadHistoryService readHistoryService;
 
+    @Autowired
+    private IAccountDetailService accountDetailService;
+
     @GetMapping("/pageNews")
     public ItemResult<PageInfo<NewsDTO>> pageNews(@RequestParam(value = "communityId", required = false) String communityId,
                                                   @RequestParam("pageNum") Integer pageNum,
@@ -34,6 +38,7 @@ public class NewsController {
     public ItemResult<NewsDTO> findByNewsId(@RequestParam("newsId") String newsId, @RequestParam("operator") String operator) {
         NewsDTO result = newsService.findByNewsId(newsId);
         if (result != null) {
+            result.setAuthor(accountDetailService.findSimpleAccountByAccountId(result.getCreateUser()).getNickname());
             readHistoryService.add(new ReadHistoryDTO(ReadHistoryTypeEnum.NEWS.getKey(), operator, newsId));
         }
         return new ItemResult<>(result);

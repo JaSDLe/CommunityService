@@ -33,6 +33,7 @@ public class CommunityService implements ICommunityService {
         community.setCommunityId(UUID.randomUUID().toString().replace("-", ""));
         community.setDelFlg(Boolean.FALSE);
         community.setCreateTime(new Date());
+        community.setUpdateUser(community.getCreateUser());
         community.setUpdateTime(new Date());
         return communityMapper.insert(community);
     }

@@ -31,6 +31,17 @@ export function joinCommunity(data) {
   })
 }
 
+// 离开社区
+export function leaveCommunity(data) {
+  return user({
+    url: '/userApi/account/leaveCommunity',
+    method: 'put',
+    params: {
+      accountId: data.accountId
+    }
+  })
+}
+
 // 更新账户基本信息
 export function updateAccountBaseInfo(data) {
   return user({
@@ -46,7 +57,8 @@ export function getUserInfoByAccountId(data) {
     url: '/userApi/accountDetail/getUserInfoByAccountId',
     method: 'get',
     params: {
-      accountId: data
+      accountId: data.accountId,
+      operator: data.operator
     }
   })
 }

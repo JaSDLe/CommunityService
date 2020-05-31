@@ -3,35 +3,21 @@
     <van-row>
       <div class="title">{{ title }}</div>
     </van-row>
-    <van-row type="flex" align="center">
+    <van-row type="flex" align="center" style="flex-wrap: wrap;">
       <van-col class="create-time">{{ createTime | getDate }}</van-col>
       <van-col class="author">{{ author }}</van-col>
     </van-row>
     <van-row class="content">{{ content }}</van-row>
 
-    <van-row class="content">{{ content }}</van-row>
-    <van-row class="content">{{ content }}</van-row>
-    <van-row class="content">{{ content }}</van-row>
-    <van-row class="content">{{ content }}</van-row>
-    <van-row class="content">{{ content }}</van-row>
-    <van-row class="content">{{ content }}</van-row>
-    <van-row class="content">{{ content }}</van-row>
-    <van-row class="content">{{ content }}</van-row>
-    <van-row class="content">{{ content }}</van-row>
-    <van-row class="content">{{ content }}</van-row>
-    <van-row class="content">{{ content }}</van-row>
-    <van-row class="content">{{ content }}</van-row>
-    <van-row class="content">{{ content }}</van-row>
-    <van-row class="content">{{ content }}</van-row>
-    <van-row class="content">{{ content }}</van-row>
     <div style="height: 40px;" />
-    <answer-bar />
+
+    <answer-bar :replyNum="replyNum" />
   </div>
 </template>
 
 <script>
-import AnswerBar from "@/components/answer-bar";
-import { Row, Col } from "vant";
+import AnswerBar from "@/components/answer-bar"
+import { Row, Col } from "vant"
 
 export default {
   components: {
@@ -56,22 +42,26 @@ export default {
     content: {
       type: String,
       default: "根据消息，is爱大家啊，大飒飒的我，123"
+    },
+    replyNum: {
+      type: Number,
+      default: 0
     }
   },
 
   data() {
-    return {};
+    return {}
   },
 
-  created() {},
+  created() { },
 
   filters: {
     getDate(timeStamp) {
-      const now = new Date(timeStamp);
-      const y = now.getFullYear();
-      const m = ("0" + (now.getMonth() + 1)).slice(-2);
-      const d = ("0" + now.getDate()).slice(-2);
-      return y + "-" + m + "-" + d + " " + now.toTimeString().substr(0, 8);
+      const now = new Date(timeStamp)
+      const y = now.getFullYear()
+      const m = ("0" + (now.getMonth() + 1)).slice(-2)
+      const d = ("0" + now.getDate()).slice(-2)
+      return y + "-" + m + "-" + d + " " + now.toTimeString().substr(0, 8)
     }
   },
 
