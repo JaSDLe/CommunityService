@@ -64,6 +64,10 @@ const routes = [
     path: '/message/list',
     component: () => import('@/views/message/list')
   },
+  {
+    path: '/message/detail',
+    component: () => import('@/views/message/detail')
+  },
   /**
    * community
    * 社区模块
