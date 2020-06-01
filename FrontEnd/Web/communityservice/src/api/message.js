@@ -1,21 +1,26 @@
 import createWebServiceHelper from '@/utils/request'
 const user = createWebServiceHelper(process.env.VUE_APP_USER)
 
-// 查询社区列表
-export function findAll() {
+// 查询私信列表
+export function pageMessage(data) {
   return user({
-    url: '/userApi/community/findAll',
-    method: 'get'
+    url: '/userApi/message/pageMessage',
+    method: 'get',
+    params: {
+      accountId: data.accountId,
+      pageNum: data.pageNum,
+      pageSize: data.pageSize
+    }
   })
 }
 
-// 根据社区id查询社区详情
-export function findDetailByCommunityId(data) {
+// 根据私信id查询私信详情
+export function findByMessageId(data) {
   return user({
-    url: '/userApi/community/findDetailByCommunityId',
+    url: '/userApi/message/findByMessageId',
     method: 'get',
     params: {
-      communityId: data
+      newsId: data
     }
   })
 }

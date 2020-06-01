@@ -21,8 +21,7 @@
     <van-cell-group title="详细资料">
       <van-cell title="性别" is-link :value="accountDetail.sex ? '男' : '女'" />
       <van-cell title="出生年月" is-link :value="getDate(accountDetail.birthday)" />
-      <van-cell title="星座" is-link value="狮子座" />
-      <!-- <van-cell title="星座" is-link :value="accountDetail.constellation" /> -->
+      <van-cell title="星座" is-link :value="accountDetail.constellation" />
       <van-cell title="地址" is-link :value="accountDetail.address" />
     </van-cell-group>
   </div>
