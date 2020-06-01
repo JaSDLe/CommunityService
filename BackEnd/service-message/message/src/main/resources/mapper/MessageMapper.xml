@@ -27,6 +27,31 @@
         where id = #{id,jdbcType=VARCHAR}
     </select>
 
+    <select id="findAll" resultType="com.jason.message.api.dto.MessageDTO">
+        SELECT
+        mm.`id` AS id,
+        mm.sender_id AS senderId,
+        mm.receiver_id AS receiverId,
+        mm.parent_id AS parentId,
+        mm.content AS content,
+        mm.del_flg AS delFlg,
+        mm.create_user AS createUser,
+        mm.create_time AS createTime,
+        mm.update_user AS updateUser,
+        mm.update_time AS updateTime
+        FROM cs_message_message mm
+        WHERE mm.del_flg = 0
+        AND mm.sender_id = #{accountId}
+        ORDER BY mm.create_time DESC
+    </select>
+
+    <select id="findByMessageId" resultType="com.jason.message.dao.vo.Message">
+        SELECT *
+        FROM cs_message_message
+        WHERE del_flg = 0
+        AND id = #{messageId}
+    </select>
+
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
         delete
         from cs_message_message

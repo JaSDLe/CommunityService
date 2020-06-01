@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 @FeignClient(name = "service-message")
 public interface IMessageService {
 
-    @RequestMapping(method = RequestMethod.GET, path = "/message/pageNews", consumes = "application/json")
-    PageInfo<MessageDTO> pageNews(@RequestParam(value = "communityId", required = false) String communityId, @RequestParam("pageNum") Integer pageNum, @RequestParam("pageSize") Integer pageSize);
+    @RequestMapping(method = RequestMethod.GET, path = "/message/pageMessage", consumes = "application/json")
+    PageInfo<MessageDTO> pageMessage(@RequestParam("accountId") String accountId, @RequestParam("pageNum") Integer pageNum, @RequestParam("pageSize") Integer pageSize);
 
-    @RequestMapping(method = RequestMethod.GET, path = "/message/findByNewsId", consumes = "application/json")
-    MessageDTO findByNewsId(@RequestParam("newsId") String newsId);
+    @RequestMapping(method = RequestMethod.GET, path = "/message/findByMessageId", consumes = "application/json")
+    MessageDTO findByMessageId(@RequestParam("messageId") String messageId);
 }

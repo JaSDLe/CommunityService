@@ -1,6 +1,8 @@
 package com.jason.message.biz.impl;
 
+import com.github.pagehelper.PageInfo;
 import com.jason.message.api.dto.MessageDTO;
+import com.jason.message.api.dto.MessageQueryDTO;
 import com.jason.message.biz.IMessageBiz;
 import com.jason.message.dao.vo.Message;
 import com.jason.message.service.IMessageService;
@@ -16,15 +18,15 @@ public class MessageBiz implements IMessageBiz {
     @Autowired
     private IMessageService messageService;
 
-//    @Override
-//    public PageInfo<NewsDTO> pageNews(NewsQueryDTO queryDTO) {
-//        return PageInfo.of(messageService.pageNews(queryDTO).stream().map(this::vO2DTO).collect(Collectors.toList()));
-//    }
+    @Override
+    public PageInfo<MessageDTO> pageMessage(MessageQueryDTO queryDTO) {
+        return messageService.pageMessage(queryDTO);
+    }
 
-//    @Override
-//    public NewsDTO findByNewsId(String newsId) {
-//        return vO2DTO(messageService.findByNewsId(newsId));
-//    }
+    @Override
+    public MessageDTO findByMessageId(String messageId) {
+        return vO2DTO(messageService.findByMessageId(messageId));
+    }
 
     private MessageDTO vO2DTO(Message message) {
         if (message == null) {

@@ -1,10 +1,13 @@
 package com.jason.message.service;
 
-import java.util.List;
+import com.github.pagehelper.PageInfo;
+import com.jason.message.api.dto.MessageDTO;
+import com.jason.message.api.dto.MessageQueryDTO;
+import com.jason.message.dao.vo.Message;
 
 public interface IMessageService {
 
-//    List<News> pageNews(NewsQueryDTO queryDTO);
+    PageInfo<MessageDTO> pageMessage(MessageQueryDTO queryDTO);
 
-//    News findByNewsId(String newsId);
+    Message findByMessageId(String messageId);
 }

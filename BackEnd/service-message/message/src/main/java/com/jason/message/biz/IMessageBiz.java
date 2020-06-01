@@ -1,10 +1,12 @@
 package com.jason.message.biz;
 
-import java.util.List;
+import com.github.pagehelper.PageInfo;
+import com.jason.message.api.dto.MessageDTO;
+import com.jason.message.api.dto.MessageQueryDTO;
 
 public interface IMessageBiz {
 
-//    List<News> pageNews(NewsQueryDTO queryDTO);
+    PageInfo<MessageDTO> pageMessage(MessageQueryDTO queryDTO);
 
-//    News findByNewsId(String newsId);
+    MessageDTO findByMessageId(String messageId);
 }
