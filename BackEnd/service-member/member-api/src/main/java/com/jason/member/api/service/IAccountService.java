@@ -35,4 +35,8 @@ public interface IAccountService {
 
     @RequestMapping(method = RequestMethod.PUT, path = "/account/updateAccountBaseInfo", consumes = "application/json")
     Boolean updateAccountBaseInfo(@RequestBody AccountDTO accountDTO);
+
+    @RequestMapping(method = RequestMethod.GET, path = "/account/isUsernameOnly", consumes = "application/json")
+    Boolean isUsernameOnly(@RequestParam("username") String username);
+
 }

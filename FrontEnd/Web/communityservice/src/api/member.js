@@ -51,6 +51,17 @@ export function updateAccountBaseInfo(data) {
   })
 }
 
+// 用户名是否唯一
+export function isUsernameOnly(data) {
+  return user({
+    url: '/userApi/account/isUsernameOnly',
+    method: 'get',
+    params: {
+      username: data
+    }
+  })
+}
+
 // 根据账号id获取账户信息
 export function getUserInfoByAccountId(data) {
   return user({

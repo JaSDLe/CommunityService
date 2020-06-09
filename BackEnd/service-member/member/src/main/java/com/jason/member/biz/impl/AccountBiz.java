@@ -75,6 +75,11 @@ public class AccountBiz implements IAccountBiz {
         return accountService.updateAccountBaseInfo(dTO2VO(accountDTO)) == 1;
     }
 
+    @Override
+    public Boolean isUsernameOnly(String username) {
+        return accountService.isUsernameOnly(username);
+    }
+
     private Account dTO2VO(AccountDTO accountDTO) {
         if (accountDTO == null) {
             return null;

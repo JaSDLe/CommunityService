@@ -21,5 +21,5 @@ public interface AccountDetailMapper {
 
     AccountDetail findAccountDetailByAccountId(@Param("accountId") String accountId);
 
-    int updateAccountDetailByAccountId(@Param("accountDetail") AccountDetail accountDetail);
+    int updateAccountDetailByAccountId(AccountDetail accountDetail);
 }

@@ -76,4 +76,9 @@ public class AccountController {
             return new ItemResult<>(false, "更新失败");
         }
     }
+
+    @GetMapping("/isUsernameOnly")
+    public ItemResult<Boolean> isUsernameOnly(@RequestParam("username") String username) {
+        return new ItemResult<>(accountService.isUsernameOnly(username));
+    }
 }

@@ -53,4 +53,9 @@ public class AccountController {
     public Boolean updateAccountBaseInfo(@RequestBody AccountDTO accountDTO) {
         return accountBiz.updateAccountBaseInfo(accountDTO);
     }
+
+    @GetMapping("/isUsernameOnly")
+    public Boolean isUsernameOnly(@RequestParam("username") String username) {
+        return accountBiz.isUsernameOnly(username);
+    }
 }
