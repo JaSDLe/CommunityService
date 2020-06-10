@@ -54,7 +54,16 @@
         />
       </van-popup>
 
-      <van-cell title="出生年月" is-link :value="accountDetail.birthday | getDate" />
+      <van-cell title="出生年月" is-link :value="accountDetail.birthday | getDate" @click="isShowBirthdayPicker = true" />
+      <van-popup v-model="isShowBirthdayPicker" position="bottom">
+        <van-datetime-picker
+          v-model="date"
+          type="date"
+          title="选择年月日"
+          @confirm="onStartTimeConfirm"
+          @cancel="isShowBirthdayPicker = false"
+        />
+      </van-popup>
 
       <van-cell
         title="星座"
@@ -154,6 +163,8 @@ export default {
       sexValues: [true, false],
       isShowConstellationPicker: false,
       constellationColumns: ['白羊座', '金牛座', '双子座', '巨蟹座', '狮子座', '处女座', '天秤座', '天蝎座', '射手座', '魔羯座', '水瓶座', '双鱼座'],
+      isShowBirthdayPicker: false,
+      date: null,
     }
   },
 
