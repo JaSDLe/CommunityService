@@ -297,4 +297,11 @@
           AND community_id = #{communityId}
           AND type = #{type}
     </select>
+
+    <select id="findAccountIdByUsername" resultType="java.lang.String">
+        SELECT account_id
+        FROM cs_member_account
+        WHERE del_flg = 0
+        AND username = #{username}
+    </select>
 </mapper>

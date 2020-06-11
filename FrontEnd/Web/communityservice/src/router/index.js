@@ -48,6 +48,10 @@ const routes = [
     path: '/notice/create',
     component: () => import('@/views/news/notice/create')
   },
+  {
+    path: '/notice/detail',
+    component: () => import('@/views/news/notice/detail')
+  },
   /**
    * activity
    * 动态模块
@@ -55,6 +59,14 @@ const routes = [
   {
     path: '/activity/list',
     component: () => import('@/views/activity/list')
+  },
+  {
+    path: '/activity/create',
+    component: () => import('@/views/activity/create')
+  },
+  {
+    path: '/activity/detail',
+    component: () => import('@/views/activity/detail')
   },
   /**
    * message

@@ -10,4 +10,6 @@ public interface IActivityService {
     PageInfo<ActivityDTO> pageActivity(ActivityQueryDTO queryDTO);
 
     Activity findByActivityId(String activityId);
+
+    Integer createActivity(Activity activity);
 }

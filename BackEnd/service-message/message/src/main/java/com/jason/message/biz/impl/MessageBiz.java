@@ -28,6 +28,11 @@ public class MessageBiz implements IMessageBiz {
         return vO2DTO(messageService.findByMessageId(messageId));
     }
 
+    @Override
+    public Boolean createMessage(MessageDTO messageDTO) {
+        return messageService.createMessage(dTO2VO(messageDTO)) == 1;
+    }
+
     private MessageDTO vO2DTO(Message message) {
         if (message == null) {
             return null;
@@ -35,5 +40,14 @@ public class MessageBiz implements IMessageBiz {
         MessageDTO messageDTO = new MessageDTO();
         BeanUtils.copyProperties(message, messageDTO);
         return messageDTO;
+    }
+
+    private Message dTO2VO(MessageDTO messageDTO) {
+        if (messageDTO == null) {
+            return null;
+        }
+        Message message = new Message();
+        BeanUtils.copyProperties(messageDTO, message);
+        return message;
     }
 }

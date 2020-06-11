@@ -26,4 +26,6 @@ public interface IAccountService {
     Integer becomeAdmin(String accountId);
 
     Integer updateAccountBaseInfo(Account account);
+
+    String findAccountIdByUsername(String username);
 }

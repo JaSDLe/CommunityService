@@ -39,4 +39,7 @@ public interface IAccountService {
     @RequestMapping(method = RequestMethod.GET, path = "/account/isUsernameOnly", consumes = "application/json")
     Boolean isUsernameOnly(@RequestParam("username") String username);
 
+    @RequestMapping(method = RequestMethod.GET, path = "/account/findAccountIdByUsername", consumes = "application/json")
+    String findAccountIdByUsername(@RequestParam("username") String username);
+
 }

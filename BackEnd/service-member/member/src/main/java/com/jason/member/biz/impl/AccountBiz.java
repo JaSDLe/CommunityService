@@ -80,6 +80,11 @@ public class AccountBiz implements IAccountBiz {
         return accountService.isUsernameOnly(username);
     }
 
+    @Override
+    public String findAccountIdByUsername(String username) {
+        return accountService.findAccountIdByUsername(username);
+    }
+
     private Account dTO2VO(AccountDTO accountDTO) {
         if (accountDTO == null) {
             return null;

@@ -9,4 +9,6 @@ public interface IMessageBiz {
     PageInfo<MessageDTO> pageMessage(MessageQueryDTO queryDTO);
 
     MessageDTO findByMessageId(String messageId);
+
+    Boolean createMessage(MessageDTO messageDTO);
 }

@@ -28,4 +28,10 @@ public class NoticeDTO {
     private Date updateTime;
 
     private String content;
+
+    private Integer replyNum;
+
+    private String author;
+
+
 }

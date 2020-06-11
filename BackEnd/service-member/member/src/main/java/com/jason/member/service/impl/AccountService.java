@@ -89,6 +89,11 @@ public class AccountService implements IAccountService {
         return accountMapper.updateAccountBaseInfo(account);
     }
 
+    @Override
+    public String findAccountIdByUsername(String username) {
+        return accountMapper.findAccountIdByUsername(username);
+    }
+
     private String addSalt(String password, String salt) {
         return DigestUtils.md5DigestAsHex((password + salt).getBytes());
     }

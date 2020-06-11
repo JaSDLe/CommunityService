@@ -93,13 +93,13 @@ export default {
 
   methods: {
     toDetail(val) {
-      console.log(val)
+      this.$emit('on-click')
     }
   }
 };
 </script>
 
-<style scoped>
+<style lang="postcss" scoped>
 .nickname {
   font-size: 16px;
   color: black;
@@ -122,5 +122,8 @@ export default {
   background-color: rgba(255, 255, 255, 0);
   border: none;
   font-size: 15px;
+}
+/deep/.van-cell--large {
+  padding: ;
 }
 </style>

@@ -24,4 +24,6 @@ public interface IAccountBiz {
     Boolean updateAccountBaseInfo(AccountDTO accountDTO);
 
     Boolean isUsernameOnly(String username);
+
+    String findAccountIdByUsername(String username);
 }

@@ -41,11 +41,11 @@
         mm.update_time AS updateTime
         FROM cs_message_message mm
         WHERE mm.del_flg = 0
-        AND mm.sender_id = #{accountId}
+        AND (mm.sender_id = #{accountId} OR mm.receiver_id = #{accountId})
         ORDER BY mm.create_time DESC
     </select>
 
-    <select id="findByMessageId" resultType="com.jason.message.dao.vo.Message">
+    <select id="findByMessageId" resultMap="BaseResultMap">
         SELECT *
         FROM cs_message_message
         WHERE del_flg = 0

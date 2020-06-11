@@ -9,4 +9,6 @@ public interface IActivityBiz {
     PageInfo<ActivityDTO> pageActivity(ActivityQueryDTO queryDTO);
 
     ActivityDTO findByActivityId(String activityId);
+
+    Boolean createActivity(ActivityDTO activityDTO);
 }

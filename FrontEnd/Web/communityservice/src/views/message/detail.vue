@@ -19,7 +19,7 @@ export default {
 
   data() {
     return {
-      messsageId: null,
+      messageId: null,
       data: {}
     }
   },
@@ -29,7 +29,7 @@ export default {
   watch: {},
 
   created() {
-    this.messsageId = this.$route.query.messsageId
+    this.messageId = this.$route.query.messageId
     this.getData()
   },
 
@@ -38,7 +38,7 @@ export default {
   methods: {
     getData() {
       let param = {
-        messsageId: this.messsageId,
+        messageId: this.messageId,
         operator: this.$store.getters.getAccountId
       }
       findByMessageId(param).then(res => {

@@ -6,9 +6,11 @@ import com.jason.member.api.enums.ReadHistoryTypeEnum;
 import com.jason.member.api.service.IAccountDetailService;
 import com.jason.member.api.service.IReadHistoryService;
 import com.jason.news.api.dto.NewsDTO;
+import com.jason.news.api.dto.NewsQueryDTO;
 import com.jason.news.api.service.INewsService;
 import com.jason.web.user.dto.ItemResult;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,11 +29,12 @@ public class NewsController {
     @Autowired
     private IAccountDetailService accountDetailService;
 
-    @GetMapping("/pageNews")
-    public ItemResult<PageInfo<NewsDTO>> pageNews(@RequestParam(value = "communityId", required = false) String communityId,
-                                                  @RequestParam("pageNum") Integer pageNum,
-                                                  @RequestParam("pageSize") Integer pageSize) {
-        return new ItemResult<>(newsService.pageNews(communityId, pageNum, pageSize));
+    @PostMapping("/pageNews")
+    public ItemResult<PageInfo<NewsDTO>> pageNews(@RequestBody NewsQueryDTO queryDTO) {
+        if (StringUtils.isBlank(queryDTO.getCommunityId())) {
+            return new ItemResult<>();
+        }
+        return new ItemResult<>(newsService.pageNews(queryDTO));
     }
 
     @GetMapping("/findByNewsId")

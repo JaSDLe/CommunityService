@@ -5,6 +5,7 @@
       placeholder="请输入搜索关键词"
       :show-action="isShowAdd"
       @search="onSearch"
+      @clear="onClear"
     >
       <template #action>
         <van-icon name="add" size="25" color="#1989fa" @click="isShowPopup = true" />
@@ -34,15 +35,35 @@
         <activity-item
           v-for="(item, index) in list"
           :key="index"
-          :nickname="item.updateUser"
+          :nickname="item.nickname"
           :content="item.content"
           :headPic="item.headPic"
           :replyNum="item.replyNum"
           :createTime="item.createTime"
-          @on-click="toActivityDetail(item.activityId)"
+          @on-click="onClick(item.activityId)"
         />
       </van-list>
     </van-pull-refresh>
+
+    <van-dialog
+      v-model="isShowBaseDialog"
+      show-cancel-button
+      close-on-click-overlay
+      @confirm="onConfirm"
+    >
+      <van-field
+        v-model="comment"
+        placeholder="请输入评论"
+        size="large"
+        type="textarea"
+        maxlength="255"
+        autosize
+        rows="2"
+        show-word-limit
+        clearable
+        style="padding: 0 20px 20px;"
+      />
+    </van-dialog>
 
     <div style="height: 50px;" />
 
@@ -53,8 +74,8 @@
 <script>
 import TabBar from "@/components/tab-bar"
 import ActivityItem from "@/components/activity-item"
-import { PullRefresh, List, Search, Popup, Cell, Row, Icon } from "vant"
-import { pageActivity, } from "@/api/activity"
+import { PullRefresh, List, Search, Popup, Cell, Row, Icon, Dialog, Field } from "vant"
+import { pageActivity, createComment } from "@/api/activity"
 
 export default {
   components: {
@@ -67,6 +88,8 @@ export default {
     [Cell.name]: Cell,
     [Row.name]: Row,
     [Icon.name]: Icon,
+    [Field.name]: Field,
+    [Dialog.Component.name]: Dialog.Component,
   },
 
   data() {
@@ -79,11 +102,15 @@ export default {
       isListError: false,
       query: {
         communityId: null,
+        content: null,
         pageNum: 1,
         pageSize: 10
       },
       search: '',
       isShowPopup: false,
+      isShowBaseDialog: false,
+      comment: '',
+      activityId: null,
     }
   },
 
@@ -94,6 +121,7 @@ export default {
   },
 
   mounted() {
+    this.query.communityId = this.$store.getters.getCommunityId
   },
 
   methods: {
@@ -131,10 +159,37 @@ export default {
       })
     },
     onSearch(val) {
-      console.log(val)
+      this.query.content = val
+      this.isRefreshing = true
+      this.onRefresh()
     },
-    toCreateActivity() { },
-    toActivityDetail(val) { }
+    onClear() {
+      this.query.content = null
+    },
+    toCreateActivity() {
+      this.$router.push({
+        path: "/activity/create"
+      })
+    },
+    toActivityDetail(val) {
+      this.$router.push({
+        path: "/activity/detail",
+        query: {
+          activityId: val
+        }
+      })
+    },
+    onClick(val) {
+      this.isShowBaseDialog = true
+      this.activityId = val
+    },
+    onConfirm() {
+      createComment({ content: this.comment, parentId: this.activityId, createUser: this.$store.getters.getAccountId }).then(res => {
+        if (res.data) {
+          this.isShowBaseDialog = false
+        }
+      })
+    }
   }
 };
 </script>

@@ -25,7 +25,7 @@ public class NewsService implements INewsService {
     public PageInfo<NewsDTO> pageNews(NewsQueryDTO queryDTO) {
         PageHelper.startPage(queryDTO.getPageNum(), queryDTO.getPageSize());
 //        return newsMapper.findAll(queryDTO.getCommunityId());
-        return PageInfo.of(newsMapper.findAll(queryDTO.getCommunityId()));
+        return PageInfo.of(newsMapper.findAll(queryDTO));
     }
 
     @Override

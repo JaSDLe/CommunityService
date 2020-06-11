@@ -39,4 +39,6 @@ public interface AccountMapper {
     Integer updateAccountBaseInfo(Account account);
 
     Integer becomeAdmin(@Param("accountId") String accountId, @Param("type") Integer type);
+
+    String findAccountIdByUsername(@Param("username") String username);
 }

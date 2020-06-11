@@ -58,4 +58,9 @@ public class AccountController {
     public Boolean isUsernameOnly(@RequestParam("username") String username) {
         return accountBiz.isUsernameOnly(username);
     }
+
+    @GetMapping("/findAccountIdByUsername")
+    public String findAccountIdByUsername(@RequestParam("username") String username) {
+        return accountBiz.findAccountIdByUsername(username);
+    }
 }

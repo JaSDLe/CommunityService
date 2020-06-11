@@ -20,7 +20,17 @@ export function findByMessageId(data) {
     url: '/userApi/message/findByMessageId',
     method: 'get',
     params: {
-      newsId: data
+      messageId: data.messageId,
+      operator: data.operator
     }
+  })
+}
+
+// 创建私信
+export function createMessage(data) {
+  return user({
+    url: '/userApi/message/createMessage',
+    method: 'post',
+    data
   })
 }

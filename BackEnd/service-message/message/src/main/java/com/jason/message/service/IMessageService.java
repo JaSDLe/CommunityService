@@ -10,4 +10,6 @@ public interface IMessageService {
     PageInfo<MessageDTO> pageMessage(MessageQueryDTO queryDTO);
 
     Message findByMessageId(String messageId);
+
+    Integer createMessage(Message message);
 }

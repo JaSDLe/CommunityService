@@ -24,7 +24,7 @@ public class ReadHistoryController {
         return new ItemResult<>(readHistoryService.pageReadHistory(accountId, pageNum, pageSize));
     }
 
-    @GetMapping("/delete")
+    @DeleteMapping("/delete")
     public ItemResult<Boolean> delete(@RequestBody ReadHistoryDTO readHistoryDTO) {
         if (readHistoryService.delete(readHistoryDTO)) {
             return new ItemResult<>(true, "删除成功");

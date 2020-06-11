@@ -27,6 +27,11 @@ public class ActivityBiz implements IActivityBiz {
         return vO2DTO(activityService.findByActivityId(activityId));
     }
 
+    @Override
+    public Boolean createActivity(ActivityDTO activityDTO) {
+        return activityService.createActivity(dTO2VO(activityDTO)) == 1;
+    }
+
     private ActivityDTO vO2DTO(Activity activity) {
         if (activity == null) {
             return null;
@@ -34,5 +39,14 @@ public class ActivityBiz implements IActivityBiz {
         ActivityDTO activityDTO = new ActivityDTO();
         BeanUtils.copyProperties(activity, activityDTO);
         return activityDTO;
+    }
+
+    private Activity dTO2VO(ActivityDTO activityDTO) {
+        if (activityDTO == null) {
+            return null;
+        }
+        Activity activity = new Activity();
+        BeanUtils.copyProperties(activityDTO, activity);
+        return activity;
     }
 }

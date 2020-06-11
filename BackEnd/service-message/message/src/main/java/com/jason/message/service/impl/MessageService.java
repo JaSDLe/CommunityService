@@ -11,6 +11,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+import java.util.UUID;
+
 @Slf4j
 @Service
 public class MessageService implements IMessageService {
@@ -27,5 +30,16 @@ public class MessageService implements IMessageService {
     @Override
     public Message findByMessageId(String messageId) {
         return messageMapper.findByMessageId(messageId);
+    }
+
+    @Override
+    public Integer createMessage(Message message) {
+        message.setId(UUID.randomUUID().toString().replace("-", ""));
+        message.setDelFlg(Boolean.FALSE);
+        message.setCreateUser(message.getSenderId());
+        message.setUpdateUser(message.getSenderId());
+        message.setCreateTime(new Date());
+        message.setUpdateTime(new Date());
+        return messageMapper.insert(message);
     }
 }

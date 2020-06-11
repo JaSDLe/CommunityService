@@ -1,6 +1,28 @@
 <template>
   <div>
-    <nav-bar title="社区详情" />
+    <nav-bar title="社区详情" @right-method="add">
+      <template v-if="canAdd" #my-right>
+        <van-icon name="plus" size="20" />
+      </template>
+    </nav-bar>
+
+    <van-dialog
+      v-model="isShowBaseDialog"
+      show-cancel-button
+      close-on-click-overlay
+      @confirm="onConfirm"
+    >
+      <van-field
+        v-model="value"
+        label="用户名"
+        label-width="auto"
+        colon
+        placeholder="请输入用户名"
+        size="large"
+        clearable
+        style="padding: 40px 20px 20px;"
+      />
+    </van-dialog>
 
     <van-field size="large" label="名称" v-model="name" readonly />
     <van-field size="large" label="简介" v-model="info" readonly type="textarea" autosize />
@@ -46,9 +68,10 @@
 
 <script>
 import NavBar from "@/components/nav-bar"
-import { Field, Tag, Button, Dialog } from "vant"
+import { Field, Tag, Button, Dialog, Icon } from "vant"
 import { findDetailByCommunityId } from "@/api/community"
 import { joinCommunity, leaveCommunity } from "@/api/member"
+import { setAdmin } from "@/api/admin"
 
 export default {
   components: {
@@ -56,6 +79,7 @@ export default {
     [Field.name]: Field,
     [Tag.name]: Tag,
     [Button.name]: Button,
+    [Icon.name]: Icon,
     [Dialog.Component.name]: Dialog.Component,
   },
 
@@ -70,6 +94,8 @@ export default {
       population: 0,
       showJoinDialog: false,
       communityId: null,
+      isShowBaseDialog: false,
+      value: null,
       showLeaveDialog: false
     }
   },
@@ -81,6 +107,9 @@ export default {
     },
     canJoin() {
       return this.$store.getters.isResident || this.$store.getters.isAdmin
+    },
+    canAdd() {
+      return this.$store.getters.isSuperAdmin
     }
   },
 
@@ -88,14 +117,14 @@ export default {
 
   created() {
     this.communityId = this.$route.query.communityId
-    this.getData(this.communityId)
+    this.getData()
   },
 
   mounted() { },
 
   methods: {
-    getData(communityId) {
-      findDetailByCommunityId({ communityId: communityId, operator: this.$store.getters.getAccountId }).then(res => {
+    getData() {
+      findDetailByCommunityId({ communityId: this.communityId, operator: this.$store.getters.getAccountId }).then(res => {
         if (res.data) {
           this.name = res.data.communityName
           this.info = res.data.communityInfo
@@ -133,6 +162,17 @@ export default {
         }
       })
     },
+    add() {
+      this.isShowBaseDialog = true
+    },
+    onConfirm() {
+      setAdmin({ username: this.value, communityId: this.communityId, operator: this.$store.getters.getAccountId }).then(res => {
+        if (res.data) {
+          this.isShowBaseDialog = false
+          this.getData()
+        }
+      })
+    }
   }
 };
 </script>

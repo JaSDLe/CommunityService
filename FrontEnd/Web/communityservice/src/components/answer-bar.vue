@@ -3,10 +3,10 @@
     <van-sticky>
       <van-row class="row">
         <van-col>
-          <van-button icon="edit" class="btn1">写评论</van-button>
+          <van-button icon="edit" class="btn1" @click="writeAnswer">写评论</van-button>
         </van-col>
         <van-col>
-          <van-button icon="chat" class="btn2">{{ replyNum || '0' }}</van-button>
+          <van-button icon="chat" class="btn2" @click="toAnswer">{{ replyNum || '0' }}</van-button>
         </van-col>
       </van-row>
     </van-sticky>
@@ -38,9 +38,12 @@ export default {
   created() { },
 
   methods: {
-    // onClickLeft() {
-    //   this.$router.go(-1)
-    // }
+    writeAnswer(){
+      this.$emit('write-answer')
+    },
+    toAnswer(){
+      this.$emit('to-answer')
+    },
   }
 };
 </script>

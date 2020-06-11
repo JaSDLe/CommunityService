@@ -5,6 +5,7 @@
       placeholder="请输入搜索关键词"
       :show-action="isShowAdd"
       @search="onSearch"
+      @clear="onClear"
     >
       <template #action>
         <van-icon name="add" size="25" color="#1989fa" @click="isShowPopup = true" />
@@ -99,6 +100,7 @@ export default {
       isListError: false,
       query: {
         communityId: null,
+        title: null,
         pageNum: 1,
         pageSize: 10
       },
@@ -112,11 +114,7 @@ export default {
     }
   },
 
-  watch: {
-    search() {
-      // this.isShowCancel = this.search != null && this.search.length > 0
-    }
-  },
+  watch: {},
 
   created() {
     this.query.communityId = this.$store.getters.getCommunityId
@@ -133,9 +131,6 @@ export default {
 
   methods: {
     onLoad() {
-      // setTimeout(() => {
-      //   this.loading = false
-      // }, 1500)
       if (this.isRefreshing) {
         this.list = []
         this.isRefreshing = false
@@ -169,11 +164,12 @@ export default {
       })
     },
     onSearch(val) {
-      console.log(val)
-      // this.isShowCancel = true
+      this.query.title = val
+      this.isRefreshing = true
+      this.onRefresh()
     },
-    onCancel() {
-      // this.isShowCancel = false
+    onClear() {
+      this.query.title = null
     },
     toCreateNews() {
       this.$router.push({
@@ -185,7 +181,14 @@ export default {
         path: "/notice/create"
       })
     },
-    toNoticeDetail(val) { },
+    toNoticeDetail(val) {
+      this.$router.push({
+        path: "/notice/detail",
+        query: {
+          noticeId: val
+        }
+      })
+    },
     toNewsDetail(val) {
       this.$router.push({
         path: "/news/detail",

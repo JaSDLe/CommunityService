@@ -54,14 +54,21 @@
         />
       </van-popup>
 
-      <van-cell title="出生年月" is-link :value="accountDetail.birthday | getDate" @click="isShowBirthdayPicker = true" />
+      <van-cell
+        title="出生年月"
+        is-link
+        :value="accountDetail.birthday | getDate"
+        @click="isShowBirthdayPicker = true"
+      />
       <van-popup v-model="isShowBirthdayPicker" position="bottom">
         <van-datetime-picker
           v-model="date"
           type="date"
           title="选择年月日"
-          @confirm="onStartTimeConfirm"
+          :min-date="minDate"
+          :max-date="maxDate"
           @cancel="isShowBirthdayPicker = false"
+          @confirm="onConfirmBirthday"
         />
       </van-popup>
 
@@ -111,7 +118,7 @@
 <script>
 let that
 import NavBar from "@/components/nav-bar"
-import { CellGroup, Cell, Image, Dialog, Field, Popup, Picker, Notify } from "vant"
+import { CellGroup, Cell, Image, Dialog, Field, Popup, Picker, Notify, DatetimePicker } from "vant"
 import {
   getUserInfoByAccountId,
   isUsernameOnly,
@@ -129,7 +136,7 @@ export default {
     [Field.name]: Field,
     [Popup.name]: Popup,
     [Picker.name]: Picker,
-    [Notify.name]: Notify,
+    [DatetimePicker.name]: DatetimePicker,
   },
 
   props: {},
@@ -164,7 +171,9 @@ export default {
       isShowConstellationPicker: false,
       constellationColumns: ['白羊座', '金牛座', '双子座', '巨蟹座', '狮子座', '处女座', '天秤座', '天蝎座', '射手座', '魔羯座', '水瓶座', '双鱼座'],
       isShowBirthdayPicker: false,
-      date: null,
+      date: new Date(2000, 0, 1),
+      minDate: new Date(1900, 0, 1),
+      maxDate: new Date(),
     }
   },
 
@@ -205,11 +214,14 @@ export default {
 
   methods: {
     getUserInfo() {
-      getUserInfoByAccountId({ accountId: this.accountId, operator: this.accountId }).then(res => {
-        if (res.data) {
-          this.account = res.data.accountSimpleDTO
-          this.accountDetail = res.data.accountDetailDTO
-        }
+      return new Promise(resolve => {
+        getUserInfoByAccountId({ accountId: this.accountId, operator: this.accountId }).then(res => {
+          if (res.data) {
+            this.account = res.data.accountSimpleDTO
+            this.accountDetail = res.data.accountDetailDTO
+            resolve()
+          }
+        })
       })
     },
     resetParams() {
@@ -227,6 +239,9 @@ export default {
         constellation: null,
         address: null
       }
+    },
+    updateStore() {
+      this.$store.dispatch('updateBaseInfo', { username: this.account.username, nickname: this.account.nickname })
     },
     toCommunityList() {
       this.$router.push({
@@ -248,12 +263,22 @@ export default {
             if (res.data) {
               updateAccountBaseInfo(this.newAccount).then(res => {
                 if (res.data) {
+                  Notify({
+                    type: 'success',
+                    message: res.description,
+                    duration: 1500,
+                  })
                   this.resetParams()
-                  this.getUserInfo()
-                } else {
-                  Notify({ type: 'danger', message: '通知内容' })
-                  this.$notify('用户名已存在')
+                  this.getUserInfo().then(() => {
+                    this.updateStore()
+                  })
                 }
+              })
+            } else {
+              Notify({
+                type: 'danger',
+                message: '用户名已存在',
+                duration: 1500,
               })
             }
           })
@@ -263,8 +288,15 @@ export default {
           this.newAccount.nickname = this.value
           updateAccountBaseInfo(this.newAccount).then(res => {
             if (res.data) {
+              Notify({
+                type: 'success',
+                message: res.description,
+                duration: 1500,
+              })
               this.resetParams()
-              this.getUserInfo()
+              this.getUserInfo().then(() => {
+                this.updateStore()
+              })
             }
           })
           break
@@ -273,6 +305,11 @@ export default {
           this.newAccount.phone = this.value
           updateAccountBaseInfo(this.newAccount).then(res => {
             if (res.data) {
+              Notify({
+                type: 'success',
+                message: res.description,
+                duration: 1500,
+              })
               this.resetParams()
               this.getUserInfo()
             }
@@ -283,6 +320,11 @@ export default {
           this.newAccount.email = this.value
           updateAccountBaseInfo(this.newAccount).then(res => {
             if (res.data) {
+              Notify({
+                type: 'success',
+                message: res.description,
+                duration: 1500,
+              })
               this.resetParams()
               this.getUserInfo()
             }
@@ -293,6 +335,11 @@ export default {
           this.newAccountDetail.address = this.value
           updateAccountDetail(this.newAccountDetail).then(res => {
             if (res.data) {
+              Notify({
+                type: 'success',
+                message: res.description,
+                duration: 1500,
+              })
               this.resetParams()
               this.getUserInfo()
             }
@@ -308,6 +355,11 @@ export default {
       updateAccountDetail(this.newAccountDetail).then(res => {
         if (res.data) {
           this.isShowSexPicker = false
+          Notify({
+            type: 'success',
+            message: res.description,
+            duration: 1500,
+          })
           this.resetParams()
           this.getUserInfo()
         }
@@ -319,6 +371,27 @@ export default {
       updateAccountDetail(this.newAccountDetail).then(res => {
         if (res.data) {
           this.isShowConstellationPicker = false
+          Notify({
+            type: 'success',
+            message: res.description,
+            duration: 1500,
+          })
+          this.resetParams()
+          this.getUserInfo()
+        }
+      })
+    },
+    onConfirmBirthday(value) {
+      this.newAccountDetail.accountId = this.accountId
+      this.newAccountDetail.birthday = value
+      updateAccountDetail(this.newAccountDetail).then(res => {
+        if (res.data) {
+          this.isShowBirthdayPicker = false
+          Notify({
+            type: 'success',
+            message: res.description,
+            duration: 1500,
+          })
           this.resetParams()
           this.getUserInfo()
         }

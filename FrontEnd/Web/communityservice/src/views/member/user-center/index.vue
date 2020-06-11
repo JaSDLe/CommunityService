@@ -25,76 +25,50 @@
       </template>
     </van-cell>
 
-    <van-cell center is-link>
+    <!-- <van-cell v-if="isResident" center is-link>
       <template #title>
         <van-row type="flex" align="center">
           <van-icon name="smile-comment-o" size="22" />
           <div class="my-cell-title">我的动态</div>
         </van-row>
       </template>
-    </van-cell>
+    </van-cell> -->
 
-    <van-cell center is-link>
+    <!-- <van-cell v-if="isResident" center is-link>
       <template #title>
         <van-row type="flex" align="center">
           <van-icon name="comment-o" size="22" />
           <div class="my-cell-title">我的评论</div>
         </van-row>
       </template>
-    </van-cell>
+    </van-cell> -->
 
-    <van-cell center is-link>
-      <template #title>
-        <van-row type="flex" align="center">
-          <van-icon name="notes-o" size="22" />
-          <div class="my-cell-title">我的留言</div>
-        </van-row>
-      </template>
-    </van-cell>
-
-    <van-cell center is-link>
+    <!-- <van-cell v-if="!isSuperAdmin" center is-link>
       <template #title>
         <van-row type="flex" align="center">
           <van-icon name="bullhorn-o" size="22" />
           <div class="my-cell-title">公告</div>
         </van-row>
       </template>
-    </van-cell>
+    </van-cell> -->
 
-    <van-cell center is-link>
+    <!-- <van-cell v-if="!isSuperAdmin" center is-link>
+      <template #title>
+        <van-row type="flex" align="center">
+          <van-icon name="notes-o" size="22" />
+          <div class="my-cell-title">我的留言</div>
+        </van-row>
+      </template>
+    </van-cell> -->
+
+    <!-- <van-cell center is-link>
       <template #title>
         <van-row type="flex" align="center">
           <van-icon name="clock-o" size="22" />
           <div class="my-cell-title">我的足迹</div>
         </van-row>
       </template>
-    </van-cell>
-
-    <van-cell center is-link>
-      <template #title>
-        <van-row type="flex" align="center">
-          <van-icon name="setting-o" size="22" />
-          <div class="my-cell-title">设置</div>
-        </van-row>
-      </template>
-    </van-cell>
-
-    <van-cell center is-link>
-      <template #title>
-        <van-row type="flex" align="center">
-          <van-icon name="setting-o" size="22" />
-          <div class="my-cell-title">设置</div>
-        </van-row>
-      </template>
-    </van-cell>
-    <van-cell center is-link>
-      <template #title>
-        <van-row type="flex" align="center">
-          <van-icon name="setting-o" size="22" />
-          <div class="my-cell-title">设置</div>
-        </van-row>
-      </template>
-    </van-cell>
+    </van-cell> -->
 
     <van-cell center clickable @click="logout" style="margin-top: 40px;">
       <template #title>
@@ -131,6 +105,15 @@ export default {
       nickname: '',
       username: ''
     }
+  },
+
+  computed: {
+    isResident() {
+      return this.$store.getters.isResident
+    },
+    isSuperAdmin() {
+      return this.$store.getters.isSuperAdmin
+    },
   },
 
   created() {

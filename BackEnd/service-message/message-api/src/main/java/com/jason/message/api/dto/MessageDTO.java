@@ -26,4 +26,12 @@ public class MessageDTO {
     private String updateUser;
 
     private Date updateTime;
+
+    private String receiver;
+
+    private String headPic;
+
+    private String lastContent;
+
+    private Integer unreadCount;
 }

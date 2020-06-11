@@ -7,8 +7,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ActivityQueryDTO {
 
-    private String activityId;
-
     private String content;
 
     private String communityId;
@@ -16,10 +14,4 @@ public class ActivityQueryDTO {
     private Integer pageNum;
 
     private Integer pageSize;
-
-    public ActivityQueryDTO(String communityId, Integer pageNum, Integer pageSize) {
-        this.communityId = communityId;
-        this.pageNum = pageNum;
-        this.pageSize = pageSize;
-    }
 }

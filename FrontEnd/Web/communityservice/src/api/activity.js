@@ -5,12 +5,8 @@ const user = createWebServiceHelper(process.env.VUE_APP_USER)
 export function pageActivity(data) {
   return user({
     url: '/userApi/activity/pageActivity',
-    method: 'get',
-    params: {
-      communityId: data.communityId,
-      pageNum: data.pageNum,
-      pageSize: data.pageSize
-    }
+    method: 'post',
+    data
   })
 }
 
@@ -23,6 +19,15 @@ export function findByActivityId(data) {
       activityId: data.activityId,
       operator: data.operator
     }
+  })
+}
+
+// 创建动态
+export function createActivity(data) {
+  return user({
+    url: '/userApi/activity/createActivity',
+    method: 'post',
+    data
   })
 }
 

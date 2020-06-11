@@ -26,7 +26,7 @@
         where activity_id = #{activityId,jdbcType=VARCHAR}
     </select>
 
-    <select id="findAll" resultType="com.jason.activity.api.dto.ActivityDTO">
+    <select id="findAll" resultType="com.jason.activity.api.dto.ActivityDTO" parameterType="com.jason.activity.api.dto.ActivityQueryDTO">
         SELECT
         aa.activity_id AS activityId,
         aa.content AS content,
@@ -43,6 +43,9 @@
         aa.del_flg = 0
         <if test='communityId != null and communityId != ""'>
             AND aa.community_id = #{communityId}
+        </if>
+        <if test='content != null and content != ""'>
+            AND aa.content LIKE CONCAT('%', #{content}, '%')
         </if>
         ORDER BY aa.create_time DESC
     </select>

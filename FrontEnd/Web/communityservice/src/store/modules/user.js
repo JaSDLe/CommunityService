@@ -52,6 +52,13 @@ const user = {
         resolve()
       })
     },
+    updateBaseInfo({ commit }, data) {
+      return new Promise(resolve => {
+        commit('SET_USERNAME', data.username)
+        commit('SET_NICKNAME', data.nickname)
+        resolve()
+      })
+    },
   },
   getters: {
     isSuperAdmin: state => {

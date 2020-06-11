@@ -2,6 +2,7 @@ package com.jason.news.dao.mapper;
 
 
 import com.jason.news.api.dto.NewsDTO;
+import com.jason.news.api.dto.NewsQueryDTO;
 import com.jason.news.dao.vo.News;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
@@ -27,5 +28,5 @@ public interface NewsMapper {
 
     News findByNewsId(@Param("newsId") String newsId);
 
-    List<NewsDTO> findAll(@Param("communityId") String communityId);
+    List<NewsDTO> findAll(NewsQueryDTO queryDTO);
 }

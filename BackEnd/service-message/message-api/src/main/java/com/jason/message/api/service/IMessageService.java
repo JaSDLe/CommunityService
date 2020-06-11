@@ -3,6 +3,7 @@ package com.jason.message.api.service;
 import com.github.pagehelper.PageInfo;
 import com.jason.message.api.dto.MessageDTO;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,4 +16,7 @@ public interface IMessageService {
 
     @RequestMapping(method = RequestMethod.GET, path = "/message/findByMessageId", consumes = "application/json")
     MessageDTO findByMessageId(@RequestParam("messageId") String messageId);
+
+    @RequestMapping(method = RequestMethod.POST, path = "/message/createMessage", consumes = "application/json")
+    Boolean createMessage(@RequestBody MessageDTO messageDTO);
 }

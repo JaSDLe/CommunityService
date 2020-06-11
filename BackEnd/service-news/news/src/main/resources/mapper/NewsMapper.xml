@@ -44,7 +44,7 @@
           AND news_id = #{newsId}
     </select>
 
-    <select id="findAll" resultType="com.jason.news.api.dto.NewsDTO">
+    <select id="findAll" resultType="com.jason.news.api.dto.NewsDTO" parameterType="com.jason.news.api.dto.NewsQueryDTO">
         SELECT
         nn.news_id AS newsId,
         nn.title AS title,
@@ -63,6 +63,9 @@
         nn.del_flg = 0
         <if test='communityId != null and communityId != ""'>
             AND community_id = #{communityId}
+        </if>
+        <if test='title != null and title != ""'>
+            AND title LIKE CONCAT('%', #{title}, '%')
         </if>
         ORDER BY nn.create_time DESC
     </select>

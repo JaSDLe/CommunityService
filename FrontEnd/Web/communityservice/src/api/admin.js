@@ -4,10 +4,10 @@ const admin = createWebServiceHelper(process.env.VUE_APP_ADMIN)
 // 设置社区管理员
 export function setAdmin(data) {
   return admin({
-    url: '/adminApi/account/findAll',
+    url: '/adminApi/account/setAdmin',
     method: 'put',
     params: {
-      accountId: data.accountId,
+      username: data.username,
       communityId: data.communityId,
       operator: data.operator
     }

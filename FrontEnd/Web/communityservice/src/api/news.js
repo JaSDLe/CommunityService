@@ -5,12 +5,8 @@ const user = createWebServiceHelper(process.env.VUE_APP_USER)
 export function pageNews(data) {
   return user({
     url: '/userApi/news/pageNews',
-    method: 'get',
-    params: {
-      communityId: data.communityId,
-      pageNum: data.pageNum,
-      pageSize: data.pageSize
-    }
+    method: 'post',
+    data
   })
 }
 

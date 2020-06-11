@@ -16,11 +16,9 @@ public class NewsController {
     @Autowired
     private INewsBiz newsBiz;
 
-    @GetMapping("/pageNews")
-    public PageInfo<NewsDTO> pageNews(@RequestParam(value = "communityId", required = false) String communityId,
-                                      @RequestParam("pageNum") Integer pageNum,
-                                      @RequestParam("pageSize") Integer pageSize) {
-        return newsBiz.pageNews(new NewsQueryDTO(communityId, pageNum, pageSize));
+    @PostMapping("/pageNews")
+    public PageInfo<NewsDTO> pageNews(@RequestBody NewsQueryDTO queryDTO) {
+        return newsBiz.pageNews(queryDTO);
     }
 
     @GetMapping("/findByNewsId")
